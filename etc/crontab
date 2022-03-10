@@ -1,0 +1,5 @@
+
+# アメダス
+* 4,16 * * * php /home/noland/src/climate/public/index.php cli scraping scrapingamedas
+# ライデン
+*/10 * * * * php /home/noland/src/climate/public/index.php cli scraping scrapingliden
