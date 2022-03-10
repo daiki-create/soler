@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="Keywords" content="気象庁,過去の雷観測,雷観測" />
     <meta name="Description" content="過去のアメダス・ライデンデータを検索できます。" />
-    <link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="/img/favicon.ico" type="img/x-icon" />
-    <link href="/css/top/index.css" rel="stylesheet">
+    <link rel="icon" href="<?php echo $this->config->item('base_url') ?>/img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="<?php echo $this->config->item('base_url') ?>/img/favicon.ico" type="img/x-icon" />
+    <link href="<?php echo $this->config->item('base_url') ?>/css/top/index.css" rel="stylesheet">
 
     <!-- Vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
