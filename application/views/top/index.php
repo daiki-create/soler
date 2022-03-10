@@ -52,7 +52,7 @@
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="/js/top/prefectureCity.js"></script>
+        <script src="<?php echo $this->config->item('base_url') ?>/js/top/prefectureCity.js"></script>
         <script>
             $(function() {
               let initPrefVal = '都道府県を選択'; //selectedを付与したい都道府県
