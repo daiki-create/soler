@@ -60,11 +60,11 @@
               let valType = 'name';  // 'name' or 'code'
       
               // 都道府県リストを作成
-              getPrefectureSelection('#area_select_prefecture', '#area_select_city', '/json/prefectureCity.json', valType, initPrefVal, initCityVal);
+              getPrefectureSelection('#area_select_prefecture', '#area_select_city', '<?php echo $this->config->item('base_url') ?>/json/prefectureCity.json', valType, initPrefVal, initCityVal);
       
               // 都道府県選択時に市区町村リストを作成
               $('#area_select_prefecture').on('change', function() {
-                getCitySelection('#area_select_prefecture', '#area_select_city', '/json/prefectureCity.json', valType);
+                getCitySelection('#area_select_prefecture', '#area_select_city', '<?php echo $this->config->item('base_url') ?>/json/prefectureCity.json', valType);
               });
             });
       
