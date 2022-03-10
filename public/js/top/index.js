@@ -132,9 +132,10 @@ function getData() {
   }
   var json = JSON.stringify(data)
   var xhr = new XMLHttpRequest()
-  xhr.open("POST", "http://climate.local.com/top/api")
+  xhr.open("POST", location.href+"/api")
   xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded;charset=UTF-8")
   xhr.send(json);
+
   xhr.onreadystatechange = function () {
     try 
     {
