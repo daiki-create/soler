@@ -145,7 +145,7 @@
     </div>
     <div id="img"></div>
 
-    <script src="/js/top/index.js"></script>
+    <script src="<?php echo $this->config->item('base_url') ?>/js/top/index.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe4LhatUzrIC8RXsPyCnDUx9s2p9L3rSQ&callback=initMap" async defer></script>
 
 </body>
