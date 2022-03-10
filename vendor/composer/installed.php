@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'v0.5.1',
+        'version' => '0.5.1.0',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => NULL,
+        'name' => '__root__',
+        'dev' => true,
+    ),
+    'versions' => array(
+        '__root__' => array(
+            'pretty_version' => 'v0.5.1',
+            'version' => '0.5.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => NULL,
+            'dev_requirement' => false,
+        ),
+        'codeigniter/framework' => array(
+            'pretty_version' => '3.1.11',
+            'version' => '3.1.11.0',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../codeigniter/framework',
+            'aliases' => array(),
+            'reference' => 'b73eb19aed66190c10c9cad476da7c36c271d6dc',
+            'dev_requirement' => false,
+        ),
+        'mikey179/vfsstream' => array(
+            'pretty_version' => 'v1.1.0',
+            'version' => '1.1.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mikey179/vfsstream',
+            'aliases' => array(),
+            'reference' => 'fc0fe8f4d0b527254a2dc45f0c265567c881d07e',
+            'dev_requirement' => true,
+        ),
+    ),
+);
