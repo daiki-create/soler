@@ -11,11 +11,9 @@
 
     <!-- Vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
-
-    <!--leaflet-->
-    <!-- <link rel = "stylesheet" href = "/css/leaflet.css" />
-    <script src = "/js/leaflet.js"></script> -->
     
+    <!-- html2canvas -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
@@ -134,6 +132,7 @@
         <p id="loading"></p>
     </form>
 
+    <p id="result-title"></p>
     <p id="liden-result-msg"></p>
     <div id="map"></div>
     
@@ -141,8 +140,9 @@
     <div id="climate-table"></div>
 
     <div id="btn-create-img">
-        <button>画像出力</button>
+        <button id="btn">結果データ抽出</button>
     </div>
+
     <div id="img"></div>
 
     <script src="<?php echo $this->config->item('base_url') ?>/js/top/index.js"></script>

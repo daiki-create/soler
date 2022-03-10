@@ -81,16 +81,6 @@ let mainMarker;
 let marker =[];
 let infoWindow = [];
 
-// function initMap() {
-//   var opts = {
-//     zoom: 10,
-//     center: new google.maps.LatLng(35.709984,139.810703)
-//   };
-//   map = new google.maps.Map(document.getElementById("map"), opts);
-// }
-
-
-
 // 検索（非同期通信）
 function getData() {
 
@@ -98,6 +88,7 @@ function getData() {
   document.getElementById("loading").textContent = "検索中です..."
   document.getElementById("liden-result-msg").textContent = ""
   document.getElementById("amedas-result-msg").textContent = ""
+  document.getElementById("result-title").textContent = ""
 
   // マップ初期化
   document.getElementById("map").style.width = "0"
@@ -148,6 +139,9 @@ function getData() {
           document.getElementById("loading").textContent = ""
           document.getElementById("btn-create-img").style.display = "block"
 
+          // タイトル
+          document.getElementById("result-title").textContent = data.area+"の"+data.start_date+"～"+data.end_date+"の天気情報"
+
           // 地図出力
           if(result.liden_data_array != "no_thander")
           {
@@ -188,38 +182,43 @@ function getData() {
 
           // テーブル出力
           document.getElementById("amedas-result-msg").textContent = "検索条件に一致するアメダスデータ："+result.amedas_data_array.length+"件"
-          let table = document.createElement('table');
-          table.id = "table"
-          let thead = document.createElement('thead');
-          let tbody = document.createElement('tbody');
-          table.appendChild(thead);
-          table.appendChild(tbody);
-          document.getElementById('climate-table').appendChild(table);
-          let row_1 = document.createElement('tr');
-          let heading_1 = document.createElement('th');
-          heading_1.innerHTML = "日付";
-          let heading_2 = document.createElement('th');
-          heading_2.innerHTML = "降水量(mm)";
-          let heading_3 = document.createElement('th');
-          heading_3.innerHTML = "最大瞬間風速(m/s)";
-          let heading_4 = document.createElement('th');
-          heading_4.innerHTML = "最大瞬間風速風向";
-          row_1.appendChild(heading_1);
-          row_1.appendChild(heading_2);
-          row_1.appendChild(heading_3);
-          row_1.appendChild(heading_4);
-          thead.appendChild(row_1);
 
           for (var i = 0; i < result.amedas_data_array.length; i++) 
           {
-            let row_2 = document.createElement('tr');
-            let row_2_data_1 = document.createElement('td');
+            // 30の倍数で改ページ
+            if((i+1) % 1 == 0)
+            {
+              var table = document.createElement('table');
+              table.id = "table"
+              var thead = document.createElement('thead');
+              var tbody = document.createElement('tbody');
+              table.appendChild(thead);
+              table.appendChild(tbody);
+              
+              document.getElementById('climate-table').appendChild(table);
+              var row_1 = document.createElement('tr');
+              var heading_1 = document.createElement('th');
+              heading_1.innerHTML = "日付";
+              var heading_2 = document.createElement('th');
+              heading_2.innerHTML = "降水量(mm)";
+              var heading_3 = document.createElement('th');
+              heading_3.innerHTML = "最大瞬間風速(m/s)";
+              var heading_4 = document.createElement('th');
+              heading_4.innerHTML = "最大瞬間風速風向";
+              row_1.appendChild(heading_1);
+              row_1.appendChild(heading_2);
+              row_1.appendChild(heading_3);
+              row_1.appendChild(heading_4);
+              thead.appendChild(row_1);
+            }
+            var row_2 = document.createElement('tr');
+            var row_2_data_1 = document.createElement('td');
             row_2_data_1.innerHTML = result.amedas_data_array[i].date;
-            let row_2_data_2 = document.createElement('td');
+            var row_2_data_2 = document.createElement('td');
             row_2_data_2.innerHTML = result.amedas_data_array[i].pricipitation;
-            let row_2_data_3 = document.createElement('td');
+            var row_2_data_3 = document.createElement('td');
             row_2_data_3.innerHTML = result.amedas_data_array[i].wind_speed;
-            let row_2_data_4 = document.createElement('td');
+            var row_2_data_4 = document.createElement('td');
             row_2_data_4.innerHTML = result.amedas_data_array[i].wind_direction;
             row_2.appendChild(row_2_data_1);
             row_2.appendChild(row_2_data_2);
@@ -247,3 +246,25 @@ function getData() {
   };
 }
 
+var btn = document.getElementById("btn")
+btn.addEventListener("click",() => {
+  // var map = document.getElementById("map")
+  // var imgOrg = document.getElementById("img-org")
+  // var copy_map = map.cloneNode(true)
+  // imgOrg.appendChild(copy_map)
+
+  var img = document.getElementById("img")
+  html2canvas(document.querySelector("#map")).then(canvas => { 
+      let downloadEle = document.createElement("a")
+      downloadEle.href = canvas.toDataURL("image/png")
+      downloadEle.download = "map.png"
+      downloadEle.click()
+  });
+
+  html2canvas(document.querySelector("#climate-table")).then(canvas => { 
+    let downloadEle2 = document.createElement("a")
+    downloadEle2.href = canvas.toDataURL("image/png")
+    downloadEle2.download = "table.png"
+    downloadEle2.click()
+});
+})
