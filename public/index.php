@@ -54,9 +54,8 @@
  * NOTE: If you change these, also change the error_reporting() code below
  */
 	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
-	if($_SERVER['HTTP_HOST']=="eather-info-ss.com")
+	if($_SERVER['HTTP_HOST']=="weather-info-ss.com")
 	{
-		echo("production");
 		define('ENVIRONMENT', 'production');
 	}
 /*
