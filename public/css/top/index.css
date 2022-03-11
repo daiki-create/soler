@@ -1,5 +1,9 @@
 
 /* 共通 */
+*{
+    margin: 0;
+    padding: 0;
+}
 body{
     width: 100%;
     max-width: 100%;
