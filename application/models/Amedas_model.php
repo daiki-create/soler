@@ -7,7 +7,6 @@ class Amedas_model extends CI_Model
         $this->load->helper('phpquery');
         $this->load->model('tables/Amedas_tbl');
         $this->load->model('tables/Amedas_stations_tbl');
-        exit;
     }
 
     public function scrapingCurrentAmedas()
@@ -21,7 +20,9 @@ class Amedas_model extends CI_Model
         $day = date('d', strtotime('-1 day'));
 
         // アメダス観測点をロード
+        echo("1");
         $amedas_stations = $this->Amedas_stations_tbl->getAmedasStations();
+        echo("1");
         $k=0;
         foreach($amedas_stations as $amedas_station)
         {
@@ -30,6 +31,7 @@ class Amedas_model extends CI_Model
             $block_no = $amedas_station->block_no;
 
             var_dump($block_no);
+            echo("1");
 
             // 降水量、風速データの取得
             if($amedas_station->capital_flag)
@@ -40,7 +42,11 @@ class Amedas_model extends CI_Model
             {
                 $html = file_get_contents("https://www.data.jma.go.jp/obd/stats/etrn/view/daily_a1.php?prec_no=".$prec_no."&block_no=".$block_no."&year=".$year."&month=".$month);
             }
+            echo("1");
+
             $dom = phpQuery::newDocument($html);
+            echo("1");
+
             $i = 0;
             foreach($dom['table:eq(5) tr'] as $row)
             {
