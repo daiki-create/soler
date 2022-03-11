@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
     
     <!-- html2canvas -->
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
@@ -132,15 +132,18 @@
         <p id="loading"></p>
     </form>
 
-    <p id="result-title"></p>
     <p id="liden-result-msg"></p>
-    <div id="map"></div>
+    <div id="map-parent">
+        <div id="map-title"></div>
+        <div id="map"></div>
+    </div>
     
     <p id="amedas-result-msg"></p>
     <div id="climate-table"></div>
 
+
     <div id="btn-create-img">
-        <button id="btn">結果データ抽出</button>
+        <button id="btn">結果を画像として保存</button>
     </div>
 
     <div id="img"></div>

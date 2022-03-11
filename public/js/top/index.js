@@ -88,7 +88,6 @@ function getData() {
   document.getElementById("loading").textContent = "検索中です..."
   document.getElementById("liden-result-msg").textContent = ""
   document.getElementById("amedas-result-msg").textContent = ""
-  document.getElementById("result-title").textContent = ""
 
   // マップ初期化
   document.getElementById("map").style.width = "0"
@@ -101,7 +100,7 @@ function getData() {
   // テーブル初期化
   if(document.getElementById("climate-table").childElementCount > 0)
   {
-    document.getElementById("climate-table").removeChild(document.getElementById("table"))
+    document.getElementById("climate-table").innerHTML = ""
   }
   
   if(document.getElementById("area_select_prefecture"))
@@ -139,15 +138,13 @@ function getData() {
           document.getElementById("loading").textContent = ""
           document.getElementById("btn-create-img").style.display = "block"
 
-          // タイトル
-          document.getElementById("result-title").textContent = data.area+"の"+data.start_date+"～"+data.end_date+"の天気情報"
-
           // 地図出力
           if(result.liden_data_array != "no_thander")
           {
-            document.getElementById("liden-result-msg").textContent = "指定期間内に発生した落雷："+result.liden_data_array.length+"件"
+            document.getElementById("liden-result-msg").textContent = "落雷："+result.liden_data_array.length+"件"
             document.getElementById("map").style.width = "500px"
             document.getElementById("map").style.height = "500px"
+            document.getElementById("map-title").textContent = data.area+"の"+data.start_date+"～"+data.end_date+"の天気情報"
             var latlng = new google.maps.LatLng(result.center_lat[0], result.center_lon[0]);
             var opts = {
               zoom: 10,
@@ -181,21 +178,30 @@ function getData() {
           }
 
           // テーブル出力
-          document.getElementById("amedas-result-msg").textContent = "検索条件に一致するアメダスデータ："+result.amedas_data_array.length+"件"
-
+          document.getElementById("amedas-result-msg").textContent = "アメダスデータ："+result.amedas_data_array.length+"件"
+          page = 0
           for (var i = 0; i < result.amedas_data_array.length; i++) 
           {
-            // 30の倍数で改ページ
-            if((i+1) % 1 == 0)
+            // 20の倍数で改ページ
+            if(i % 20 == 0)
             {
+              page++;
+              var tableParent = document.createElement('div');
+              tableParent.id = "table-parent"+String(page)
+              document.getElementById("climate-table").appendChild(tableParent)
+
+              var climateTableTitle = document.createElement("div")
+              climateTableTitle.id = "climate-table-title"+String(page)
+              climateTableTitle.textContent = data.area+"の"+data.start_date+"～"+data.end_date+"の天気情報"
+              tableParent.appendChild(climateTableTitle)
+
               var table = document.createElement('table');
-              table.id = "table"
               var thead = document.createElement('thead');
               var tbody = document.createElement('tbody');
               table.appendChild(thead);
               table.appendChild(tbody);
               
-              document.getElementById('climate-table').appendChild(table);
+              tableParent.appendChild(table);
               var row_1 = document.createElement('tr');
               var heading_1 = document.createElement('th');
               heading_1.innerHTML = "日付";
@@ -248,23 +254,31 @@ function getData() {
 
 var btn = document.getElementById("btn")
 btn.addEventListener("click",() => {
-  // var map = document.getElementById("map")
-  // var imgOrg = document.getElementById("img-org")
-  // var copy_map = map.cloneNode(true)
-  // imgOrg.appendChild(copy_map)
 
-  var img = document.getElementById("img")
-  html2canvas(document.querySelector("#map")).then(canvas => { 
-      let downloadEle = document.createElement("a")
-      downloadEle.href = canvas.toDataURL("image/png")
-      downloadEle.download = "map.png"
-      downloadEle.click()
+  // マップ画像化
+  html2canvas(document.querySelector("#map-parent"), { 
+      Proxy: true,
+      useCORS: true,
+      onrendered: function(canvas)
+      {
+        var downloadEle = document.createElement("a")
+        downloadEle.href = canvas.toDataURL("image/png")
+        downloadEle.download = "map.png"
+        downloadEle.click()
+      }
   });
-
-  html2canvas(document.querySelector("#climate-table")).then(canvas => { 
-    let downloadEle2 = document.createElement("a")
-    downloadEle2.href = canvas.toDataURL("image/png")
-    downloadEle2.download = "table.png"
-    downloadEle2.click()
-});
+  
+  // テーブル画像化
+  for(p=0; p<page; p++)
+  {
+    downloadEle = []
+    html2canvas(document.querySelector("#table-parent"+String(p+1)), {
+      onrendered: function(canvas) {
+        downloadEle[p] = document.createElement("a")
+        downloadEle[p].href = canvas.toDataURL("image/png")
+        downloadEle[p].download = "table.png"
+        downloadEle[p].click()
+      }
+    })
+  }
 })
