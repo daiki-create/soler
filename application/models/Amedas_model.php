@@ -92,13 +92,8 @@ class Amedas_model extends CI_Model
                     }
                 }
                 var_dump($amedas_data);
-
-                
             }
-            if($k == 2)
-            {
-                exit;
-            }  
+          
             // 配列に追加
             array_push($amedas_data_array, $amedas_data);
         }
