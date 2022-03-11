@@ -122,7 +122,9 @@ function getData() {
   }
   var json = JSON.stringify(data)
   var xhr = new XMLHttpRequest()
+  console.log("1")
   xhr.open("POST", location.href+"/api")
+  console.log("1")
   xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded;charset=UTF-8")
   xhr.send(json);
 
