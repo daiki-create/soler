@@ -56,6 +56,7 @@
 	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 	if($_SERVER['HTTP_HOST']=="eather-info-ss.com")
 	{
+		echo("production");
 		define('ENVIRONMENT', 'production');
 	}
 /*
