@@ -7,6 +7,7 @@ class Amedas_model extends CI_Model
         $this->load->helper('phpquery');
         $this->load->model('tables/Amedas_tbl');
         $this->load->model('tables/Amedas_stations_tbl');
+        exit;
     }
 
     public function scrapingCurrentAmedas()
