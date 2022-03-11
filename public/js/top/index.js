@@ -123,21 +123,18 @@ function getData() {
   var json = JSON.stringify(data)
   var xhr = new XMLHttpRequest()
   xhr.open("POST", location.href+"/api")
-  console.log(location.href+"/api")
   xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded;charset=UTF-8")
   xhr.send(json);
 
   xhr.onreadystatechange = function () {
     try 
     {
-      console.log(location.href+"/api")
       if (xhr.readyState == 4) 
       {
-        console.log(location.href+"/api")
+        console.log("state 4.")
         if (xhr.status == 200) 
         {
-          console.log(location.href+"/api")
-          console.log("state 4 and 200 ok.")
+          console.log("200 ok.")
           var result = JSON.parse(xhr.response);
           document.getElementById("loading").textContent = ""
           document.getElementById("btn-create-img").style.display = "block"
@@ -239,7 +236,7 @@ function getData() {
         } 
         else 
         {
-          console.log("state 4")
+          console.log("state 4 but error.")
           document.getElementById("loading").textContent = "サーバエラー"
         }
       } 
@@ -251,7 +248,7 @@ function getData() {
     } 
     catch (e) 
     {
-      console.log("catch")
+      console.log("catch.")
     }
   };
 }
