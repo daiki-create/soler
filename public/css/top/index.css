@@ -1,12 +1,144 @@
 
+/* 共通 */
+body{
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+    color: #333;
+}
+button{
+    cursor: pointer;
+}
+.font-weight-bold{
+    font-weight: 900;
+}
+
+/* ヘッダー */
+header{
+    width: 100%;
+    height: 5rem;
+    background: linear-gradient(black, gray);
+}
+header h2{
+    color: white;
+    line-height: 5rem;
+    text-align: center;
+}
+
+#main{
+    margin: auto;
+    width: 920px;
+}
+
+/* 検索フォーム */
+#main #form{
+    background-color: lightgray;
+    padding: 2rem 3rem;
+    margin: 2rem 0 3rem 0;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+}
+#main #form form{
+    width: 80%;
+    margin: auto;
+}
+#main #form input{
+    font-size: 1.0rem;
+}
+#main #form select{
+    font-size: 1.2rem;
+}
+
+#main #form #area>select{
+    margin-bottom: 0.5rem;
+}
+#main #form #term{
+    margin: 1rem 0 0 0;
+}
+#main #form #term div{
+    display: inline-block;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+#main #form #thander,
+#main #form #precipitation,
+#main #form #wind_speed,
+#main #form #wind_direction{
+    display: inline-block;
+    margin: 1.0rem 0 0 0;
+}
+#main #form #search_button{
+    margin: 3rem 0 0 0;
+    text-align: center;
+}
+#main #form #search_button button{
+    border: none;
+    border-radius: 0.2rem;
+    background-color: rgb(47, 10, 182);
+    color: white;
+    padding: 0.3rem;
+    font-weight: 900;
+    font-size: 1.2rem;
+    width: 4.8rem;
+}
+#loading{
+    margin: 0;
+    text-align: center;
+}
+
+/* メッセージ */
+#result-msg{
+    text-align: center;
+}
+#liden-result-msg,
+#amedas-result-msg{
+    font-size: 1rem;
+    display: inline-block;
+    margin: 0 1rem;
+}
+#map-title{
+    font-size: 1rem;
+    text-align: center;
+    margin: 2rem 0 0 0;
+}
+
+/* マップ */
+#map{
+    margin: 0.5rem auto 0 auto;
+}
+
+/* テーブル */
+#climate-table{
+    margin-top: 3rem;
+}
 table{
     border-collapse: collapse;
     border-spacing: 0;
+    width: 800px;
+    margin: auto;
 }
 th, td{
-    padding: 10px 20px;
+    padding: 0.5rem 0;
     border: 1px solid #000;
+    text-align: center;
+    font-size: 1rem;
 }
+
+/* 画像出力ボタン */
 #btn-create-img{
     display: none;
+    text-align: center;
+    margin: 5rem auto 10rem auto;
+}
+#btn-create-img button{
+    border: none;
+    border-radius: 0.2rem;
+    background-color: rgb(47, 10, 182);
+    color: white;
+    padding: 0.5rem;
+    font-weight: 900;
+    font-size: 1.3rem;
+    width: auto;
 }

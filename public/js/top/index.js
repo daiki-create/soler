@@ -86,8 +86,11 @@ function getData() {
 
   // メッセージ初期化
   document.getElementById("loading").textContent = "検索中です..."
+  document.getElementById("loading").style.margin = "1rem 0 0 0"
   document.getElementById("liden-result-msg").textContent = ""
   document.getElementById("amedas-result-msg").textContent = ""
+  document.getElementById("map-title").textContent = ""
+  document.getElementById("btn-create-img").style.display = "none"
 
   // マップ初期化
   document.getElementById("map").style.width = "0"
@@ -122,6 +125,7 @@ function getData() {
   }
   var json = JSON.stringify(data)
   var xhr = new XMLHttpRequest()
+  console.log(location.href+"/api")
   xhr.open("POST", location.href+"/api")
   xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded;charset=UTF-8")
   xhr.send(json);
@@ -137,13 +141,14 @@ function getData() {
           console.log("200 ok.")
           var result = JSON.parse(xhr.response);
           document.getElementById("loading").textContent = ""
+          document.getElementById("loading").style.margin = 0
           document.getElementById("btn-create-img").style.display = "block"
 
           // 地図出力
           if(result.liden_data_array != "no_thander")
           {
-            document.getElementById("liden-result-msg").textContent = "落雷："+result.liden_data_array.length+"件"
-            document.getElementById("map").style.width = "500px"
+            document.getElementById("liden-result-msg").textContent = "落雷データ："+result.liden_data_array.length+"件"
+            document.getElementById("map").style.width = "800px"
             document.getElementById("map").style.height = "500px"
             document.getElementById("map-title").textContent = data.area+"の"+data.start_date+"～"+data.end_date+"の天気情報"
             var latlng = new google.maps.LatLng(result.center_lat[0], result.center_lon[0]);
@@ -166,7 +171,7 @@ function getData() {
           
               // 吹き出しの追加
               infoWindow[i] = new google.maps.InfoWindow({
-                content: `<a href=/laundries/${id}>test</a>`
+                content: "<div>観測日:"+result.liden_data_array[i].date+"</div><div>北緯:"+result.liden_data_array[i].lat+"</div><div>東経:"+result.liden_data_array[i].lon+"</div>"
               });
           
               markerEvent(i);
@@ -194,6 +199,9 @@ function getData() {
               var climateTableTitle = document.createElement("div")
               climateTableTitle.id = "climate-table-title"+String(page)
               climateTableTitle.textContent = data.area+"の"+data.start_date+"～"+data.end_date+"の天気情報"
+              climateTableTitle.style.fontSize = "1rem"
+              climateTableTitle.style.textAlign = "center"
+              climateTableTitle.style.fontWeight = "900"
               tableParent.appendChild(climateTableTitle)
 
               var table = document.createElement('table');
