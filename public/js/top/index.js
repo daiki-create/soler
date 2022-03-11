@@ -129,6 +129,7 @@ function getData() {
   xhr.open("POST", location.href+"/api")
   xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded;charset=UTF-8")
   xhr.send(json);
+  console.log(location.href+"/api")
 
   xhr.onreadystatechange = function () {
     try 
