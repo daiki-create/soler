@@ -21,12 +21,14 @@ class Amedas_model extends CI_Model
 
         // アメダス観測点をロード
         $amedas_stations = $this->Amedas_stations_tbl->getAmedasStations();
-        $j=0;
+        $k=0;
         foreach($amedas_stations as $amedas_station)
         {
-            $j++;
+            $k++;
             $prec_no = $amedas_station->prec_no;
             $block_no = $amedas_station->block_no;
+
+            var_dump($block_no);
 
             // 降水量、風速データの取得
             if($amedas_station->capital_flag)
@@ -89,13 +91,14 @@ class Amedas_model extends CI_Model
                         break;
                     }
                 }
-            }
-            // if($j==2)
-            {
                 var_dump($amedas_data);
-                // exit;
+
+                
             }
-           
+            if($k == 2)
+            {
+                exit;
+            }  
             // 配列に追加
             array_push($amedas_data_array, $amedas_data);
         }
@@ -142,11 +145,15 @@ class Amedas_model extends CI_Model
 
         // アメダス観測点をロード
         $amedas_stations = $this->Amedas_stations_tbl->getAmedasStations();
+        $k=0;
         foreach($amedas_stations as $amedas_station)
         {
+            $j++;
             $prec_no = $amedas_station->prec_no;
             $block_no = $amedas_station->block_no;
-
+           
+                var_dump($block_no);
+            
             foreach($dates as $date){
                 $date_array = explode('-',$date);
                 $year = $date_array[0];
@@ -214,7 +221,14 @@ class Amedas_model extends CI_Model
                             break;
                         }
                     }
-                }
+                    var_dump($amedas_data);
+
+                              
+                    }
+                    if($k == 2)
+                    {
+                        exit;
+                    }   
                 // 配列に追加
                 array_push($amedas_data_array, $amedas_data);
             }

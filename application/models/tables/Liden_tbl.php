@@ -29,10 +29,10 @@ class Liden_tbl extends CI_Model
         $start_date = $request['start_date'];
         $end_date = $request['end_date'];
 
-        $left_lon = $lon - 1;
-        $right_lon = $lon + 1;
-        $bottom_lat = $lat - 1;
-        $top_lat = $lat +1;
+        $left_lon = $lon - 0.3;
+        $right_lon = $lon + 0.3;
+        $bottom_lat = $lat - 0.15;
+        $top_lat = $lat +0.15;
 
         return $this
         ->db

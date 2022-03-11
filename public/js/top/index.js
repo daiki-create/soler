@@ -149,11 +149,11 @@ function getData() {
           {
             document.getElementById("liden-result-msg").textContent = "落雷データ："+result.liden_data_array.length+"件"
             document.getElementById("map").style.width = "800px"
-            document.getElementById("map").style.height = "500px"
+            document.getElementById("map").style.height = "800px"
             document.getElementById("map-title").textContent = data.area+"の"+data.start_date+"～"+data.end_date+"の天気情報"
             var latlng = new google.maps.LatLng(result.center_lat[0], result.center_lon[0]);
             var opts = {
-              zoom: 10,
+              zoom: 11,
               center: latlng
             };
             var map = new google.maps.Map(document.getElementById("map"), opts);
