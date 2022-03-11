@@ -68,6 +68,7 @@ class Amedas_stations_model extends CI_Model
                         $amedas_station_data['capital_flag'] = 1;
                     }
                 }
+                var_dump($amedas_station_data);
 
                 // 配列に追加
                 array_push($amedas_stations_data, $amedas_station_data);
