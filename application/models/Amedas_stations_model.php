@@ -17,7 +17,13 @@ class Amedas_stations_model extends CI_Model
         $html = file_get_contents("https://www.data.jma.go.jp/obd/stats/etrn/select/prefecture00.php?prec_no=91&block_no=1147&year=2022&month=01&day=24&view=p1");
         $dom = phpQuery::newDocument($html);
         $area_array = $dom['area'];
+        $j=0;
         foreach($area_array as $area) {
+            $j++;
+            if($j==50)
+            {
+                break;
+            }
             $url = pq($area)->attr('href').PHP_EOL;
 
             // 県Noを取得
