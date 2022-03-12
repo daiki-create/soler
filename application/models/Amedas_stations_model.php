@@ -43,9 +43,15 @@ class Amedas_stations_model extends CI_Model
                 $onmouseover = pq($area2)->attr('onmouseover').PHP_EOL;
                 if(!preg_match('/\(.*?\)/', $onmouseover, $matches))
                 {
-                    // 南極データ、または県、地方全地点データは不要
+                    // 県、地方全地点データは不要
                     continue;
                 }
+                if($prec_no == "99")
+                {
+                    // 南極データは不要
+                    continue;
+                }
+
                 $m = $matches[0];
                 $m = trim( $m, '()' );
                 $view_point = explode(',', $m);
