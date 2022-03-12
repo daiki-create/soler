@@ -117,14 +117,14 @@ class Scraping extends CI_Controller {
 		}
 	}
 
-	public function scrapingAmedasStations()
+	public function scrapingAmedasStations($start_prec, $end_prec)
 	{
 		// if ( is_cli() ) 
 		{
 			log_message('debug', 'scraping amedas_stations start.');
 
 			// 気象庁の過去のデータをスクレイピング
-			$amedas_stations_data = $this->Amedas_stations_model->scrapingAmedasStations();
+			$amedas_stations_data = $this->Amedas_stations_model->scrapingAmedasStations($start_prec, $end_prec);
 
 			// 保存
 			if($this->Amedas_stations_model->saveAmedasStations($amedas_stations_data))

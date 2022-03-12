@@ -8,7 +8,7 @@ class Amedas_stations_model extends CI_Model
         $this->load->model('tables/Amedas_stations_tbl');
     }
 
-    public function scrapingAmedasStations()
+    public function scrapingAmedasStations($start_prec, $end_prec)
     {
         // 配列の初期化
         $amedas_stations_data = [];
@@ -20,7 +20,11 @@ class Amedas_stations_model extends CI_Model
         $j=0;
         foreach($area_array as $area) {
             $j++;
-            if($j==50)
+            if($j <= $start_prec)
+            {
+                continue;
+            }
+            if($j == $end_prec+1)
             {
                 break;
             }
