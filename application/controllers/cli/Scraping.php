@@ -140,8 +140,8 @@ class Scraping extends CI_Controller {
 
 	public function scrapingTestAmedasStation()
 	{
-		$aamedas_station_data = $this->Amedas_stations_model->scrapingTestAmedasStation();
-		if($aamedas_station_data)
+		$amedas_station_data = $this->Amedas_stations_model->scrapingTestAmedasStation();
+		if($this->Amedas_stations_model->saveAmedasStations($amedas_station_data))
 		{
 			echo 'scraping saveTestAmedasStation success.';
 			exit;
