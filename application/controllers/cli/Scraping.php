@@ -137,15 +137,4 @@ class Scraping extends CI_Controller {
 			echo 'scraping amedas_stations failed.';
 		}
 	}
-
-	public function scrapingTestAmedasStation()
-	{
-		$amedas_station_data = $this->Amedas_stations_model->scrapingTestAmedasStation();
-		if($this->Amedas_stations_model->saveAmedasStations($amedas_station_data))
-		{
-			echo 'scraping saveTestAmedasStation success.';
-			exit;
-		}
-		echo 'scraping saveTestAmedasStation failed.';
-	}
 }
