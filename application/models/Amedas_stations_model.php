@@ -33,11 +33,17 @@ class Amedas_stations_model extends CI_Model
             $html2 = file_get_contents("https://www.data.jma.go.jp/obd/stats/etrn/select/".$url);
             $dom = phpQuery::newDocument($html2);
             $area_array2 = $dom['area'];
+            $i++;
             foreach($area_array2 as $area2) {
-                $onmouseover = pq($area2)->attr('onmouseover').PHP_EOL;
-                if(!preg_match('/\(.*?\)/', $onmouseover, $matches))
+                // 重複は不要
+                $i++;
+                if($i%2 == 0)
                 {
-                    // 南極データ、または県、地方全地点データは不要
+                    continue;
+                }
+                if($prec_no == "99")
+                {
+                    // 南極データは不要
                     continue;
                 }
                 $m = $matches[0];
@@ -109,11 +115,17 @@ class Amedas_stations_model extends CI_Model
             $html2 = file_get_contents("https://www.data.jma.go.jp/obd/stats/etrn/select/".$url);
             $dom = phpQuery::newDocument($html2);
             $area_array2 = $dom['area'];
+            $i=0;
             foreach($area_array2 as $area2) {
-                $onmouseover = pq($area2)->attr('onmouseover').PHP_EOL;
-                if(!preg_match('/\(.*?\)/', $onmouseover, $matches))
+                $i++;
+                if($i%2 == 0)
                 {
-                    // 南極データ、または県、地方全地点データは不要
+                    continue;
+                }
+                $onmouseover = pq($area2)->attr('onmouseover').PHP_EOL;
+                if($prec_no == "99")
+                {
+                    // 南極データは不要
                     continue;
                 }
                 $m = $matches[0];
