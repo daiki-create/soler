@@ -52,4 +52,20 @@ class Amedas_stations_tbl extends CI_Model
             ->get('amedas_stations')
             ->result();
     }
+
+    public function saveTestAmedasStation($amedas_station_data)
+    {
+        if(
+            $this
+            ->db
+            ->insert_batch(
+                'amedas_stations',
+                [$amedas_station_data]
+            )
+        )
+        {
+            return TRUE;
+        }
+        return FALSE;
+    }
 }

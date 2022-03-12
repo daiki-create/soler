@@ -154,7 +154,10 @@ function getData() {
             var latlng = new google.maps.LatLng(result.center_lat[0], result.center_lon[0]);
             var opts = {
               zoom: 11,
-              center: latlng
+              center: latlng,
+              zoomControl: false,
+              mapTypeControl: false,
+              fullscreenControl: false,
             };
             var map = new google.maps.Map(document.getElementById("map"), opts);
   

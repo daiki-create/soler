@@ -83,4 +83,17 @@ class Amedas_stations_model extends CI_Model
     {
         return $this->Amedas_stations_tbl->saveAmedasStations($amedas_stations_data);
     }
+
+    public function saveTestAmedasStation()
+    {
+        $amedas_station_data = [
+            'st_name' => "test station",
+            'capital_flag' => "0",
+            'prec_no' => "00",
+            'block_no' => "0000",
+            'lon' => "0",
+            'lat' => "0"
+        ];
+        return $this->Amedas_stations_tbl->saveTestAmedasStation($amedas_station_data);
+    }
 }
