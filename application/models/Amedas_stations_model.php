@@ -20,7 +20,7 @@ class Amedas_stations_model extends CI_Model
         $j=0;
         foreach($area_array as $area) {
             $j++;
-            if($j <= $start_prec)
+            if($j < $start_prec)
             {
                 continue;
             }
