@@ -50,18 +50,12 @@ class Scraping extends CI_Controller {
 		}
 		else{
 			// メールで山崎に報告
-			// $config['protocol'] = 'smtp';
-			// $config['mailpath'] = '/usr/sbin/sendmail.postfix';
-			// $config['charset']  = 'iso-8859-1';
-			// $config['wordWrap'] = true;
-			// $this->email->initialize($config);
-
 			$this->email->from('info@weather-info-ss.com/', 'CLIMATE SYSTEM');
 			$this->email->to('6280ikiad@gmail.com');
 			$this->email->subject('アメダスデータスクレイピング失敗');
 			$this->email->message('日付：'.$date.
-									'開始インデックス：'.$start_index.
-									'バッチNo：'.$batch_no);
+									'	開始インデックス：'.$start_index.
+									'	バッチNo：'.$batch_no);
 			$this->email->send();
 			echo('cron FAILED.');
 			log_message('debug', 'cron FAILED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
