@@ -23,7 +23,7 @@ class Amedas_model extends CI_Model
         $amedas_stations = $this->Amedas_stations_tbl->getAmedasStations();
 
         // バッチに分割
-        $batch_sise = 250;
+        $batch_sise = 100;
         $len = count($amedas_data_array);
         $quotient = floor($len / $batch_sise);
         $amedas_stations_batch = array_slice($amedas_stations, ($batch_no - 1) * $batch_sise, $batch_sise);
@@ -114,8 +114,6 @@ class Amedas_model extends CI_Model
                     }
                 }
             }
-            var_dump($amedas_data);
-
             // 配列に追加
             array_push($amedas_data_array, $amedas_data);
         }
