@@ -89,6 +89,7 @@ class Top extends CI_Controller {
         $lon = $xml->coordinate->lng;
         $lat = $xml->coordinate->lat;
 
+		echo("検索地点緯度：")
 		var_dump($lon);
 
 		echo('アメダス取得開始');
