@@ -12,14 +12,14 @@ class Scraping extends CI_Controller {
 		$this->load->model('Liden_model');
 	}
 
-	public function scrapingCurrentAmedas($batch_sise, $batch_no)
+	public function scrapingCurrentAmedas($batch_sise, $start_index)
 	{
 		// if ( is_cli() ) 
 		{
 			log_message('debug', 'scraping current_amedas start.');
 
 			// 気象庁の過去のデータをスクレイピング
-			$amedas_data_array = $this->Amedas_model->scrapingCurrentAmedas($batch_sise, $batch_no);
+			$amedas_data_array = $this->Amedas_model->scrapingCurrentAmedas($batch_sise, $start_index);
 
 			// 保存
 			if($this->Amedas_model->saveAmedas($amedas_data_array))
