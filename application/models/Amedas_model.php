@@ -63,7 +63,7 @@ class Amedas_model extends CI_Model
                         $wind_speed = pq($row)->find('td:eq(10)')->text();
                         $wind_direction = pq($row)->find('td:eq(11)')->text();                    
                     }
-                    
+                    $wind_direction = trim($wind_direction, ")]");
                     $amedas_data = [
                         'prec_no' => $prec_no,
                         'block_no' => $block_no,
@@ -76,7 +76,12 @@ class Amedas_model extends CI_Model
                     break;
                 }
             }
-            
+            // 現在使用されていない観測所
+            if($wind_direction == "///" || $wind_direction == "")
+            {
+                continue;
+            }
+
             // 雷雲フラグの取得
             if(!$amedas_station->capital_flag)
             {
@@ -90,7 +95,7 @@ class Amedas_model extends CI_Model
                 foreach($dom2['table:eq(4) tr'] as $row)
                 {
                     $j++;
-                    if($j < 3)
+                    if($j < 2)
                     {
                         continue;
                     }
@@ -128,10 +133,10 @@ class Amedas_model extends CI_Model
         {
             return 'invalid_end_date';
         }
-        if($start_date < "2020-10-03")
-        {
-            return "too_old";
-        }
+        // if($start_date < "2020-10-03")
+        // {
+        //     return "too_old";
+        // }
         if($end_date > $yesterday)
         {
             return "too_new";
@@ -156,9 +161,7 @@ class Amedas_model extends CI_Model
             $k++;
             $prec_no = $amedas_station->prec_no;
             $block_no = $amedas_station->block_no;
-           
-                var_dump($block_no);
-            
+                       
             foreach($dates as $date){
                 $date_array = explode('-',$date);
                 $year = $date_array[0];
@@ -184,11 +187,22 @@ class Amedas_model extends CI_Model
                         continue;
                     }
                     $tr_day = pq($row)->find('td:eq(0)')->text();
+                    
                     if($tr_day == $day)
                     {
-                        $pricipitation = pq($row)->find('td:eq(3)')->text();
-                        $wind_speed = pq($row)->find('td:eq(14)')->text();
-                        $wind_direction = pq($row)->find('td:eq(15)')->text();
+                        if($amedas_station->capital_flag)
+                        {
+                            $pricipitation = pq($row)->find('td:eq(3)')->text();
+                            $wind_speed = pq($row)->find('td:eq(14)')->text();
+                            $wind_direction = pq($row)->find('td:eq(15)')->text();                    
+                        }
+                        else
+                        {
+                            $pricipitation = pq($row)->find('td:eq(1)')->text();
+                            $wind_speed = pq($row)->find('td:eq(10)')->text();
+                            $wind_direction = pq($row)->find('td:eq(11)')->text();                    
+                        }
+                        $wind_direction = trim($wind_direction, ")]");
                         $amedas_data = [
                             'prec_no' => $prec_no,
                             'block_no' => $block_no,
@@ -200,6 +214,11 @@ class Amedas_model extends CI_Model
                         ];
                         break;
                     }
+                }
+                // 現在使用されていない観測所
+                if($wind_direction == "///" || $wind_direction == "")
+                {
+                    break;
                 }
 
                 // 雷雲フラグの取得
@@ -215,7 +234,7 @@ class Amedas_model extends CI_Model
                     foreach($dom2['table:eq(4) tr'] as $row)
                     {
                         $j++;
-                        if($j < 3)
+                        if($j < 2)
                         {
                             continue;
                         }
@@ -240,37 +259,20 @@ class Amedas_model extends CI_Model
 
     public function saveAmedas($amedas_data_array)
     {
-        // dbg
-        echo("配列数：");
-        echo(count($amedas_data_array));
         // insertエラーを防ぐために分割してtblに送る
         $batch_sise = 250;
         $len = count($amedas_data_array);
         $quotient = floor($len / $batch_sise);
-        $remainder = $len % $batch_sise;
 
-        // $batch_siseで割り切れるぶん
-        for($i=0; $i<$quotient; $i++)
+        // < ではなく <= にすることで端数分までループ
+        for($i=0; $i<=$quotient; $i++)
         {
-            $amedas_data_array_batch = array_slice($amedas_data_array, $batch_sise * $i, $batch_sise * ($i + 1));
-            if( !$this->Amedas_tbl->saveAmedas($amedas_data_array))
+            $amedas_data_array_batch = array_slice($amedas_data_array, $batch_sise * $i, $batch_sise);
+            if( !$this->Amedas_tbl->saveAmedas($amedas_data_array_batch))
             {
                 return FALSE;
             }
-            break;
         }
-        echo("i:");
-        echo($i);
-
-        // 端数ぶん
-        // if($remainder != 0)
-        // {
-        //     $amedas_data_array_batch = array_slice($amedas_data_array, $batch_sise * ($i+1), $batch_sise * ($i + 1) + $remainder);
-        //     if( !$this->Amedas_tbl->saveAmedas($amedas_data_array))
-        //     {
-        //         return FALSE;
-        //     }
-        // }
         return TRUE;
     }
 

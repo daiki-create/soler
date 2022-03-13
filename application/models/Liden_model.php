@@ -48,6 +48,7 @@ class Liden_model extends CI_Model
                     array_push($liden_data_array, $liden_data);
                 }
             }
+            var_dump($liden_data);
         }
 
         // 配列をリターン
@@ -124,9 +125,33 @@ class Liden_model extends CI_Model
                         ];
                         // 配列に追加
                         array_push($liden_data_array, $liden_data);
+                        var_dump($liden_data);
                     }
                 }
             }
+            elseif(preg_match('/var\sstr_json\s=\s\[[\s\S]*\];/', $script, $matches))
+            {
+                $m = $matches[0];
+                if(preg_match_all('/@attributes.*?\"type\":/s', $m, $matches))
+                {
+                    foreach($matches[0] as $m)
+                    {
+                        $attributes = trim( $m, '"@attributes": {}');
+                        $attributes_array = preg_split('/(,|:)/',$attributes);
+                        $lat = trim($attributes_array[1], ' ""');
+                        $lon = trim($attributes_array[3], ' ""');
+                        $liden_data = [
+                            'date' => $year."-".$month."-".$day,
+                            'lon' => $lon,
+                            'lat' => $lat
+                        ];
+                        // 配列に追加
+                        array_push($liden_data_array, $liden_data);
+                        var_dump($liden_data);
+                    }
+                }
+            }
+                
         }
 
         // 配列をリターン
@@ -135,7 +160,22 @@ class Liden_model extends CI_Model
 
     public function saveLiden($liden_data_array)
     {
-        return $this->Liden_tbl->saveLiden($liden_data_array);
+        // insertエラーを防ぐために分割してtblに送る
+        $batch_sise = 250;
+        $len = count($liden_data_array);
+        $quotient = floor($len / $batch_sise);
+
+        // < ではなく <= にすることで端数分までループ
+        for($i=0; $i<=$quotient; $i++)
+        {
+            $liden_data_array_batch = array_slice($liden_data_array, $batch_sise * $i, $batch_sise);
+            if( !$this->Liden_tbl->saveLiden($liden_data_array_batch))
+            {
+                return FALSE;
+            }
+        }
+        echo($len);
+        return TRUE;
     }
 
     public function getLiden($request, $lon, $lat)
