@@ -9,7 +9,7 @@ class Amedas_model extends CI_Model
         $this->load->model('tables/Amedas_stations_tbl');
     }
 
-    public function scrapingCurrentAmedas($batch_no)
+    public function scrapingCurrentAmedas($batch_sise, $batch_no)
     {
         // 配列の初期化
         $amedas_data_array = [];
@@ -23,9 +23,6 @@ class Amedas_model extends CI_Model
         $amedas_stations = $this->Amedas_stations_tbl->getAmedasStations();
 
         // バッチに分割
-        $batch_sise = 100;
-        $len = count($amedas_data_array);
-        $quotient = floor($len / $batch_sise);
         $amedas_stations_batch = array_slice($amedas_stations, ($batch_no - 1) * $batch_sise, $batch_sise);
 
         $k=0;
