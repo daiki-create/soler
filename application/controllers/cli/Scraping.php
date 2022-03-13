@@ -7,11 +7,91 @@ class Scraping extends CI_Controller {
 	{
 		parent::__construct();
 
+		$this->load->helper('file');
+		$this->load->library('email');
+
 		$this->load->model('Amedas_model');
 		$this->load->model('Amedas_stations_model');
 		$this->load->model('Liden_model');
 	}
 
+	// 1分起きに実行
+	public function scrapingAmedasCronJob()
+	{
+		$start_time = microtime(true);
+
+		// ファイルから日付、開始インデックス、バッチNo.を取得
+		$txt = read_file('../var/scrapingAmedasCronJob.txt');
+		$array = explode(',', $txt);
+		$date = $array[0];
+		$start_index = $array[1];
+		$batch_no = $array[2];
+
+		// exe scrapingAmedas
+		if($this->scrapingAmedasForCronJob($start_index, 170, $date))
+		{
+			// ① 現在のバッチNo.が6の場合・・日付を-1day、開始インデックス=0、バッチNo.=1に更新
+			if($batch_no == 6)
+			{
+				$next_date = date('Y-m-d', strtotime('-1 day', strtotime($date)));
+				$next_start_index = 0;
+				$next_batch_no = 1;
+			}
+			// ② それ以外・・開始インデックス+=170、バッチNo.+=1
+			else{
+				$next_date = $date;
+				$next_start_index = $start_index + 170;
+				$next_batch_no = $batch_no + 1;
+			}
+			$data = $next_date.",".$next_start_index.",".$next_batch_no;
+			write_file('../var/scrapingAmedasCronJob.txt', $data, 'w');
+			log_message('debug', 'cron success!!!!!!!!!!!!!!!!!!!!!!!');
+		}
+		else{
+			// メールで山崎に報告
+			// $config['protocol'] = 'smtp';
+			// $config['mailpath'] = '/usr/sbin/sendmail.postfix';
+			// $config['charset']  = 'iso-8859-1';
+			// $config['wordWrap'] = true;
+			// $this->email->initialize($config);
+
+			$this->email->from('info@weather-info-ss.com/', 'CLIMATE SYSTEM');
+			$this->email->to('6280ikiad@gmail.com');
+			$this->email->subject('アメダスデータスクレイピング失敗');
+			$this->email->message('日付：'.$date.'\n開始インデックス：'.$start_index.'\nバッチNo：'.$batch_no);
+			$this->email->send();
+			log_message('debug', 'cron FAILED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+		}
+		$end_time = microtime(true);
+		$processing_time = $end_time - $start_time;
+		log_message('debug', '実行時間：'.$processing_time);
+	}
+
+	// cron用
+	public function scrapingAmedasForCronJob($start_index, $batch_sise, $date)
+	{
+		// if ( is_cli() ) 
+		{
+			// return TRUE;
+			return FALSE;
+			log_message('debug', 'scraping current_amedas start.');
+
+			// 気象庁の過去のデータをスクレイピング
+			$amedas_data_array = $this->Amedas_model->scrapingAmedas($start_index, $batch_sise, $date);
+			if($amedas_data_array == "invalid_date")
+			{
+				echo 'invalid_date';
+			}
+			// 保存
+			if($this->Amedas_model->saveAmedas($amedas_data_array))
+			{
+				return True;
+			}
+			return FALSE;
+		}
+	}
+
+	// 手動用
 	public function scrapingAmedas($start_index, $batch_sise, $date)
 	{
 		// if ( is_cli() ) 
