@@ -114,6 +114,7 @@ class Top extends CI_Controller {
 			foreach ($rows as $row) {
 				$line.= $row;
 			}
+			echo("line");
 			var_dump($line);
 			exit;
 			
