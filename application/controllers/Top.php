@@ -40,7 +40,7 @@ class Top extends CI_Controller {
                 'verify_peer_name' => false
             ]
         ]);
-		$content = file_get_contents($url);
+		$content = file_get_contents($url, false, $context);
 		$rows = explode("\n", $content);
 		foreach ($rows as $row) {
 			$line.= $row;
@@ -109,7 +109,7 @@ class Top extends CI_Controller {
 					'verify_peer_name' => false
 				]
 			]);
-			$content = file_get_contents($url);
+			$content = file_get_contents($url, false, $context);
 			$rows = explode("\n", $content);
 			foreach ($rows as $row) {
 				$line.= $row;
