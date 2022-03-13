@@ -86,10 +86,11 @@ class Top extends CI_Controller {
 			$url.= "?v=1.1&q=".$query;
 			$line='';
 			$fp = fopen($url, "r");
+			var_dump($fp);
+			exit;
 			while(!feof($fp)) {
 			$line.= fgets($fp);
 			}
-			die("ok2.");
 			fclose($fp);
 			$xml = simplexml_load_string($line);
 			$lon = $xml->coordinate->lng;
