@@ -43,7 +43,7 @@ new Vue({
 var precipitation_list = []
 var n_precipitation_list = 6290
 var precipitation_interval = 10
-for(var i=0;i<=n_precipitation_list;i++){
+for(var i=0;i<=n_precipitation_list/precipitation_interval;i++){
   precipitation_list.push(i * precipitation_interval)
 }
 new Vue({
@@ -56,7 +56,7 @@ new Vue({
 var wind_speed_list = []
 var n_wind_speed_list = 80
 var wind_speed_interval = 10
-for(var i=0;i<=n_wind_speed_list;i++){
+for(var i=0;i<=n_wind_speed_list/wind_speed_interval;i++){
   wind_speed_list.push(i * wind_speed_interval)
 }
 new Vue({

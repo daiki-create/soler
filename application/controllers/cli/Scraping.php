@@ -28,7 +28,7 @@ class Scraping extends CI_Controller {
 		$batch_no = $array[2];
 
 		// exe scrapingAmedas
-		if($this->scrapingAmedasForCronJob($start_index, 170, $date))
+		if($this->scrapingAmedasForCronJob($start_index, 163, $date))
 		{
 			// ① 現在のバッチNo.が6の場合・・日付を-1day、開始インデックス=0、バッチNo.=1に更新
 			if($batch_no == 6)
