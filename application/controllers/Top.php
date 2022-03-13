@@ -77,17 +77,6 @@ class Top extends CI_Controller {
 
 	public function api_test($rest_flag)
     {
-		// $context = stream_context_create([
-        //     'ssl' => [
-        //         'verify_peer'      => false,
-        //         'verify_peer_name' => false
-        //     ]
-        // ]);
-        // $html = file_get_contents("https://weather.kakutyoutakaki.com/thander/index.php?year=2022&month=03&day=10&hour=24&min=0&kikan=24", false, $context);
-        // $dom = phpQuery::newDocument($html);
-        // $script = $dom->find('script:eq(8)');
-		// var_dump($script);
-		// exit;
 		$request = [
 			// 'area'=>'北海道札幌市',
 			'area'=>'東京都世田谷区',
@@ -120,13 +109,17 @@ class Top extends CI_Controller {
 					'verify_peer_name' => false
 				]
 			]);
-			$content = file_get_contents($url, false, $context);
-			$rows = explode("\n", $content);
-			foreach ($rows as $row) {
-				$line.= $row;
-			}
-			echo("line");
-			var_dump($line);
+			// $content = file_get_contents($url, false, $context);
+			// $rows = explode("\n", $content);
+			// foreach ($rows as $row) {
+			// 	$line.= $row;
+			// }
+			// echo("line");
+			// var_dump($line);
+			// exit;
+
+			$json = file_get_contents($url, true, $context);
+			var_dump($json);
 			exit;
 			
 			// $ch = curl_init();
