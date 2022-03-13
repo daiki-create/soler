@@ -89,8 +89,8 @@ class Top extends CI_Controller {
         // $xml = simplexml_load_string($line);
         // $lon = $xml->coordinate->lng;
         // $lat = $xml->coordinate->lat;
-		$lon = 140;
-		$lat = 40;
+		$lon = "140";
+		$lat = "40";
 
 		// echo("検索地点緯度：");
 		// var_dump($lon);
