@@ -63,6 +63,8 @@ class Top extends CI_Controller {
 
 	public function api_test($rest_flag)
     {
+		echo(phpinfo());
+		exit;
 		$request = [
 			// 'area'=>'北海道札幌市',
 			'area'=>'東京都世田谷区',
