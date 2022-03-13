@@ -39,7 +39,7 @@ class Top extends CI_Controller {
 		$lat = 38.5;
 
 		// 条件に一致するアメダスデータを取得
-		$amedas_data_array = $this->Amedas_model->getAmedas($request, $lon, $lat);
+		// $amedas_data_array = $this->Amedas_model->getAmedas($request, $lon, $lat);
 
 		// 検索地点付近の指定期間内の落雷データを取得
 		if($request['thander'] !='なし')
@@ -52,7 +52,7 @@ class Top extends CI_Controller {
 		}
 
 		$result =[
-			"amedas_data_array" => $amedas_data_array,
+			// "amedas_data_array" => $amedas_data_array,
 			"liden_data_array" => $liden_data_array,
 			"center_lon" => $lon,
 			"center_lat" => $lat
