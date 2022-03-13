@@ -161,7 +161,7 @@ class Liden_model extends CI_Model
     public function saveLiden($liden_data_array)
     {
         // insertエラーを防ぐために分割してtblに送る
-        $batch_sise = 250;
+        $batch_sise = 200;
         $len = count($liden_data_array);
         $quotient = floor($len / $batch_sise);
 
