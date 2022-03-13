@@ -73,6 +73,7 @@ class Top extends CI_Controller {
 			'wind_speed'=>0,
 			'wind_direction'=>'指定なし'
 		];
+		var_dump($request);
 
 		// 検索地点の緯度経度を求める
         $query = $request['area'];
@@ -91,6 +92,7 @@ class Top extends CI_Controller {
 
 		echo("検索地点緯度：");
 		var_dump($lon);
+		exit;
 
 		echo('アメダス取得開始');
 		$amedas_data_array = $this->Amedas_model->getAmedas($request, $lon, $lat);
