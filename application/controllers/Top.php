@@ -61,7 +61,7 @@ class Top extends CI_Controller {
 		exit;	
 	}
 
-	public function api_test()
+	public function api_test($rest_flag)
     {
 		$request = [
 			// 'area'=>'北海道札幌市',
@@ -73,39 +73,47 @@ class Top extends CI_Controller {
 			'wind_speed'=>0,
 			'wind_direction'=>'指定なし'
 		];
+		echo("Request:");
 		var_dump($request);
+		echo('\\n');
 
 		// 検索地点の緯度経度を求める
-        // $query = $request['area'];
-        // $query = urlencode($query);
-        // $url = "http://www.geocoding.jp/api/";
-        // $url.= "?v=1.1&q=".$query;
-        // $line='';
-        // $fp = fopen($url, "r");
-        // while(!feof($fp)) {
-        // $line.= fgets($fp);
-        // }
-        // fclose($fp);
-        // $xml = simplexml_load_string($line);
-        // $lon = $xml->coordinate->lng;
-        // $lat = $xml->coordinate->lat;
-		$lon = "140";
-		$lat = "40";
+		if($rest_flag)
+		{
+			$query = $request['area'];
+			$query = urlencode($query);
+			$url = "http://www.geocoding.jp/api/";
+			$url.= "?v=1.1&q=".$query;
+			$line='';
+			$fp = fopen($url, "r");
+			while(!feof($fp)) {
+			$line.= fgets($fp);
+			}
+			fclose($fp);
+			$xml = simplexml_load_string($line);
+			$lon = $xml->coordinate->lng;
+			$lat = $xml->coordinate->lat;
+			echo('rest_success.lat:');
+			echo($lat);
+			echo('\\n');
+		}
+        else{
+			$lon = "140";
+			$lat = "40";
+		}
 
-		// echo("検索地点緯度：");
-		// var_dump($lon);
-		// exit;
-
-		echo('アメダス取得開始');
 		$amedas_data_array = $this->Amedas_model->getAmedas($request, $lon, $lat);
-		echo('アメダス取得終了');
+		echo('アメダス：');
+		var_dump($amedas_data_array);
+		echo('\\n');
 
 		// 検索地点付近の指定期間内の落雷データを取得
 		if($request['thander'] !='なし')
 		{
-			echo('ライデン取得開始');
 			$liden_data_array = $this->Liden_model->getLiden($request, $lon, $lat);
-			echo('ライデン取得終了');
+			echo("ライデン");
+			var_dump($liden_data_array);
+			echo('\\n');
 		}
 		else
 		{
@@ -118,6 +126,7 @@ class Top extends CI_Controller {
 			"center_lon" => $lon,
 			"center_lat" => $lat
 		];
+		echo("Result");
 		var_dump($result);
     }
 }
