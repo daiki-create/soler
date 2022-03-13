@@ -12,45 +12,25 @@ class Scraping extends CI_Controller {
 		$this->load->model('Liden_model');
 	}
 
-	public function scrapingCurrentAmedas($start_index, $batch_sise)
+	public function scrapingAmedas($start_index, $batch_sise, $date)
 	{
 		// if ( is_cli() ) 
 		{
 			log_message('debug', 'scraping current_amedas start.');
 
 			// 気象庁の過去のデータをスクレイピング
-			$amedas_data_array = $this->Amedas_model->scrapingCurrentAmedas($start_index, $batch_sise);
-
+			$amedas_data_array = $this->Amedas_model->scrapingAmedas($start_index, $batch_sise, $date);
+			if($amedas_data_array == "invalid_date")
+			{
+				echo 'invalid_date';
+			}
 			// 保存
 			if($this->Amedas_model->saveAmedas($amedas_data_array))
 			{
-				log_message('debug', 'scraping current_amedas success.');
 				echo 'scraping current_amedas success.';
 				exit;
 			}
-			log_message('debug', 'scraping current_amedas failed.');
 			echo 'scraping current_amedas failed.';
-		}
-	}
-
-	public function scrapingAmedas($start_date,$end_date)
-	{
-		// if ( is_cli() ) 
-		{
-			log_message('debug', 'scraping amedas start.');
-
-			// 気象庁の過去のデータをスクレイピング
-			$amedas_data_array = $this->Amedas_model->scrapingAmedas($start_date,$end_date);
-
-			// 保存
-			if($this->Amedas_model->saveAmedas($amedas_data_array))
-			{
-				log_message('debug', 'scraping amedas success.');
-				echo 'scraping amedas success.';
-				exit;
-			}
-			log_message('debug', 'scraping amedas failed.');
-			echo 'scraping amedas failed.';
 		}
 	}
 
