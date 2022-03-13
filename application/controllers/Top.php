@@ -74,6 +74,7 @@ class Top extends CI_Controller {
 			'wind_direction'=>'指定なし'
 		];
 		var_dump($request);
+		exit;
 
 		// 検索地点の緯度経度を求める
         $query = $request['area'];
