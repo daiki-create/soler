@@ -9,7 +9,7 @@ class Amedas_model extends CI_Model
         $this->load->model('tables/Amedas_stations_tbl');
     }
 
-    public function scrapingCurrentAmedas()
+    public function scrapingCurrentAmedas($batch_no)
     {
         // 配列の初期化
         $amedas_data_array = [];
@@ -21,8 +21,15 @@ class Amedas_model extends CI_Model
 
         // アメダス観測点をロード
         $amedas_stations = $this->Amedas_stations_tbl->getAmedasStations();
+
+        // バッチに分割
+        $batch_sise = 250;
+        $len = count($amedas_data_array);
+        $quotient = floor($len / $batch_sise);
+        $amedas_stations_batch = array_slice($amedas_stations, ($batch_no - 1) * $batch_sise, $batch_sise);
+
         $k=0;
-        foreach($amedas_stations as $amedas_station)
+        foreach($amedas_stations_batch as $amedas_station)
         {
             $k++;
             $prec_no = $amedas_station->prec_no;
@@ -246,8 +253,6 @@ class Amedas_model extends CI_Model
                         }
                     }
                 }
-
-                var_dump($amedas_data);
                 // 配列に追加
                 array_push($amedas_data_array, $amedas_data);
             }
@@ -259,19 +264,9 @@ class Amedas_model extends CI_Model
 
     public function saveAmedas($amedas_data_array)
     {
-        // insertエラーを防ぐために分割してtblに送る
-        $batch_sise = 200;
-        $len = count($amedas_data_array);
-        $quotient = floor($len / $batch_sise);
-
-        // < ではなく <= にすることで端数分までループ
-        for($i=0; $i<=$quotient; $i++)
+        if( !$this->Amedas_tbl->saveAmedas($amedas_data_array))
         {
-            $amedas_data_array_batch = array_slice($amedas_data_array, $batch_sise * $i, $batch_sise);
-            if( !$this->Amedas_tbl->saveAmedas($amedas_data_array_batch))
-            {
-                return FALSE;
-            }
+            return FALSE;
         }
         return TRUE;
     }
