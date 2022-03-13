@@ -66,8 +66,8 @@ class Top extends CI_Controller {
 		$request = [
 			// 'area'=>'北海道札幌市',
 			'area'=>'東京都世田谷区',
-			'start_date'=>'2022-03-01',
-			'end_date'=>'2022-03-09',
+			'start_date'=>'2021-03-01',
+			'end_date'=>'2022-03-25',
 			'thander'=>'指定なし',
 			'precipitation'=>0,
 			'wind_speed'=>0,
