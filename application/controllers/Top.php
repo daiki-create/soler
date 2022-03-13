@@ -87,10 +87,9 @@ class Top extends CI_Controller {
 			$line='';
 			$fp = fopen($url, "r");
 			while(!feof($fp)) {
-				die("ok2.");
-
 			$line.= fgets($fp);
 			}
+			die("ok2.");
 			fclose($fp);
 			$xml = simplexml_load_string($line);
 			$lon = $xml->coordinate->lng;
