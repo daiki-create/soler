@@ -103,12 +103,12 @@ class Top extends CI_Controller {
 			// }
 			// fclose($fp);
 
-			$context = stream_context_create([
-				'ssl' => [
-					'verify_peer'      => false,
-					'verify_peer_name' => false
-				]
-			]);
+			// $context = stream_context_create([
+			// 	'ssl' => [
+			// 		'verify_peer'      => false,
+			// 		'verify_peer_name' => false
+			// 	]
+			// ]);
 			// $content = file_get_contents($url, false, $context);
 			// $rows = explode("\n", $content);
 			// foreach ($rows as $row) {
@@ -118,20 +118,19 @@ class Top extends CI_Controller {
 			// var_dump($line);
 			// exit;
 
-			$json = file_get_contents($url, true, $context);
+			// $json = file_get_contents($url, true, $context);
+			// var_dump($json);
+			// exit;
+			
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_HEADER, false);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+			$json = curl_exec($ch);
+			curl_close($ch);
 			var_dump($json);
 			exit;
-			
-			// $ch = curl_init();
-			// curl_setopt($ch, CURLOPT_URL, $url);
-			// curl_setopt($ch, CURLOPT_HEADER, false);
-			// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			// curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-			// $json = curl_exec($ch);
-			// curl_close($ch);
-			// $content = json_decode($json, true);
-			// var_dump($content);
-			// exit;
 
 			$xml = simplexml_load_string($line);
 			var_dump($xml);
