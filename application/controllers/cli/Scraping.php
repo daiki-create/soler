@@ -45,6 +45,7 @@ class Scraping extends CI_Controller {
 			}
 			$data = $next_date.",".$next_start_index.",".$next_batch_no;
 			write_file('../var/scrapingAmedasCronJob.txt', $data, 'w');
+			echo('cron success.');
 			log_message('debug', 'cron success!!!!!!!!!!!!!!!!!!!!!!!');
 		}
 		else{
@@ -60,6 +61,7 @@ class Scraping extends CI_Controller {
 			$this->email->subject('アメダスデータスクレイピング失敗');
 			$this->email->message('日付：'.$date.'\n開始インデックス：'.$start_index.'\nバッチNo：'.$batch_no);
 			$this->email->send();
+			echo('cron FAILED.');
 			log_message('debug', 'cron FAILED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 		}
 		$end_time = microtime(true);
