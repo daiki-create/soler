@@ -90,7 +90,9 @@ class Top extends CI_Controller {
 			$line.= fgets($fp);
 			}
 			fclose($fp);
+			die('ok.');
 			$xml = simplexml_load_string($line);
+			die("ok.");
 			$lon = $xml->coordinate->lng;
 			$lat = $xml->coordinate->lat;
 			echo('rest_success.lat:');
