@@ -93,7 +93,7 @@ class Top extends CI_Controller {
 		{
 			$query = $request['area'];
 			$query = urlencode($query);
-			$url = "https://www.geocoding.jp/api/";
+			$url = "http://www.geocoding.jp/api/";
 			$url.= "?v=1.1&q=".$query;
 			$line='';
 
@@ -103,12 +103,7 @@ class Top extends CI_Controller {
 			// }
 			// fclose($fp);
 
-			$options = array('http' => array(
-				'method' => 'POST',
-				'content' => $data,
-				'header' => implode("\r\n", $header ),
-			  ));
-			$content = file_get_contents($url, false, $options);
+			$content = file_get_contents($url, true);
 			$rows = explode("\n", $content);
 			foreach ($rows as $row) {
 				$line.= $row;
