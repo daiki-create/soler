@@ -27,11 +27,19 @@ class Top extends CI_Controller {
         $url = "http://www.geocoding.jp/api/";
         $url.= "?v=1.1&q=".$query;
         $line='';
-        $fp = fopen($url, "r");
-        while(!feof($fp)) {
-        $line.= fgets($fp);
-        }
-        fclose($fp);
+
+        // $fp = fopen($url, "r");
+        // while(!feof($fp)) {
+        // $line.= fgets($fp);
+        // }
+        // fclose($fp);
+
+		$content = file_get_contents($url);
+		$rows = explode("\n", $content);
+		foreach ($rows as $row) {
+			$line.= $row;
+		}
+
         $xml = simplexml_load_string($line);
         $lon = $xml->coordinate->lng;
         $lat = $xml->coordinate->lat;
@@ -63,8 +71,6 @@ class Top extends CI_Controller {
 
 	public function api_test($rest_flag)
     {
-		echo(phpinfo());
-		exit;
 		$request = [
 			// 'area'=>'北海道札幌市',
 			'area'=>'東京都世田谷区',
@@ -84,14 +90,22 @@ class Top extends CI_Controller {
 			$url = "http://www.geocoding.jp/api/";
 			$url.= "?v=1.1&q=".$query;
 			$line='';
-			$fp = fopen($url, "r");
-			while(!feof($fp)) {
-				$line.= fgets($fp);
+
+			// $fp = fopen($url, "r");
+			// while(!feof($fp)) {
+			// 	$line.= fgets($fp);
+			// }
+			// fclose($fp);
+
+			$content = file_get_contents($url);
+			$rows = explode("\n", $content);
+			foreach ($rows as $row) {
+				$line.= $row;
 			}
-			fclose($fp);
-			var_dump($line);
-			exit;
+
 			$xml = simplexml_load_string($line);
+			var_dump($xml);
+			exit;
 			$lon = $xml->coordinate->lng;
 			$lat = $xml->coordinate->lat;
 			echo('rest_success.lat:');
