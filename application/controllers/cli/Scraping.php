@@ -49,11 +49,11 @@ class Scraping extends CI_Controller {
 		}
 		else{
 			// メールで山崎に報告
-			// $config['protocol'] = 'smtp';
-			// $config['mailpath'] = '/usr/sbin/sendmail.postfix';
-			// $config['charset']  = 'iso-8859-1';
-			// $config['wordWrap'] = true;
-			// $this->email->initialize($config);
+			$config['protocol'] = 'smtp';
+			$config['mailpath'] = '/usr/sbin/sendmail.postfix';
+			$config['charset']  = 'iso-8859-1';
+			$config['wordWrap'] = true;
+			$this->email->initialize($config);
 
 			$this->email->from('info@weather-info-ss.com/', 'CLIMATE SYSTEM');
 			$this->email->to('6280ikiad@gmail.com');
