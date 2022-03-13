@@ -83,6 +83,7 @@ class Top extends CI_Controller {
 			$query = $request['area'];
 			$query = urlencode($query);
 			$url = "http://www.geocoding.jp/api/";
+			die("ok.");
 			$url.= "?v=1.1&q=".$query;
 			$line='';
 			$fp = fopen($url, "r");
@@ -90,9 +91,7 @@ class Top extends CI_Controller {
 			$line.= fgets($fp);
 			}
 			fclose($fp);
-			die('ok.');
 			$xml = simplexml_load_string($line);
-			die("ok.");
 			$lon = $xml->coordinate->lng;
 			$lat = $xml->coordinate->lat;
 			echo('rest_success.lat:');
