@@ -73,9 +73,6 @@ class Top extends CI_Controller {
 			'wind_speed'=>0,
 			'wind_direction'=>'指定なし'
 		];
-		echo("Request:");
-		var_dump($request);
-		echo('\\n');
 
 		// 検索地点の緯度経度を求める
 		if($rest_flag)
@@ -86,12 +83,12 @@ class Top extends CI_Controller {
 			$url.= "?v=1.1&q=".$query;
 			$line='';
 			$fp = fopen($url, "r");
-			var_dump($fp);
-			exit;
 			while(!feof($fp)) {
-			$line.= fgets($fp);
+				$line.= fgets($fp);
 			}
 			fclose($fp);
+			var_dump($line);
+			exit;
 			$xml = simplexml_load_string($line);
 			$lon = $xml->coordinate->lng;
 			$lat = $xml->coordinate->lat;
