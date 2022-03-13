@@ -86,8 +86,9 @@ class Top extends CI_Controller {
 			$url.= "?v=1.1&q=".$query;
 			$line='';
 			$fp = fopen($url, "r");
-			die("ok.");
 			while(!feof($fp)) {
+				die("ok2.");
+
 			$line.= fgets($fp);
 			}
 			fclose($fp);
