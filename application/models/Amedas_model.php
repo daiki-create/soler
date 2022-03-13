@@ -9,7 +9,7 @@ class Amedas_model extends CI_Model
         $this->load->model('tables/Amedas_stations_tbl');
     }
 
-    public function scrapingCurrentAmedas($batch_sise, $start_index)
+    public function scrapingCurrentAmedas($start_index, $batch_sise)
     {
         // 配列の初期化
         $amedas_data_array = [];
