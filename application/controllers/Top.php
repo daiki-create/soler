@@ -98,8 +98,8 @@ class Top extends CI_Controller {
 			echo('\\n');
 		}
         else{
-			$lon = 136;
-			$lat = 37;
+			$lon = 145.581;
+			$lat = 38.5;
 		}
 
 		$amedas_data_array = $this->Amedas_model->getAmedas($request, $lon, $lat);
