@@ -103,13 +103,12 @@ class Top extends CI_Controller {
 			// }
 			// fclose($fp);
 
-			$context = stream_context_create([
-				'ssl' => [
-					'verify_peer'      => false,
-					'verify_peer_name' => false
-				]
-			]);
-			$content = file_get_contents($url, false, $context);
+			$options = array('http' => array(
+				'method' => 'POST',
+				'content' => $data,
+				'header' => implode("\r\n", $header ),
+			  ));
+			$content = file_get_contents($url, false, $options);
 			$rows = explode("\n", $content);
 			foreach ($rows as $row) {
 				$line.= $row;
