@@ -40,7 +40,7 @@ class Scraping extends CI_Controller {
 			// ② それ以外・・開始インデックス+=170、バッチNo.+=1
 			else{
 				$next_date = $date;
-				$next_start_index = $start_index + 170;
+				$next_start_index = $start_index + 163;
 				$next_batch_no = $batch_no + 1;
 			}
 			$data = $next_date.",".$next_start_index.",".$next_batch_no;
@@ -70,8 +70,6 @@ class Scraping extends CI_Controller {
 	{
 		// if ( is_cli() ) 
 		{
-			// return TRUE;
-			return FALSE;
 			log_message('debug', 'scraping current_amedas start.');
 
 			// 気象庁の過去のデータをスクレイピング
