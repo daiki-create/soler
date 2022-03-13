@@ -22,33 +22,16 @@ class Top extends CI_Controller {
 		$request = json_decode(file_get_contents("php://input"), true);
 
 		// 検索地点の緯度経度を求める
-        $query = $request['area'];
-        $query = urlencode($query);
-        $url = "https://www.geocoding.jp/api/";
-        $url.= "?v=1.1&q=".$query;
-        $line='';
+        mb_language("Japanese");//文字コードの設定
+		mb_internal_encoding("UTF-8");
 
-        // $fp = fopen($url, "r");
-        // while(!feof($fp)) {
-        // $line.= fgets($fp);
-        // }
-        // fclose($fp);
-
-		 $context = stream_context_create([
-            'ssl' => [
-                'verify_peer'      => false,
-                'verify_peer_name' => false
-            ]
-        ]);
-		$content = file_get_contents($url, false, $context);
-		$rows = explode("\n", $content);
-		foreach ($rows as $row) {
-			$line.= $row;
-		}
-
-        $xml = simplexml_load_string($line);
-        $lon = $xml->coordinate->lng;
-        $lat = $xml->coordinate->lat;
+		$myKey = "AIzaSyD9JxYPovcgDD23Cr4H7iDJvAeZQB9j66w";
+		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($request['area']) . "+CA&key=" . $myKey ;
+		$contents= file_get_contents($url);
+		$jsonData = json_decode($contents,true);
+		
+		$lat = $jsonData["results"][0]["geometry"]["location"]["lat"];
+		$lon = $jsonData["results"][0]["geometry"]["location"]["lng"];
 
 		// 条件に一致するアメダスデータを取得
 		$amedas_data_array = $this->Amedas_model->getAmedas($request, $lon, $lat);
@@ -91,55 +74,19 @@ class Top extends CI_Controller {
 		// 検索地点の緯度経度を求める
 		if($rest_flag)
 		{
-			$query = $request['area'];
-			$query = urlencode($query);
-			$url = "http://www.geocoding.jp/api/";
-			$url.= "?v=1.1&q=".$query;
-			$line='';
+			mb_language("Japanese");//文字コードの設定
+			mb_internal_encoding("UTF-8");
 
-			// $fp = fopen($url, "r");
-			// while(!feof($fp)) {
-			// 	$line.= fgets($fp);
-			// }
-			// fclose($fp);
-
-			// $context = stream_context_create([
-			// 	'ssl' => [
-			// 		'verify_peer'      => false,
-			// 		'verify_peer_name' => false
-			// 	]
-			// ]);
-			// $content = file_get_contents($url, false, $context);
-			// $rows = explode("\n", $content);
-			// foreach ($rows as $row) {
-			// 	$line.= $row;
-			// }
-			// echo("line");
-			// var_dump($line);
-			// exit;
-
-			// $json = file_get_contents($url, true, $context);
-			// var_dump($json);
-			// exit;
+			$myKey = "AIzaSyD9JxYPovcgDD23Cr4H7iDJvAeZQB9j66w";
+			$url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($request['area']) . "+CA&key=" . $myKey ;
+			$contents= file_get_contents($url);
+			$jsonData = json_decode($contents,true);
 			
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_HEADER, false);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-			$json = curl_exec($ch);
-			curl_close($ch);
-			var_dump($json);
+			$lat = $jsonData["results"][0]["geometry"]["location"]["lat"];
+			$lng = $jsonData["results"][0]["geometry"]["location"]["lng"];
+			print("lat=$lat\n");
+			print("lng=$lng\n");
 			exit;
-
-			$xml = simplexml_load_string($line);
-			var_dump($xml);
-			exit;
-			$lon = $xml->coordinate->lng;
-			$lat = $xml->coordinate->lat;
-			echo('rest_success.lat:');
-			echo($lat);
-			echo('\\n');
 		}
         else{
 			$lon = "145.581";
