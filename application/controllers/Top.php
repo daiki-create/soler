@@ -76,23 +76,25 @@ class Top extends CI_Controller {
 		var_dump($request);
 
 		// 検索地点の緯度経度を求める
-        $query = $request['area'];
-        $query = urlencode($query);
-        $url = "http://www.geocoding.jp/api/";
-        $url.= "?v=1.1&q=".$query;
-        $line='';
-        $fp = fopen($url, "r");
-        while(!feof($fp)) {
-        $line.= fgets($fp);
-        }
-        fclose($fp);
-        $xml = simplexml_load_string($line);
-        $lon = $xml->coordinate->lng;
-        $lat = $xml->coordinate->lat;
+        // $query = $request['area'];
+        // $query = urlencode($query);
+        // $url = "http://www.geocoding.jp/api/";
+        // $url.= "?v=1.1&q=".$query;
+        // $line='';
+        // $fp = fopen($url, "r");
+        // while(!feof($fp)) {
+        // $line.= fgets($fp);
+        // }
+        // fclose($fp);
+        // $xml = simplexml_load_string($line);
+        // $lon = $xml->coordinate->lng;
+        // $lat = $xml->coordinate->lat;
+		$lon = 140;
+		$lat = 40;
 
-		echo("検索地点緯度：");
-		var_dump($lon);
-		exit;
+		// echo("検索地点緯度：");
+		// var_dump($lon);
+		// exit;
 
 		echo('アメダス取得開始');
 		$amedas_data_array = $this->Amedas_model->getAmedas($request, $lon, $lat);
