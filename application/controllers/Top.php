@@ -114,7 +114,8 @@ class Top extends CI_Controller {
 			foreach ($rows as $row) {
 				$line.= $row;
 			}
-			
+			var_dump($line);
+			exit;
 			
 			// $ch = curl_init();
 			// curl_setopt($ch, CURLOPT_URL, $url);
