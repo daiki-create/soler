@@ -22,19 +22,21 @@ class Top extends CI_Controller {
 		$request = json_decode(file_get_contents("php://input"), true);
 
 		// 検索地点の緯度経度を求める
-        $query = $request['area'];
-        $query = urlencode($query);
-        $url = "http://www.geocoding.jp/api/";
-        $url.= "?v=1.1&q=".$query;
-        $line='';
-        $fp = fopen($url, "r");
-        while(!feof($fp)) {
-        $line.= fgets($fp);
-        }
-        fclose($fp);
-        $xml = simplexml_load_string($line);
-        $lon = $xml->coordinate->lng;
-        $lat = $xml->coordinate->lat;
+        // $query = $request['area'];
+        // $query = urlencode($query);
+        // $url = "http://www.geocoding.jp/api/";
+        // $url.= "?v=1.1&q=".$query;
+        // $line='';
+        // $fp = fopen($url, "r");
+        // while(!feof($fp)) {
+        // $line.= fgets($fp);
+        // }
+        // fclose($fp);
+        // $xml = simplexml_load_string($line);
+        // $lon = $xml->coordinate->lng;
+        // $lat = $xml->coordinate->lat;
+		$lon = 145.581;
+		$lat = 38.5;
 
 		// 条件に一致するアメダスデータを取得
 		$amedas_data_array = $this->Amedas_model->getAmedas($request, $lon, $lat);
