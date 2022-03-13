@@ -78,7 +78,7 @@ class Top extends CI_Controller {
 		// 検索地点の緯度経度を求める
         $query = $request['area'];
         $query = urlencode($query);
-        $url = "https://www.geocoding.jp/api/";
+        $url = "http://www.geocoding.jp/api/";
         $url.= "?v=1.1&q=".$query;
         $line='';
         $fp = fopen($url, "r");
