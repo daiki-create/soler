@@ -100,7 +100,7 @@ class Top extends CI_Controller {
 			echo('\\n');
 		}
         else{
-			$lon = "145.581";
+			$lon = "149";
 			$lat = "38.5";
 		}
 
