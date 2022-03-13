@@ -5,6 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="Keywords" content="気象庁,過去の雷観測,雷観測" />
     <meta name="Description" content="過去のアメダス・ライデンデータを検索できます。" />
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1"> -->
+
     <link rel="icon" href="<?php echo $this->config->item('base_url') ?>/img/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="<?php echo $this->config->item('base_url') ?>/img/favicon.ico" type="img/x-icon" />
     <link href="<?php echo $this->config->item('base_url') ?>/css/top/index.css" rel="stylesheet">
@@ -42,7 +44,7 @@
                     </select>
 
                     <div v-if="isActiveSelect">
-                        <select id="area_select_prefecture" class="">
+                        <select id="area_select_prefecture" class="" required>
                             <option value="">都道府県を選択</option>
                         </select>
                         <select id="area_select_city" class="">
@@ -51,7 +53,7 @@
                     </div>
 
                     <div v-if="isActiveManual">
-                        <input id="area_manual" type="text">
+                        <input id="area_manual" type="text" required>
                     </div>
                 </div>
 
@@ -78,10 +80,10 @@
                 <div id="term">
                     <label class="font-weight-bold" for="">期間</label>
                     <div>
-                        <input id="start_date" type="date">
+                        <input id="start_date" type="date" required>
                     </div>～
                     <div>
-                        <input id="end_date" type="date">
+                        <input id="end_date" type="date" required>
                     </div>
                 </div>
 

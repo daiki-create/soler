@@ -29,37 +29,50 @@ header h2{
     color: white;
     line-height: 5rem;
     text-align: center;
+    font-size: 1.5rem;
 }
 
 #main{
     margin: auto;
     width: 920px;
+    max-width: 98%;
 }
 
 /* 検索フォーム */
 #main #form{
     background-color: lightgray;
-    padding: 2rem 3rem;
+    padding: 2rem 2rem;
     margin: 2rem 0 3rem 0;
     border-radius: 0.5rem;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 #main #form form{
-    width: 80%;
+    width: 95%;
     margin: auto;
 }
 #main #form input{
-    font-size: 1.0rem;
+    font-size: 1.2rem;
+    height: 2.4rem;
 }
 #main #form select{
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    height: 2.4rem;
 }
-
+#main #form #area select{
+    width: 25rem;
+}
 #main #form #area>select{
-    margin-bottom: 0.5rem;
+    width: 17rem;
+    margin-bottom: 1.5rem;
+}
+#main #form #area input{
+    width: 40rem;
 }
 #main #form #term{
-    margin: 1rem 0 0 0;
+    margin: 2rem 0 0 0;
+}
+#main #form #term input{
+    width: 20rem;
 }
 #main #form #term div{
     display: inline-block;
@@ -71,7 +84,7 @@ header h2{
 #main #form #wind_speed,
 #main #form #wind_direction{
     display: inline-block;
-    margin: 1.0rem 0 0 0;
+    margin: 2rem 0 0 0;
 }
 #main #form #search_button{
     margin: 3rem 0 0 0;
@@ -84,8 +97,8 @@ header h2{
     color: white;
     padding: 0.3rem;
     font-weight: 900;
-    font-size: 1.2rem;
-    width: 4.8rem;
+    font-size: 1.6rem;
+    width: 7rem;
 }
 #loading{
     margin: 0;
@@ -111,6 +124,7 @@ header h2{
 /* マップ */
 #map{
     margin: 0.5rem auto 0 auto;
+    max-width: 100%;
 }
 
 /* テーブル */
@@ -143,6 +157,65 @@ th, td{
     color: white;
     padding: 0.5rem;
     font-weight: 900;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     width: auto;
 }
+
+/* viewportを使わない場合 */
+/* 
+@media screen and (max-width:720px)
+{
+    #main #form form{
+        width: 100% !important;
+        margin: 0 !important;
+        font-size: 0.9rem;
+    }
+    #main #form input{
+        font-size: 0.8rem;
+    }
+    #main #form select{
+        font-size: 1.0rem;
+    }
+    #main #form #term{
+        white-space: nowrap;
+    }
+    #main #form #search_button button{
+        font-size: 1.0rem;
+    }
+}
+@media screen and (max-width:576px)
+{
+    #main #form{
+        padding: 1rem 1rem;
+        font-size: 0.8rem;
+    }
+    #main #form input{
+        font-size: 0.7rem;
+    }
+    #main #form select{
+        font-size: 0.9rem;
+    }
+    #main #form #term div{
+        padding-right: 0.3rem;
+        padding-left: 0.3rem;
+    }
+    #main #form #term input{
+        width: 7rem;
+    }
+}
+@media screen and (max-width:400px)
+{
+    #main #form{
+        padding: 1rem 0.9rem;
+        font-size: 0.7rem;
+    }
+    #main #form input{
+        font-size: 0.6rem;
+    }
+    #main #form select{
+        font-size: 0.8rem;
+    }
+    #main #form #term input{
+        width: 6rem;
+    }
+} */

@@ -114,6 +114,7 @@ function getData() {
   {
     var area = document.getElementById("area_manual").value
   }
+  console.log(area)
   var data = {
     "area": area,
     "start_date": document.getElementById("start_date").value,
@@ -248,7 +249,7 @@ function getData() {
         else 
         {
           console.log("state 4 but error.")
-          document.getElementById("loading").textContent = "サーバエラー"
+          document.getElementById("loading").textContent = "該当する検索結果は見つかりませんでした。"
         }
       } 
       else 
