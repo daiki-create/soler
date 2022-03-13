@@ -83,10 +83,10 @@ class Top extends CI_Controller {
 			$query = $request['area'];
 			$query = urlencode($query);
 			$url = "http://www.geocoding.jp/api/";
-			die("ok.");
 			$url.= "?v=1.1&q=".$query;
 			$line='';
 			$fp = fopen($url, "r");
+			die("ok.");
 			while(!feof($fp)) {
 			$line.= fgets($fp);
 			}
