@@ -59,7 +59,9 @@ class Scraping extends CI_Controller {
 			$this->email->from('info@weather-info-ss.com/', 'CLIMATE SYSTEM');
 			$this->email->to('6280ikiad@gmail.com');
 			$this->email->subject('アメダスデータスクレイピング失敗');
-			$this->email->message('日付：'.$date.'\n開始インデックス：'.$start_index.'\nバッチNo：'.$batch_no);
+			$this->email->message('日付：'.$date.
+									'開始インデックス：'.$start_index.
+									'バッチNo：'.$batch_no);
 			$this->email->send();
 			echo('cron FAILED.');
 			log_message('debug', 'cron FAILED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
