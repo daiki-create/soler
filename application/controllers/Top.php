@@ -93,7 +93,7 @@ class Top extends CI_Controller {
 		{
 			$query = $request['area'];
 			$query = urlencode($query);
-			$url = "https://www.geocoding.jp/api/";
+			$url = "http://www.geocoding.jp/api/";
 			$url.= "?v=1.1&q=".$query;
 			$line='';
 
