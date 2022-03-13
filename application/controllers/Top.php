@@ -89,11 +89,18 @@ class Top extends CI_Controller {
         $lon = $xml->coordinate->lng;
         $lat = $xml->coordinate->lat;
 
+		var_dump($lon);
+
+		echo('アメダス取得開始');
 		$amedas_data_array = $this->Amedas_model->getAmedas($request, $lon, $lat);
+		echo('アメダス取得終了');
+
 		// 検索地点付近の指定期間内の落雷データを取得
 		if($request['thander'] !='なし')
 		{
+			echo('ライデン取得開始');
 			$liden_data_array = $this->Liden_model->getLiden($request, $lon, $lat);
+			echo('ライデン取得終了');
 		}
 		else
 		{
