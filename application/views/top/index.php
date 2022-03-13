@@ -168,7 +168,7 @@
 
     
 
-    <script src="<?php echo $this->config->item('base_url') ?>/js/top/index.js"></script>
+    <script src="<?php echo $this->config->item('base_url') ?>/js/top/index220313.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe4LhatUzrIC8RXsPyCnDUx9s2p9L3rSQ" async defer></script>
 
 </body>
