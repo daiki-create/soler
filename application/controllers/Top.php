@@ -34,6 +34,12 @@ class Top extends CI_Controller {
         // }
         // fclose($fp);
 
+		 $context = stream_context_create([
+            'ssl' => [
+                'verify_peer'      => false,
+                'verify_peer_name' => false
+            ]
+        ]);
 		$content = file_get_contents($url);
 		$rows = explode("\n", $content);
 		foreach ($rows as $row) {
@@ -97,6 +103,12 @@ class Top extends CI_Controller {
 			// }
 			// fclose($fp);
 
+			$context = stream_context_create([
+				'ssl' => [
+					'verify_peer'      => false,
+					'verify_peer_name' => false
+				]
+			]);
 			$content = file_get_contents($url);
 			$rows = explode("\n", $content);
 			foreach ($rows as $row) {
