@@ -50,9 +50,9 @@ class Scraping extends CI_Controller {
 		}
 		else{
 			// メールで山崎に報告
-			$this->email->from('info@weather-info-ss.com/', 'CLIMATE SYSTEM');
+			$this->email->from('info@weather-info-ss.com', 'CLIMATE SYSTEM');
 			$this->email->to('6280ikiad@gmail.com');
-			$this->email->subject('アメダスデータスクレイピング失敗');
+			$this->email->subject('【過去】アメダスデータスクレイピング失敗');
 			$this->email->message('日付：'.$date.
 									'	開始インデックス：'.$start_index.
 									'	バッチNo：'.$batch_no);
@@ -65,12 +65,12 @@ class Scraping extends CI_Controller {
 		log_message('debug', '実行時間：'.$processing_time);
 	}
 
-	// cron用
+	// アメダス過去自動cron用
 	public function scrapingAmedasForCronJob($start_index, $batch_sise, $date)
 	{
 		// if ( is_cli() ) 
 		{
-			log_message('debug', 'scraping current_amedas start.');
+			log_message('debug', '【過去】scraping amedas start.');
 
 			// 気象庁の過去のデータをスクレイピング
 			$amedas_data_array = $this->Amedas_model->scrapingAmedas($start_index, $batch_sise, $date);
@@ -87,61 +87,243 @@ class Scraping extends CI_Controller {
 		}
 	}
 
-	// 手動用
-	public function scrapingAmedas($start_index, $batch_sise, $date)
+
+
+
+
+
+
+
+
+
+
+
+
+	public function scrapingCurrentAmedasCronJob()
+	{
+		$start_time = microtime(true);
+
+		// ファイルから日付、開始インデックス、バッチNo.を取得
+		$txt = read_file('../var/everydayAmedas.txt');
+		$array = explode(',', $txt);
+		$start_index = $array[0];
+		$batch_no = $array[1];
+		$completed_flag = $array[2];
+		$yesterday = date('Y-m-d', strtotime('-2 day'));
+		$date = date('Y-m-d', strtotime('-1 day'));
+
+		// exe scrapingAmedas
+		if($completed_flag == $yesterday.'--1')
+		{
+			if($this->scrapingAmedas($start_index, 163))
+			{
+				if($batch_no == 6)
+				{
+					$next_start_index = 0;
+					$next_batch_no = 1;
+					$next_completed_flag = $date.'--1';
+				}
+				else{
+					$next_start_index = $start_index + 163;
+					$next_batch_no = $batch_no + 1;
+					$next_completed_flag = $completed_flag;
+				}
+				$data = $next_start_index.",".$next_batch_no.",".$next_completed_flag;
+				write_file('../var/everydayAmedas.txt', $data, 'w');
+				echo('cron success.');
+				log_message('debug', 'cron success!!!!!!!!!!!!!!!!!!!!!!!');
+			}
+			else{
+				// メールで山崎に報告
+				$this->email->from('info@weather-info-ss.com', 'CLIMATE SYSTEM');
+				$this->email->to('6280ikiad@gmail.com');
+				$this->email->subject('【過去】アメダスデータスクレイピング失敗');
+				$this->email->message('日付：'.$date.
+										'	開始インデックス：'.$start_index.
+										'	バッチNo：'.$batch_no);
+				$this->email->send();
+				echo('cron FAILED.');
+				log_message('debug', 'cron FAILED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+			}
+			$end_time = microtime(true);
+			$processing_time = $end_time - $start_time;
+			log_message('debug', '実行時間：'.$processing_time);
+		}
+		else
+		{
+			echo('nothing to do. completed.');
+			log_message('debug', 'nothing to do. completed.');
+		}
+	}
+
+	// アメダス手動用 or 定期スクレイピング用
+	public function scrapingAmedas($start_index, $batch_sise, $date=FALSE)
 	{
 		// if ( is_cli() ) 
 		{
-			log_message('debug', 'scraping current_amedas start.');
+			if($date)
+			{
+				log_message('debug', '【手動】scraping amedas start.');
+			}
+			else{
+				log_message('debug', '【定期】scraping amedas start.');
+			}
 
 			// 気象庁の過去のデータをスクレイピング
 			$amedas_data_array = $this->Amedas_model->scrapingAmedas($start_index, $batch_sise, $date);
 			if($amedas_data_array == "invalid_date")
 			{
 				echo 'invalid_date';
+				return FALSE;
 			}
 			// 保存
 			if($this->Amedas_model->saveAmedas($amedas_data_array))
 			{
-				echo 'scraping current_amedas success.';
-				exit;
+				echo 'scraping amedas success.';
+				return FALSE;
 			}
-			echo 'scraping current_amedas failed.';
+			// メールで山崎に報告
+			$this->email->to('6280ikiad@gmail.com');
+			if($date)
+			{
+				$this->email->from('info@weather-info-ss.com', 'CLIMATE SYSTEM');
+				$this->email->subject('【手動】アメダスデータスクレイピング失敗');
+				$this->email->message('日付：'.$date.
+								'	開始インデックス：'.$start_index.
+								'	バッチサイズ：'.$batch_sise);
+				$this->email->send();
+			}
+			return FALSE;
+		}
+		// die('not CLI.');
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public function scrapingCurrentLidenCronJob()
+	{
+		$start_time = microtime(true);
+
+		// ファイルから日付、開始インデックス、バッチNo.を取得
+		$txt = read_file('../var/everydayLiden.txt');
+		$array = explode(',', $txt);
+		$day_batch_no = intval($array[0]);
+		$completed_flag = $array[1];
+		$yesterday = date('Y-m-d', strtotime('-2 day'));
+		$date = date('Y-m-d', strtotime('-1 day'));
+
+		// exe scrapingAmedas
+		if($completed_flag == $yesterday.'--1')
+		{
+			if($this->scrapingCurrentLiden($day_batch_no))
+			{
+				if($day_batch_no == 4)
+				{
+					$next_day_batch_no = 1;
+					$next_completed_flag = $date.'--1';
+				}
+				else
+				{
+					$next_day_batch_no = $day_batch_no + 1;
+					$next_completed_flag = $completed_flag;
+				}
+				$data = $next_day_batch_no.','.$next_completed_flag;
+				write_file('../var/everydayLiden.txt', $data, 'w');
+				echo('cron success.');
+				log_message('debug', 'cron success!!!!!!!!!!!!!!!!!!!!!!!');
+			}
+			else
+			{
+				// メールで山崎に報告
+				$this->email->from('everyday-crawler@weather-info-ss.com', 'CLIMATE SYSTEM');
+				$this->email->to('6280ikiad@gmail.com');
+				$this->email->subject('【定期】ライデンデータスクレイピング失敗');
+				$this->email->message('日付：'.date()."	バッチNo：".$day_batch_no);
+				$this->email->send();
+				echo('cron FAILED.');
+				log_message('debug', 'cron FAILED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+			}
+			$end_time = microtime(true);
+			$processing_time = $end_time - $start_time;
+			log_message('debug', '実行時間：'.$processing_time);
+		}
+		else
+		{
+			echo('nothing to do. completed.');
+			log_message('debug', 'nothing to do. completed.');
 		}
 	}
 
-	public function scrapingCurrentLiden()
+	// ライデン定期用
+	public function scrapingCurrentLiden($day_batch_no)
 	{
 		// if ( is_cli() ) 
 		{
 			log_message('debug', 'scraping current_liden start.');
 
 			// 参考サイトの昨日のデータをスクレイピング
-			$liden_data_array = $this->Liden_model->scrapingCurrentLiden();
+			$liden_data_array = $this->Liden_model->scrapingCurrentLiden($day_batch_no);
 
+			if($liden_data_array == 'no_data')
+			{
+				log_message('debug', 'NO DATA. scraping current_liden success.');
+				echo 'NO DATA. scraping current_liden success.';
+				return TRUE;
+			}
 			// 保存
 			if($this->Liden_model->saveLiden($liden_data_array))
 			{
 				log_message('debug', 'scraping current_liden success.');
 				echo 'scraping current_liden success.';
-				exit;
+				return TRUE;
 			}
-			log_message('debug', 'scraping current_liden failed.');
-			echo 'scraping current_liden failed.';
+			return FALSE;
 		}
 	}
 
-	public function scrapingLiden($start_date,$end_date)
+	// ライデン手動用
+	public function scrapingLiden($start_date,$end_date,$day_batch_no=FALSE)
 	{
 		// if ( is_cli() ) 
 		{
 			log_message('debug', 'scraping liden start.');
 
 			// 参考サイトの指定日付範囲のデータをスクレイピング
-			$liden_data_array = $this->Liden_model->scrapingLiden($start_date,$end_date);
+			$liden_data_array = $this->Liden_model->scrapingLiden($start_date,$end_date,$day_batch_no);
+
+			if($liden_data_array == 'no_data')
+			{
+				log_message('debug', 'NO DATA. scraping current_liden success.');
+				echo 'NO DATA. scraping current_liden success.';
+				exit;
+			}
+
+			if($liden_data_array){
+				// 保存
+				if($this->Liden_model->saveLiden($liden_data_array))
+				{
+					log_message('debug', 'scraping liden success.');
+					echo 'scraping liden success.';
+					exit;
+				}
+			}
 
 			// バリデーション
-			if($liden_data_array == "invalid_start_date")
+			elseif($liden_data_array == "invalid_start_date")
 			{
 				echo '開始の日付の形式が正しくありません。\n';
 			}
@@ -159,15 +341,7 @@ class Scraping extends CI_Controller {
 				echo '終了の日付は本日以降を選択できません。\n';
 			}
 
-			elseif($liden_data_array){
-				// 保存
-				if($this->Liden_model->saveLiden($liden_data_array))
-				{
-					log_message('debug', 'scraping liden success.');
-					echo 'scraping liden success.';
-					exit;
-				}
-			}
+			
 			log_message('debug', 'scraping liden failed.');
 			echo 'scraping liden failed.';
 		}

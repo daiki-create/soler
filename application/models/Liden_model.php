@@ -8,7 +8,7 @@ class Liden_model extends CI_Model
         $this->load->model('tables/Liden_tbl');
     }
 
-    public function scrapingCurrentLiden()
+    public function scrapingCurrentLiden($day_batch_no)
     {
         // 配列の初期化
         $liden_data_array = [];
@@ -17,6 +17,7 @@ class Liden_model extends CI_Model
         $year = date('Y', strtotime('-1 day'));
         $month = date('m', strtotime('-1 day'));
         $day = date('d', strtotime('-1 day'));
+        $hour = 6 * $day_batch_no;
 
         // 落雷データの取得
         $context = stream_context_create([
@@ -25,7 +26,7 @@ class Liden_model extends CI_Model
                 'verify_peer_name' => false
             ]
         ]);
-        $html = file_get_contents("https://weather.kakutyoutakaki.com/thander/index.php?year=".$year."&month=".$month."&day=".$day."&hour=24&min=0&kikan=24", false, $context);
+        $html = file_get_contents("https://weather.kakutyoutakaki.com/thander/index.php?year=".$year."&month=".$month."&day=".$day."&hour=".$hour."&min=0&kikan=6", false, $context);
         $dom = phpQuery::newDocument($html);
         $script = $dom->find('script:eq(8)');
         if(preg_match('/var\sstr_json\s=\s\[.*?\];/', $script, $matches))
@@ -51,11 +52,16 @@ class Liden_model extends CI_Model
             var_dump($liden_data);
         }
 
+        if($liden_data_array == [])
+        {
+            return 'no_data';
+        }
+
         // 配列をリターン
         return $liden_data_array;
     }
 
-    public function scrapingLiden($start_date,$end_date)
+    public function scrapingLiden($start_date,$end_date,$day_batch_no)
     {
         // 配列の初期化
         $liden_data_array = [];
@@ -103,8 +109,23 @@ class Liden_model extends CI_Model
             $month = $date_array[1];
             $day = $date_array[2];
 
+            if($day_batch_no)
+            {
+                if($day_batch_no > 4)
+                {
+                    return "invalid day_batch_no";
+                }
+                $hour = 6 * $day_batch_no;
+                $kikan = 6;
+            }  
+            else
+            {
+                $hour = 24;
+                $kikan = 24;
+            }
+
             // 落雷データの取得
-            $html = file_get_contents("https://weather.kakutyoutakaki.com/thander/index.php?year=".$year."&month=".$month."&day=".$day."&hour=24&min=0&kikan=24", false, $context);
+            $html = file_get_contents("https://weather.kakutyoutakaki.com/thander/index.php?year=".$year."&month=".$month."&day=".$day."&hour=".$hour."&min=0&kikan=".$kikan, false, $context);
             $dom = phpQuery::newDocument($html);
             $script = $dom->find('script:eq(8)');
             if(preg_match('/var\sstr_json\s=\s\[.*?\];/', $script, $matches))
@@ -153,7 +174,10 @@ class Liden_model extends CI_Model
             }
                 
         }
-
+        if($liden_data_array == [])
+        {
+            return 'no_data';
+        }
         // 配列をリターン
         return $liden_data_array;
     }
