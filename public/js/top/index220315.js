@@ -148,7 +148,7 @@ function getData() {
           // 地図出力
           if(result.liden_data_array != "no_thander")
           {
-            document.getElementById("liden-result-msg").textContent = "2020年10月3日以降の落雷データ："+result.liden_data_array.length+"件"
+            document.getElementById("liden-result-msg").textContent = "落雷データ(2020年10月3日以降)："+result.liden_data_array.length+"件"
             document.getElementById("map").style.width = "800px"
             document.getElementById("map").style.height = "800px"
             document.getElementById("map-title").textContent = data.area+"の"+data.start_date+"～"+data.end_date+"の天気情報"
