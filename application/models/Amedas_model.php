@@ -6,6 +6,7 @@ class Amedas_model extends CI_Model
     {
         $this->load->helper('phpquery');
         $this->load->model('tables/Amedas_tbl');
+        $this->load->model('tables/Liden_tbl');
         $this->load->model('tables/Amedas_stations_tbl');
     }
 
@@ -155,40 +156,120 @@ class Amedas_model extends CI_Model
         $start_date = $request['start_date'];
         $end_date = $request['end_date'];
 
+        $date_array_with_thander_b_liden = [];
+        $date_array_without_thander_b_liden = [];
+        $date_array_with_thander_a_liden = [];
+        $date_array_without_thander_a_liden = [];
+
+        
         // 落雷指定があるとき、同一県内の都市の観測所データから落雷の有無を取得
         if($request['thander'] != '指定なし')
         {
-            // 同一県内の都市の観測所を取得
-            $stations = $this->Amedas_stations_tbl->getCapitalAmedasStationsFromSamePrefecture($prec_no);
-            $block_no_array = [];
-            foreach($stations as $station)
+            // 開始日～終了日の配列
+            $start = strtotime($start_date);
+            $end = strtotime($end_date);
+            // 1日の秒数
+            $sec = 60 * 60 * 24;// 60秒 × 60分 × 24時間
+            // 日付取得
+            $key = 0;
+            for ($i = $start ; $i <= $end ; $i += $sec) {
+                $dates[$key] = date("Y-m-d", $i);
+                $key ++;
+            }
+            // ---------------------------------------------2020-10-03以降------------------------------------
+            // ライデンデータから落雷のありorなしの日付を取得
+            if($start_date >= '2020-10-03' || in_array('2020-10-03', $dates))
             {
-                array_push($block_no_array, $station->block_no);
+                $start_date_a_liden = $start_date < '2020-10-03' ? '2020-10-03' : $start_date;
+                $end_date_a_liden = $end_date;
+                $start = strtotime($start_date_a_liden);
+                $end = strtotime($end_date_a_liden);
+                // 日付取得
+                $key = 0;
+                for ($i = $start ; $i <= $end ; $i += $sec) {
+                    $dates_a_liden[$key] = date("Y-m-d", $i);
+                    $key ++;
+                }
+
+                $date_array_all =[];
+                $liden_data_array = $this->Liden_tbl->getLidenForAmedas($start_date_a_liden, $start_date_a_liden, $lat, $lon);
+                foreach($liden_data_array as $liden_data)
+                {
+                    array_push($date_array_all, $liden_data->date);
+                }
+                $date_array_with_thander_a_liden = array_unique($date_array_all);
+
+                // 落雷なしの場合
+                if($request['thander'] == 'なし')
+                {
+                    // 開始日～終了日　から　date_array_without_thanderを削除した配列を取得する
+                    $date_array_without_thander_a_liden = array_diff($dates_a_liden, $date_array_with_thander_b_liden);
+                }
             }
 
+            // ---------------------------------------------2020-10-02以前------------------------------------
+            if($end_date <= '2020-10-02' || in_array('2020-10-02', $dates))
+            {
+                $start_date_b_liden = $start_date;
+                $end_date_b_liden = $end_date > '2020-10-02' ? '2020-10-02' : $end_date;
+                $start = strtotime($start_date_b_liden);
+                $end = strtotime($end_date_b_liden);
+                // 日付取得
+                $key = 0;
+                for ($i = $start ; $i <= $end ; $i += $sec) {
+                    $dates_b_liden[$key] = date("Y-m-d", $i);
+                    $key ++;
+                }
+
+                // 同一県内の都市の観測所から落雷のありorなしの日付を取得
+                // 同一県内の都市の観測所を取得
+                $stations = $this->Amedas_stations_tbl->getCapitalAmedasStationsFromSamePrefecture($prec_no);
+                $block_no_array = [];
+                foreach($stations as $station)
+                {
+                    array_push($block_no_array, $station->block_no);
+                }
+
+                $date_array_all =[];
+                $amedas_data_array = $this->Amedas_tbl->getAmedasFromSamePrefectureCapital($prec_no, $block_no_array, $start_date_b_liden, $end_date_b_liden, 1);
+                foreach($amedas_data_array as $amedas_data)
+                {
+                    array_push($date_array_all, $amedas_data->date);
+                }
+                // 県内で落雷のある日  
+                $date_array_with_thander_b_liden = array_unique($date_array_all);
+
+                // 落雷なしの場合
+                if($request['thander'] == 'なし')
+                {
+                    // 県内で落雷の無い日
+                    // 開始日～終了日　から　date_array_without_thanderを削除した配列を取得する
+                    $date_array_without_thander_b_liden = array_diff($dates_b_liden, $date_array_with_thander_b_liden);
+                }
+            }
+            
             // 落雷ありの場合
             if($request['thander'] == 'あり')
             {
-                $amedas_data_array = $this->Amedas_tbl->getAmedasFromSamePrefectureCapital($prec_no, $block_no_array, $start_date, $end_date, 1);
+                $date_array = array_merge($date_array_with_thander_b_liden, $date_array_with_thander_a_liden);
             }
             // 落雷なしの場合
             if($request['thander'] == 'なし')
             {
-                $amedas_data_array = $this->Amedas_tbl->getAmedasFromSamePrefectureCapital($prec_no, $block_no_array, $start_date, $end_date, 0);
+                $date_array = array_merge($date_array_without_thander_b_liden, $date_array_without_thander_a_liden);
             }
-            // 落雷条件を満たす日付を取得
-            $date_array = [];
-            foreach($amedas_data_array as $amedas_data)
+
+            if(!$date_array)
             {
-                array_push($date_array, $amedas_data->date);
+                return [];
             }
-            $date_array = array_unique($date_array);
         }
         else
         {
             $date_array = FALSE;
         }
 
-        return $this->Amedas_tbl->getAmedas($request, $prec_no, $block_no, $date_array);
+        $amedas_data = $this->Amedas_tbl->getAmedas($request, $prec_no, $block_no, $date_array);
+        return $amedas_data;
     }
 }

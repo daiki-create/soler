@@ -44,8 +44,8 @@ class Amedas_tbl extends CI_Model
         ->db
         ->where('prec_no', $prec_no)
         ->where('block_no', $block_no)
-        ->where("pricipitation BETWEEN '0' AND '$pricipitation'")
-        ->where("wind_speed BETWEEN '0' AND '$wind_speed'");
+        ->where('pricipitation >=', $pricipitation)
+        ->where('wind_speed >=', $wind_speed);
 
         if($date_array)
         {

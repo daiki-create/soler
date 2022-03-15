@@ -148,7 +148,7 @@ function getData() {
           // 地図出力
           if(result.liden_data_array != "no_thander")
           {
-            document.getElementById("liden-result-msg").textContent = "落雷データ："+result.liden_data_array.length+"件"
+            document.getElementById("liden-result-msg").textContent = "2020年10月3日以降の落雷データ："+result.liden_data_array.length+"件"
             document.getElementById("map").style.width = "800px"
             document.getElementById("map").style.height = "800px"
             document.getElementById("map-title").textContent = data.area+"の"+data.start_date+"～"+data.end_date+"の天気情報"
@@ -224,25 +224,66 @@ function getData() {
               heading_3.innerHTML = "最大瞬間風速(m/s)";
               var heading_4 = document.createElement('th');
               heading_4.innerHTML = "最大瞬間風速風向";
+              if(data.thander != "指定なし")
+              {
+                var heading_5 = document.createElement('th');
+                heading_5.innerHTML = "落雷";
+              }
               row_1.appendChild(heading_1);
               row_1.appendChild(heading_2);
               row_1.appendChild(heading_3);
               row_1.appendChild(heading_4);
+              if(data.thander != "指定なし")
+              {
+                row_1.appendChild(heading_5);
+              }
               thead.appendChild(row_1);
             }
             var row_2 = document.createElement('tr');
             var row_2_data_1 = document.createElement('td');
+            row_2.appendChild(row_2_data_1);
+
             row_2_data_1.innerHTML = result.amedas_data_array[i].date;
             var row_2_data_2 = document.createElement('td');
+            row_2.appendChild(row_2_data_2);
+
             row_2_data_2.innerHTML = result.amedas_data_array[i].pricipitation;
             var row_2_data_3 = document.createElement('td');
+            row_2.appendChild(row_2_data_3);
+
             row_2_data_3.innerHTML = result.amedas_data_array[i].wind_speed;
             var row_2_data_4 = document.createElement('td');
-            row_2_data_4.innerHTML = result.amedas_data_array[i].wind_direction;
-            row_2.appendChild(row_2_data_1);
-            row_2.appendChild(row_2_data_2);
-            row_2.appendChild(row_2_data_3);
             row_2.appendChild(row_2_data_4);
+
+            row_2_data_4.innerHTML = result.amedas_data_array[i].wind_direction;
+            if(data.thander != "指定なし")
+            {
+              var row_2_data_5 = document.createElement('td');
+              if(data.thander == "あり")
+              {
+                if(result.amedas_data_array[i].date <="2020-10-02")
+                {
+                  result_thander = "県内であり"
+                }
+                else{
+                  result_thander = "あり"
+                }
+              }
+              if(data.thander == "なし")
+              {
+                if(result.amedas_data_array[i].date <="2020-10-02")
+                {
+                  result_thander = "県内で無し"
+                }
+                else{
+                  result_thander = "無し"
+                }
+              }
+              
+              row_2_data_5.innerHTML = result_thander;
+              row_2.appendChild(row_2_data_5);
+            }
+           
             tbody.appendChild(row_2);
           }
         } 

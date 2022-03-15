@@ -42,4 +42,20 @@ class Liden_tbl extends CI_Model
         ->get('liden')
         ->result();
     }
+
+    public function getLidenForAmedas($start_date, $end_date, $lat, $lon)
+    {
+        $left_lon = $lon - 0.3;
+        $right_lon = $lon + 0.3;
+        $bottom_lat = $lat - 0.15;
+        $top_lat = $lat +0.15;
+
+        return $this
+        ->db
+        ->where("lon BETWEEN '$left_lon' AND '$right_lon'")
+        ->where("lat BETWEEN '$bottom_lat' AND '$top_lat'")
+        ->where("date BETWEEN '$start_date' AND '$end_date'")
+        ->get('liden')
+        ->result();
+    }
 }

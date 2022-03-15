@@ -63,9 +63,9 @@ class Top extends CI_Controller {
 		$request = [
 			// 'area'=>'北海道札幌市',
 			'area'=>'東京都世田谷区',
-			'start_date'=>'2021-03-01',
+			'start_date'=>'2020-09-30',
 			'end_date'=>'2022-03-25',
-			'thander'=>'指定なし',
+			'thander'=>'あり',
 			'precipitation'=>0,
 			'wind_speed'=>0,
 			'wind_direction'=>'指定なし'
@@ -83,10 +83,7 @@ class Top extends CI_Controller {
 			$jsonData = json_decode($contents,true);
 			
 			$lat = $jsonData["results"][0]["geometry"]["location"]["lat"];
-			$lng = $jsonData["results"][0]["geometry"]["location"]["lng"];
-			print("lat=$lat\n");
-			print("lng=$lng\n");
-			exit;
+			$lon = $jsonData["results"][0]["geometry"]["location"]["lng"];
 		}
         else{
 			$lon = "145.581";
@@ -102,7 +99,7 @@ class Top extends CI_Controller {
 		if($request['thander'] !='なし')
 		{
 			$liden_data_array = $this->Liden_model->getLiden($request, $lon, $lat);
-			echo("ライデン");
+			echo("ライデン：");
 			var_dump($liden_data_array);
 			echo('\\n');
 		}
@@ -113,9 +110,9 @@ class Top extends CI_Controller {
 
 		$result =[
 			"amedas_data_array" => $amedas_data_array,
-			"liden_data_array" => $liden_data_array,
-			"center_lon" => $lon,
-			"center_lat" => $lat
+			// "liden_data_array" => $liden_data_array,
+			// "center_lon" => $lon,
+			// "center_lat" => $lat
 		];
 		echo("Result");
 		var_dump($result);
