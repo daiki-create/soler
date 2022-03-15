@@ -270,6 +270,7 @@ class Amedas_model extends CI_Model
         }
 
         $amedas_data = $this->Amedas_tbl->getAmedas($request, $prec_no, $block_no, $date_array);
-        return $amedas_data;
+        $amedas_data_unique = array_unique($amedas_data)
+        return $amedas_data_unique;
     }
 }
