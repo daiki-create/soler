@@ -117,7 +117,9 @@ class Scraping extends CI_Controller {
 		$completed_flag = $array[2];
 		$yesterday = date('Y-m-d', strtotime('-2 day'));
 		$date = date('Y-m-d', strtotime('-1 day'));
+		die($completed_flag);
 
+		log_message('debug', $txt);
 		// exe scrapingAmedas
 		if($completed_flag == $yesterday.'--1')
 		{
@@ -232,6 +234,7 @@ class Scraping extends CI_Controller {
 		$yesterday = date('Y-m-d', strtotime('-2 day'));
 		$date = date('Y-m-d', strtotime('-1 day'));
 
+		log_message('debug', $txt);
 		// exe scrapingAmedas
 		if($completed_flag == $yesterday.'--1')
 		{
