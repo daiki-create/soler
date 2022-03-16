@@ -203,7 +203,7 @@ class Amedas_model extends CI_Model
                 if($request['thander'] == 'なし')
                 {
                     // 開始日～終了日　から　date_array_without_thanderを削除した配列を取得する
-                    $date_array_without_thander_a_liden = array_diff($dates_a_liden, $date_array_with_thander_b_liden);
+                    $date_array_without_thander_a_liden = array_diff($dates_a_liden, $date_array_with_thander_a_liden);
                 }
             }
 
