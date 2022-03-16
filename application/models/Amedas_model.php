@@ -65,10 +65,6 @@ class Amedas_model extends CI_Model
             foreach($dom['table:eq(5) tr'] as $row)
             {
                 $i++;
-                if($i < 5)
-                {
-                    continue;
-                }
                 $tr_day = pq($row)->find('td:eq(0)')->text();
                 if($tr_day == $day)
                 {
@@ -94,6 +90,7 @@ class Amedas_model extends CI_Model
                         'wind_direction' => $wind_direction,
                         'date' => $year."-".$month."-".$day
                     ];
+                    
                     break;
                 }
             }
