@@ -192,7 +192,7 @@ class Amedas_model extends CI_Model
                 }
 
                 $date_array_all =[];
-                $liden_data_array = $this->Liden_tbl->getLidenForAmedas($start_date_a_liden, $start_date_a_liden, $lat, $lon);
+                $liden_data_array = $this->Liden_tbl->getLidenForAmedas($start_date_a_liden, $end_date_a_liden, $lat, $lon);
                 foreach($liden_data_array as $liden_data)
                 {
                     array_push($date_array_all, $liden_data->date);
