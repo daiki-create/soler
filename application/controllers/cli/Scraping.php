@@ -22,8 +22,6 @@ class Scraping extends CI_Controller {
 
 		// ファイルから日付、開始インデックス、バッチNo.を取得
 		$date = trim(read_file('../var/amedas'.$batch_no.'.txt'));
-		var_dump($date);
-		exit;
 
 		// exe scrapingAmedas
 		if($this->scrapingAmedasForCronJob(163 * ($batch_no - 1), 163, $date))
