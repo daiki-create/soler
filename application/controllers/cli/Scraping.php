@@ -123,7 +123,7 @@ class Scraping extends CI_Controller {
 		log_message('debug', $yesterday.'--1');
 		log_message('debug', $completed_flag);
 		// exe scrapingAmedas
-		if($completed_flag == $yesterday.'--1')
+		if($completed_flag == String($yesterday).'--1')
 		{
 			if($this->scrapingAmedas($start_index, 163))
 			{
