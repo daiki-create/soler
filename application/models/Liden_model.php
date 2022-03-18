@@ -116,7 +116,14 @@ class Liden_model extends CI_Model
                     return "invalid day_batch_no";
                 }
                 $hour = 6 * $day_batch_no;
-                $kikan = 6;
+                if($month=="07" ||$month=="08" ||$month=="09")
+                {
+                    $kikan = 1;
+                }
+                else
+                {
+                    $kikan = 6;
+                }
             }  
             else
             {
