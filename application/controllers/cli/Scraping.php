@@ -21,7 +21,7 @@ class Scraping extends CI_Controller {
 		$start_time = microtime(true);
 
 		// ファイルから日付、開始インデックス、バッチNo.を取得
-		$date = read_file('../var/amedas'.$batch_no.'.txt');
+		$date = trim(read_file('../var/amedas'.$batch_no.'.txt'));
 		var_dump($date);
 		exit;
 
