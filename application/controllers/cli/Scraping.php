@@ -114,7 +114,7 @@ class Scraping extends CI_Controller {
 		$array = explode(',', $txt);
 		$start_index = $array[0];
 		$batch_no = $array[1];
-		$completed_flag = $array[2];
+		$completed_flag = trim($array[2], ' ');
 		$yesterday = date('Y-m-d', strtotime('-2 day'));
 		$date = date('Y-m-d', strtotime('-1 day'));
 
