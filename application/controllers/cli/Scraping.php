@@ -122,8 +122,7 @@ class Scraping extends CI_Controller {
 		log_message('debug', $date);
 		log_message('debug', $yesterday.'--1');
 		log_message('debug', $completed_flag);
-		var_dump($yesterday.'--1');
-		var_dump($completed_flag);
+		var_dump($batch_no);
 		// exe scrapingAmedas
 		if($completed_flag == $yesterday.'--1')
 		{
