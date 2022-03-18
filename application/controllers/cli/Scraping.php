@@ -117,9 +117,11 @@ class Scraping extends CI_Controller {
 		$completed_flag = $array[2];
 		$yesterday = date('Y-m-d', strtotime('-2 day'));
 		$date = date('Y-m-d', strtotime('-1 day'));
-		die($completed_flag);
 
 		log_message('debug', $txt);
+		log_message('debug', $date);
+		log_message('debug', $yesterday.'--1');
+		log_message('debug', $completed_flag);
 		// exe scrapingAmedas
 		if($completed_flag == $yesterday.'--1')
 		{
@@ -168,7 +170,7 @@ class Scraping extends CI_Controller {
 	public function scrapingAmedas($start_index, $batch_sise, $date=FALSE)
 	{
 		// if ( is_cli() ) 
-		{
+		{return TRUE;
 			if($date)
 			{
 				log_message('debug', '【手動】scraping amedas start.');
@@ -235,6 +237,9 @@ class Scraping extends CI_Controller {
 		$date = date('Y-m-d', strtotime('-1 day'));
 
 		log_message('debug', $txt);
+		log_message('debug', $date);
+		log_message('debug', $yesterday.'--1');
+		log_message('debug', $completed_flag);
 		// exe scrapingAmedas
 		if($completed_flag == $yesterday.'--1')
 		{
@@ -281,7 +286,7 @@ class Scraping extends CI_Controller {
 	public function scrapingCurrentLiden($day_batch_no)
 	{
 		// if ( is_cli() ) 
-		{
+		{return TRUE;
 			log_message('debug', 'scraping current_liden start.');
 
 			// 参考サイトの昨日のデータをスクレイピング
