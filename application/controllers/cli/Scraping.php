@@ -74,6 +74,78 @@ class Scraping extends CI_Controller {
 		}
 	}
 
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public function scrapingLidenCronJob($day_batch_no)
+	{
+		$start_time = microtime(true);
+
+		// ファイルから日付、開始インデックス、バッチNo.を取得
+		$date = trim(read_file('../var/liden/'.$day_batch_no.'.txt'));
+
+		// exe scrapingAmedas
+		if($date >= '2021-07-01')
+		{
+			if($this->scrapingLiden($date, $date, $day_batch_no))
+			{
+				$next_date = date('Y-m-d', strtotime('-1 day', strtotime($date)));
+				write_file('../var/liden/'.$day_batch_no.'.txt', $next_date, 'w');
+				echo('cron success.');
+				log_message('debug', 'cron success!!!!!!!!!!!!!!!!!!!!!!!');
+			}
+			else
+			{
+				// メールで山崎に報告
+				$this->email->from('everyday-crawler@weather-info-ss.com', 'CLIMATE SYSTEM');
+				$this->email->to('6280ikiad@gmail.com');
+				$this->email->subject('【定期】ライデンデータスクレイピング失敗');
+				$this->email->message('日付：'.date()."	バッチNo：".$day_batch_no);
+				$this->email->send();
+				echo('cron FAILED.');
+				log_message('debug', 'cron FAILED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+			}
+			$end_time = microtime(true);
+			$processing_time = $end_time - $start_time;
+			log_message('debug', '実行時間：'.$processing_time);
+		}
+		else
+		{
+			echo('nothing to do. completed.');
+			log_message('debug', 'nothing to do. completed.');
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -304,7 +376,7 @@ class Scraping extends CI_Controller {
 			{
 				log_message('debug', 'NO DATA. scraping current_liden success.');
 				echo 'NO DATA. scraping current_liden success.';
-				exit;
+				return TRUE;
 			}
 
 			if($liden_data_array){
@@ -313,7 +385,7 @@ class Scraping extends CI_Controller {
 				{
 					log_message('debug', 'scraping liden success.');
 					echo 'scraping liden success.';
-					exit;
+					return TRUE;
 				}
 			}
 
@@ -339,6 +411,7 @@ class Scraping extends CI_Controller {
 			
 			log_message('debug', 'scraping liden failed.');
 			echo 'scraping liden failed.';
+			return FALSE;
 		}
 	}
 
