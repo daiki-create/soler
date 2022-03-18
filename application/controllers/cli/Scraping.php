@@ -16,39 +16,22 @@ class Scraping extends CI_Controller {
 	}
 
 	// 1分起きに実行
-	public function scrapingAmedasCronJob()
+	public function scrapingAmedasCronJob($batch_no)
 	{
 		$start_time = microtime(true);
 
 		// ファイルから日付、開始インデックス、バッチNo.を取得
-		$txt = read_file('../var/scrapingAmedasCronJob.txt');
-		$array = explode(',', $txt);
-		$date = $array[0];
-		$start_index = $array[1];
-		$batch_no = $array[2];
+		$date = read_file('../var/amedas'.$batch_no.'.txt');
 
 		// exe scrapingAmedas
-		if($this->scrapingAmedasForCronJob($start_index, 163, $date))
+		if($this->scrapingAmedasForCronJob(163 * ($batch_no - 1), 163, $date))
 		{
-			// ① 現在のバッチNo.が6の場合・・日付を-1day、開始インデックス=0、バッチNo.=1に更新
-			if($batch_no == 6)
-			{
-				$next_date = date('Y-m-d', strtotime('-1 day', strtotime($date)));
-				$next_start_index = 0;
-				$next_batch_no = 1;
-			}
-			// ② それ以外・・開始インデックス+=170、バッチNo.+=1
-			else{
-				$next_date = $date;
-				$next_start_index = $start_index + 163;
-				$next_batch_no = $batch_no + 1;
-			}
-			$data = $next_date.",".$next_start_index.",".$next_batch_no;
-			write_file('../var/scrapingAmedasCronJob.txt', $data, 'w');
+
+			$next_date = date('Y-m-d', strtotime('-1 day', strtotime($date)));
+
+			write_file('../var/amedas'.$batch_no.'.txt', $next_date, 'w');
 			echo('cron success.');
-			log_message('debug', '日付：'.$date.
-			'	開始インデックス：'.$start_index.
-			'	バッチNo：'.$batch_no);
+			log_message('debug', '日付：'.$date);
 			log_message('debug', 'cron success!!!!!!!!!!!!!!!!!!!!!!!');
 		}
 		else{
@@ -56,9 +39,7 @@ class Scraping extends CI_Controller {
 			$this->email->from('info@weather-info-ss.com', 'CLIMATE SYSTEM');
 			$this->email->to('6280ikiad@gmail.com');
 			$this->email->subject('【過去】アメダスデータスクレイピング失敗');
-			$this->email->message('日付：'.$date.
-									'	開始インデックス：'.$start_index.
-									'	バッチNo：'.$batch_no);
+			$this->email->message('日付：'.$date);
 			$this->email->send();
 			log_message('debug', '日付：'.$date.
 			'	開始インデックス：'.$start_index.
