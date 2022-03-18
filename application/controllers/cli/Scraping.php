@@ -31,7 +31,8 @@ class Scraping extends CI_Controller {
 
 			write_file('../var/amedas'.$batch_no.'.txt', $next_date, 'w');
 			echo('cron success.');
-			log_message('debug', '日付：'.$date);
+			log_message('debug', '日付：'.$date.
+			'	バッチNo：'.$batch_no);
 			log_message('debug', 'cron success!!!!!!!!!!!!!!!!!!!!!!!');
 		}
 		else{
@@ -42,7 +43,6 @@ class Scraping extends CI_Controller {
 			$this->email->message('日付：'.$date);
 			$this->email->send();
 			log_message('debug', '日付：'.$date.
-			'	開始インデックス：'.$start_index.
 			'	バッチNo：'.$batch_no);
 			echo('cron FAILED.');
 			log_message('debug', 'cron FAILED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
