@@ -68,6 +68,7 @@ class Amedas_tbl extends CI_Model
 
         return $sql
             ->order_by('date','DESC')
+            ->group_by('date')
             ->get('amedas')
             ->result();
     }
