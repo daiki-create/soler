@@ -154,7 +154,7 @@ function getData() {
             document.getElementById("map-title").textContent = data.area+"の"+data.start_date+"～"+data.end_date+"の天気情報"
             var latlng = new google.maps.LatLng(result.center_lat, result.center_lon);
             var opts = {
-              zoom: 11,
+              zoom: 12,
               center: latlng,
               zoomControl: false,
               mapTypeControl: false,
