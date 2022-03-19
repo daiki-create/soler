@@ -29,8 +29,8 @@ class Liden_tbl extends CI_Model
         $start_date = $request['start_date'];
         $end_date = $request['end_date'];
 
-        $left_lon = $lon - 0.138;
-        $right_lon = $lon + 0.138;
+        $left_lon = $lon - 0.069;
+        $right_lon = $lon + 0.069;
         $bottom_lat = $lat - 0.0565;
         $top_lat = $lat +0.0565;
 
@@ -45,8 +45,8 @@ class Liden_tbl extends CI_Model
 
     public function getLidenForAmedas($start_date, $end_date, $lat, $lon)
     {
-        $left_lon = $lon - 0.138;
-        $right_lon = $lon + 0.138;
+        $left_lon = $lon - 0.069;
+        $right_lon = $lon + 0.069;
         $bottom_lat = $lat - 0.0565;
         $top_lat = $lat +0.0565;
 
