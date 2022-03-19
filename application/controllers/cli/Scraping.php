@@ -40,7 +40,8 @@ class Scraping extends CI_Controller {
 			$this->email->from('info@weather-info-ss.com', 'CLIMATE SYSTEM');
 			$this->email->to('6280ikiad@gmail.com');
 			$this->email->subject('【過去】アメダスデータスクレイピング失敗');
-			$this->email->message('日付：'.$date);
+			$this->email->message('日付：'.$date.
+			'	バッチNo：'.$batch_no);
 			$this->email->send();
 			log_message('debug', '日付：'.$date.
 			'	バッチNo：'.$batch_no);
