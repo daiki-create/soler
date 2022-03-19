@@ -318,6 +318,7 @@ btn.addEventListener("click",() => {
         var downloadEle = document.createElement("a")
         downloadEle.href = canvas.toDataURL("image/png")
         downloadEle.download = "map.png"
+        sleep(5000);
         downloadEle.click()
       }
   });
@@ -336,3 +337,11 @@ btn.addEventListener("click",() => {
     })
   }
 })
+
+function sleep(waitMsec) {
+  var startMsec = new Date();
+ 
+  // 指定ミリ秒間だけループさせる（CPUは常にビジー状態）
+  while (new Date() - startMsec < waitMsec);
+}
+ 
