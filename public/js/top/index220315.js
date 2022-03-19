@@ -318,7 +318,6 @@ btn.addEventListener("click",() => {
         var downloadEle = document.createElement("a")
         downloadEle.href = canvas.toDataURL("image/png")
         downloadEle.download = "map.png"
-        sleep(5000);
         downloadEle.click()
       }
   });
