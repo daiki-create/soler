@@ -156,10 +156,10 @@ class Liden_model extends CI_Model
                         ];
                         // 配列に追加
                         array_push($liden_data_array, $liden_data);
-                        if($j >= 1500)
-                        {
-                            break;
-                        }
+                        // if($j >= 800)
+                        // {
+                        //     break;
+                        // }
                     }
                 }
             }
@@ -183,16 +183,16 @@ class Liden_model extends CI_Model
                         ];
                         // 配列に追加
                         array_push($liden_data_array, $liden_data);
-                        if($j >= 1500)
-                        {
-                            break;
-                        }                    
+                        // if($j >= 1500)
+                        // {
+                        //     break;
+                        // }                    
                     }
                 }
             }
                 
         }
-       
+ 
         if($liden_data_array == [])
         {
             return 'no_data';
@@ -203,21 +203,10 @@ class Liden_model extends CI_Model
 
     public function saveLiden($liden_data_array)
     {
-        // insertエラーを防ぐために分割してtblに送る
-        $batch_sise = 200;
-        $len = count($liden_data_array);
-        $quotient = floor($len / $batch_sise);
-
-        // < ではなく <= にすることで端数分までループ
-        for($i=0; $i<=$quotient; $i++)
+        if( !$this->Liden_tbl->saveLiden($liden_data_array))
         {
-            $liden_data_array_batch = array_slice($liden_data_array, $batch_sise * $i, $batch_sise);
-            if( !$this->Liden_tbl->saveLiden($liden_data_array_batch))
-            {
-                return FALSE;
-            }
+            return FALSE;
         }
-        echo($len);
         return TRUE;
     }
 
