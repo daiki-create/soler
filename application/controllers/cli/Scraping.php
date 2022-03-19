@@ -290,6 +290,9 @@ class Scraping extends CI_Controller {
 		$yesterday = date('Y-m-d', strtotime('-2 day'));
 		$date = date('Y-m-d', strtotime('-1 day'));
 
+		$date_array = explode('-', $date);
+		$month = $date_array[1];
+
 		log_message('debug', $txt);
 		log_message('debug', $date);
 		log_message('debug', $yesterday.'--1');
@@ -299,16 +302,32 @@ class Scraping extends CI_Controller {
 		{
 			if($this->scrapingCurrentLiden($day_batch_no))
 			{
-				if($day_batch_no == 4)
+                if($month=="07" ||$month=="08" ||$month=="09")
 				{
-					$next_day_batch_no = 1;
-					$next_completed_flag = $date.'--1';
+					if($day_batch_no == 6)
+					{
+						$next_day_batch_no = 1;
+						$next_completed_flag = $date.'--1';
+					}
+					else
+					{
+						$next_day_batch_no = $day_batch_no + 1;
+						$next_completed_flag = $completed_flag;
+					}
 				}
 				else
 				{
-					$next_day_batch_no = $day_batch_no + 1;
-					$next_completed_flag = $completed_flag;
-				}
+					if($day_batch_no == 4)
+					{
+						$next_day_batch_no = 1;
+						$next_completed_flag = $date.'--1';
+					}
+					else
+					{
+						$next_day_batch_no = $day_batch_no + 1;
+						$next_completed_flag = $completed_flag;
+					}
+				}				
 				$data = $next_day_batch_no.','.$next_completed_flag;
 				write_file('../var/everydayLiden.txt', $data, 'w');
 				echo('cron success.');
