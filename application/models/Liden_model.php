@@ -141,8 +141,10 @@ class Liden_model extends CI_Model
                 $m = $matches[0];
                 if(preg_match_all('/\"coordinates\":\[.*?\]/', $m, $matches))
                 {
+                    $j=0;
                     foreach($matches[0] as $m)
                     {
+                        $j++;
                         $coordinates = trim( $m, '"coordinates":[]');
                         $coordinates_array = explode(',',$coordinates);
                         $lon = $coordinates_array[0];
@@ -154,7 +156,10 @@ class Liden_model extends CI_Model
                         ];
                         // 配列に追加
                         array_push($liden_data_array, $liden_data);
-                        var_dump($liden_data);
+                        if($j >= 1500)
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -163,8 +168,10 @@ class Liden_model extends CI_Model
                 $m = $matches[0];
                 if(preg_match_all('/@attributes.*?\"type\":/s', $m, $matches))
                 {
+                    $j=0;
                     foreach($matches[0] as $m)
                     {
+                        $j++;
                         $attributes = trim( $m, '"@attributes": {}');
                         $attributes_array = preg_split('/(,|:)/',$attributes);
                         $lat = trim($attributes_array[1], ' ""');
@@ -176,12 +183,16 @@ class Liden_model extends CI_Model
                         ];
                         // 配列に追加
                         array_push($liden_data_array, $liden_data);
-                        var_dump($liden_data);
+                        if($j >= 1500)
+                        {
+                            break;
+                        }                    
                     }
                 }
             }
                 
         }
+       
         if($liden_data_array == [])
         {
             return 'no_data';
