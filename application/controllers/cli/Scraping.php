@@ -244,7 +244,7 @@ class Scraping extends CI_Controller {
 			if($this->Amedas_model->saveAmedas($amedas_data_array))
 			{
 				echo 'scraping amedas success.';
-				return FALSE;
+				return TRUE;
 			}
 			// メールで山崎に報告
 			$this->email->to('6280ikiad@gmail.com');
