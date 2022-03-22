@@ -92,9 +92,9 @@
                     <div id="thander">
                         <label class="font-weight-bold" for="">落雷有無</label>
                         <select id="thander_select" name="">
-                            <option value="指定なし">
+                            <!-- <option value="指定なし">
                                 指定なし
-                            </option>
+                            </option> -->
                             <option value="あり">
                                 あり
                             </option>
@@ -168,7 +168,7 @@
 
     
 
-    <script src="<?php echo $this->config->item('base_url') ?>/js/top/index220319.js"></script>
+    <script src="<?php echo $this->config->item('base_url') ?>/js/top/index220322.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe4LhatUzrIC8RXsPyCnDUx9s2p9L3rSQ" async defer></script>
 
 </body>

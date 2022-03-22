@@ -27,11 +27,11 @@ new Vue({
             let valType = 'name';  // 'name' or 'code'
     
             // 都道府県リストを作成
-            getPrefectureSelection('#area_select_prefecture', '#area_select_city', '/json/prefectureCity.json', valType, initPrefVal, initCityVal);
+            getPrefectureSelection('#area_select_prefecture', '#area_select_city', 'https://weather-info-ss.com/climate/public/json/prefectureCity.json', valType, initPrefVal, initCityVal);
     
             // 都道府県選択時に市区町村リストを作成
             $('#area_select_prefecture').on('change', function() {
-              getCitySelection('#area_select_prefecture', '#area_select_city', '/json/prefectureCity.json', valType);
+              getCitySelection('#area_select_prefecture', '#area_select_city', 'https://weather-info-ss.com/climate/public/json/prefectureCity.json', valType);
             });
           });
         }
@@ -124,6 +124,25 @@ function getData() {
     "wind_speed": document.getElementById("wind_speed_select").value,
     "wind_direction": document.getElementById("wind_direction_select").value
   }
+  
+  if(data.area == "")
+  {
+    document.getElementById("loading").textContent = "地点を入力してください"
+    console.log(false_data)
+  }
+
+  if(data.start_date == "")
+  {
+    document.getElementById("loading").textContent = "期間を入力してください"
+    console.log(false_data)
+  }
+
+  if(data.end_date == "")
+  {
+    document.getElementById("loading").textContent = "期間を入力してください"
+    console.log(false_data)
+  }
+
   var json = JSON.stringify(data)
   var xhr = new XMLHttpRequest()
   console.log(location.href+"/api")
@@ -161,6 +180,17 @@ function getData() {
               fullscreenControl: false,
             };
             var map = new google.maps.Map(document.getElementById("map"), opts);
+
+            /*========= monochrome =========*/
+            // var mapStyle = [ {
+            //   "stylers": [ {
+            //   "saturation": -100
+            //     } ]
+            // } ];
+            // var mapType = new google.maps.StyledMapType(mapStyle);
+            //     map.mapTypes.set( 'GrayScaleMap', mapType);
+            //     map.setMapTypeId( 'GrayScaleMap' );
+            /*========= monochrome =========*/
   
             for (var i = 0; i < result.liden_data_array.length; i++) 
             {
