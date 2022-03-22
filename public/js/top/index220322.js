@@ -182,14 +182,14 @@ function getData() {
             var map = new google.maps.Map(document.getElementById("map"), opts);
 
             /*========= monochrome =========*/
-            // var mapStyle = [ {
-            //   "stylers": [ {
-            //   "saturation": -100
-            //     } ]
-            // } ];
-            // var mapType = new google.maps.StyledMapType(mapStyle);
-            //     map.mapTypes.set( 'GrayScaleMap', mapType);
-            //     map.setMapTypeId( 'GrayScaleMap' );
+            var mapStyle = [ {
+              "stylers": [ {
+              "saturation": -100
+                } ]
+            } ];
+            var mapType = new google.maps.StyledMapType(mapStyle);
+                map.mapTypes.set( 'GrayScaleMap', mapType);
+                map.setMapTypeId( 'GrayScaleMap' );
             /*========= monochrome =========*/
   
             for (var i = 0; i < result.liden_data_array.length; i++) 
