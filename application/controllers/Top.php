@@ -17,6 +17,11 @@ class Top extends CI_Controller {
 		$this->load->view('top/index.php');
 	}
 
+	public function test()
+	{
+		$this->load->view('top/index.php');
+	}
+	
 	public function api()
 	{
 		$request = json_decode(file_get_contents("php://input"), true);
@@ -62,7 +67,7 @@ class Top extends CI_Controller {
     {
 		$request = [
 			// 'area'=>'北海道札幌市',
-			'area'=>'東京都世田谷区',
+			'area'=>'石川県金沢市',
 			'start_date'=>'2020-09-30',
 			'end_date'=>'2022-03-25',
 			'thander'=>'あり',
