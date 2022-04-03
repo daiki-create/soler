@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  */
 	const CI_VERSION = '3.1.11';
-die(APPPATH.'config/'.ENVIRONMENT.'/constants.php');
+
 /*
  * ------------------------------------------------------
  *  Load the framework constants
@@ -64,8 +64,6 @@ die(APPPATH.'config/'.ENVIRONMENT.'/constants.php');
  */
 	if (file_exists(APPPATH.'config/'.ENVIRONMENT.'/constants.php'))
 	{
-		die("ok");
-
 		require_once(APPPATH.'config/'.ENVIRONMENT.'/constants.php');
 	}
 
@@ -73,6 +71,7 @@ die(APPPATH.'config/'.ENVIRONMENT.'/constants.php');
 	{
 		require_once(APPPATH.'config/constants.php');
 	}
+exit;
 /*
  * ------------------------------------------------------
  *  Load the global functions
