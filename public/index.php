@@ -63,8 +63,6 @@
 		define('ENVIRONMENT', 'production');
 	}
 
-	var_dump($_SERVER['HTTP_HOST']);
-	exit;
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -323,3 +321,4 @@ switch (ENVIRONMENT)
  * And away we go...
  */
 require_once BASEPATH.'core/CodeIgniter.php';
+exit;
