@@ -340,20 +340,17 @@ var btn = document.getElementById("btn")
 btn.addEventListener("click",() => {
 
   // マップ画像化
-  if(result.liden_data_array != "no_thander")
-  {
-    html2canvas(document.querySelector("#map-parent"), { 
-      Proxy: true,
-      useCORS: true,
-      onrendered: function(canvas)
-      {
-        var downloadEle = document.createElement("a")
-        downloadEle.href = canvas.toDataURL("image/jpg")
-        downloadEle.download = "map.png"
-        downloadEle.click()
-      }
+  html2canvas(document.querySelector("#map-parent"), { 
+    Proxy: true,
+    useCORS: true,
+    onrendered: function(canvas)
+    {
+      var downloadEle = document.createElement("a")
+      downloadEle.href = canvas.toDataURL("image/jpg")
+      downloadEle.download = "map.png"
+      downloadEle.click()
+    }
   });
-  }
   
   // テーブル画像化
   for(p=0; p<page; p++)
