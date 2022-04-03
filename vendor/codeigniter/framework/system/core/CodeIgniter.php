@@ -56,6 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  */
 	const CI_VERSION = '3.1.11';
+	die("a");
 
 /*
  * ------------------------------------------------------
@@ -71,7 +72,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	{
 		require_once(APPPATH.'config/constants.php');
 	}
-
 /*
  * ------------------------------------------------------
  *  Load the global functions
