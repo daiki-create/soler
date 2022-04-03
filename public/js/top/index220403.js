@@ -346,7 +346,7 @@ btn.addEventListener("click",() => {
       onrendered: function(canvas)
       {
         var downloadEle = document.createElement("a")
-        downloadEle.href = canvas.toDataURL("image/png")
+        downloadEle.href = canvas.toDataURL("image/jpg")
         downloadEle.download = "map.png"
         downloadEle.click()
       }
@@ -359,7 +359,7 @@ btn.addEventListener("click",() => {
     html2canvas(document.querySelector("#table-parent"+String(p+1)), {
       onrendered: function(canvas) {
         downloadEle[p] = document.createElement("a")
-        downloadEle[p].href = canvas.toDataURL("image/png")
+        downloadEle[p].href = canvas.toDataURL("image/jpg")
         downloadEle[p].download = "table.png"
         downloadEle[p].click()
       }
