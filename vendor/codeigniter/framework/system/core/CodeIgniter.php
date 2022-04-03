@@ -71,7 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	{
 		require_once(APPPATH.'config/constants.php');
 	}
-exit;
+
 /*
  * ------------------------------------------------------
  *  Load the global functions
@@ -557,3 +557,4 @@ if ( ! is_php('5.4'))
  * ------------------------------------------------------
  */
 	$EXT->call_hook('post_system');
+exit;
