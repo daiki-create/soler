@@ -340,7 +340,9 @@ var btn = document.getElementById("btn")
 btn.addEventListener("click",() => {
 
   // マップ画像化
-  html2canvas(document.querySelector("#map-parent"), { 
+  if(result.liden_data_array != "no_thander")
+  {
+    html2canvas(document.querySelector("#map-parent"), { 
       Proxy: true,
       useCORS: true,
       onrendered: function(canvas)
@@ -351,6 +353,7 @@ btn.addEventListener("click",() => {
         downloadEle.click()
       }
   });
+  }
   
   // テーブル画像化
   for(p=0; p<page; p++)
