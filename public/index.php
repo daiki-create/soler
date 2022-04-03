@@ -96,7 +96,7 @@ switch (ENVIRONMENT)
 		echo 'The application environment is not set correctly.';
 		exit(1); // EXIT_ERROR
 }
-
+exit;
 /*
  *---------------------------------------------------------------
  * SYSTEM DIRECTORY NAME
@@ -321,4 +321,3 @@ switch (ENVIRONMENT)
  * And away we go...
  */
 require_once BASEPATH.'core/CodeIgniter.php';
-exit;
