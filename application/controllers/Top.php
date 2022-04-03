@@ -16,11 +16,6 @@ class Top extends CI_Controller {
 	{
 		$this->load->view('top/index.php');
 	}
-
-	public function test()
-	{
-		$this->load->view('top/index.php');
-	}
 	
 	public function api()
 	{

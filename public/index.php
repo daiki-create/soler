@@ -62,6 +62,9 @@
 	{
 		define('ENVIRONMENT', 'production');
 	}
+
+	var_dump($_SERVER['HTTP_HOST']);
+	exit;
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
