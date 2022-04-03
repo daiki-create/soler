@@ -56,7 +56,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  */
 	const CI_VERSION = '3.1.11';
-	die("a");
 
 /*
  * ------------------------------------------------------
@@ -65,6 +64,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 	if (file_exists(APPPATH.'config/'.ENVIRONMENT.'/constants.php'))
 	{
+		die("ok");
+
 		require_once(APPPATH.'config/'.ENVIRONMENT.'/constants.php');
 	}
 
