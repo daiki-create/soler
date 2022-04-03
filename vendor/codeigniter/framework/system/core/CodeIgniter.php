@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  */
 	const CI_VERSION = '3.1.11';
-die(APPPATH);
+die(APPPATH.'config/'.ENVIRONMENT.'/constants.php');
 /*
  * ------------------------------------------------------
  *  Load the framework constants
