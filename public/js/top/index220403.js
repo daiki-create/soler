@@ -227,6 +227,7 @@ function getData() {
             {
               page++;
               var tableParent = document.createElement('div');
+              tableParent.style.backgroundColor = "white";
               tableParent.id = "table-parent"+String(page)
               document.getElementById("climate-table").appendChild(tableParent)
 
@@ -340,17 +341,21 @@ var btn = document.getElementById("btn")
 btn.addEventListener("click",() => {
 
   // マップ画像化
-  html2canvas(document.querySelector("#map-parent"), { 
-    Proxy: true,
-    useCORS: true,
-    onrendered: function(canvas)
-    {
-      var downloadEle = document.createElement("a")
-      downloadEle.href = canvas.toDataURL("image/jpg")
-      downloadEle.download = "map.png"
-      downloadEle.click()
-    }
-  });
+  if(document.getElementById('map').textContent != "")
+  {
+    html2canvas(document.querySelector("#map-parent"), { 
+      Proxy: true,
+      useCORS: true,
+      onrendered: function(canvas)
+      {
+        var downloadEle = document.createElement("a")
+        downloadEle.href = canvas.toDataURL("image/jpg")
+        downloadEle.download = "map.jpg"
+        downloadEle.click()
+      }
+    });
+  }
+  
   
   // テーブル画像化
   for(p=0; p<page; p++)
@@ -360,7 +365,7 @@ btn.addEventListener("click",() => {
       onrendered: function(canvas) {
         downloadEle[p] = document.createElement("a")
         downloadEle[p].href = canvas.toDataURL("image/jpg")
-        downloadEle[p].download = "table.png"
+        downloadEle[p].download = "table.jpg"
         downloadEle[p].click()
       }
     })
