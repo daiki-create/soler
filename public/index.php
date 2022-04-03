@@ -96,7 +96,7 @@ switch (ENVIRONMENT)
 		echo 'The application environment is not set correctly.';
 		exit(1); // EXIT_ERROR
 }
-exit;
+
 /*
  *---------------------------------------------------------------
  * SYSTEM DIRECTORY NAME
@@ -106,7 +106,7 @@ exit;
  * Set the path if it is not in the same directory as this file.
  */
 	$system_path = '../vendor/codeigniter/framework/system';
-
+echo('1  ');
 /*
  *---------------------------------------------------------------
  * APPLICATION DIRECTORY NAME
@@ -123,6 +123,7 @@ exit;
  * NO TRAILING SLASH!
  */
 	$application_folder = '../application';
+	echo('1  ');
 
 /*
  *---------------------------------------------------------------
@@ -217,6 +218,7 @@ exit;
 			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
 		).DIRECTORY_SEPARATOR;
 	}
+	echo('1  ');
 
 	// Is the system path correct?
 	if ( ! is_dir($system_path))
@@ -225,6 +227,7 @@ exit;
 		echo 'Your system folder path does not appear to be set correctly. Please open the following file and correct this: '.pathinfo(__FILE__, PATHINFO_BASENAME);
 		exit(3); // EXIT_CONFIG
 	}
+	echo('1  ');
 
 /*
  * -------------------------------------------------------------------
@@ -273,6 +276,7 @@ exit;
 		echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
 		exit(3); // EXIT_CONFIG
 	}
+	echo('1  ');
 
 	define('APPPATH', $application_folder.DIRECTORY_SEPARATOR);
 
@@ -312,6 +316,7 @@ exit;
 	}
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
+	echo('1  ');
 
 /*
  * --------------------------------------------------------------------
@@ -321,3 +326,4 @@ exit;
  * And away we go...
  */
 require_once BASEPATH.'core/CodeIgniter.php';
+exit;
