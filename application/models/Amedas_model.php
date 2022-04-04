@@ -148,6 +148,7 @@ class Amedas_model extends CI_Model
         $stations = $this->Amedas_stations_tbl->getNearestStation($lon, $lat);
         $prec_no = $stations[0]->prec_no;
         $block_no = $stations[0]->block_no;
+        $st_name = $stations[0]->st_name;
 
         // 検索開始日付 & 終了日付
         $start_date = $request['start_date'];
@@ -267,6 +268,7 @@ class Amedas_model extends CI_Model
         }
 
         $amedas_data = $this->Amedas_tbl->getAmedas($request, $prec_no, $block_no, $date_array);
+        $amedas_data['st_name'] = $st_name;
 
         return $amedas_data;
     }
