@@ -36,7 +36,7 @@ class Amedas_stations_tbl extends CI_Model
         return $this
             ->db
             ->query("
-                select prec_no, block_no, 
+                select prec_no, block_no, st_name, 
                 (6371 * acos(cos(radians($lat)) * cos(radians(lat)) * cos(radians(lon) - radians($lon)) + sin(radians($lat)) * sin(radians(lat)))) 
                 as distance from amedas_stations order by distance limit 1
             ")
