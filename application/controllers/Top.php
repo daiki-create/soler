@@ -47,7 +47,8 @@ class Top extends CI_Controller {
 		}
 
 		$result =[
-			"amedas_data_array" => $amedas_data_array,
+			"amedas_data_array" => $amedas_data_array[0],
+			"st_name" => $amedas_data_array[1],
 			"liden_data_array" => $liden_data_array,
 			"center_lon" => $lon,
 			"center_lat" => $lat
