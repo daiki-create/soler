@@ -233,7 +233,7 @@ function getData() {
 
               var climateTableTitle = document.createElement("div")
               climateTableTitle.id = "climate-table-title"+String(page)
-              climateTableTitle.textContent = data.area+"の"+data.start_date+"～"+data.end_date+"の天気情報(観測所："+result.amedas_data_array.st_name+")"
+              climateTableTitle.textContent = data.area+"の"+data.start_date+"～"+data.end_date+"の天気情報(観測所："+result.amedas_data_array[0].st_name+")"
               climateTableTitle.style.fontSize = "1rem"
               climateTableTitle.style.textAlign = "center"
               climateTableTitle.style.fontWeight = "900"
