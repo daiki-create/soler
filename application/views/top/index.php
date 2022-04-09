@@ -149,6 +149,7 @@
 
         <div id="result-msg" class="font-weight-bold">
             <p id="liden-result-msg"></p>
+            <p id="thander-before-liden-result-msg"></p>
             <p id="amedas-result-msg"></p>
         </div>
 
