@@ -167,6 +167,13 @@ function getData() {
           // 地図出力
           if(result.liden_data_array != "no_thander")
           {
+            // 「落雷あり」検索で落雷データがヒットしない場合
+            if(result.liden_data_array.length == 0)
+            {
+              document.getElementById("liden-result-msg").textContent = "該当データはありません";
+              return;
+            }
+
             document.getElementById("liden-result-msg").textContent = "落雷データ(2020年10月3日以降)："+result.liden_data_array.length+"件"
             document.getElementById("map").style.width = "800px"
             document.getElementById("map").style.height = "800px"
@@ -188,10 +195,10 @@ function getData() {
                 } ]
             } ];
             var mapType = new google.maps.StyledMapType(mapStyle);
-                map.mapTypes.set( 'GrayScaleMap', mapType);
-                map.setMapTypeId( 'GrayScaleMap' );
+            map.mapTypes.set( 'GrayScaleMap', mapType);
+            map.setMapTypeId( 'GrayScaleMap' );
             /*========= monochrome =========*/
-  
+
             for (var i = 0; i < result.liden_data_array.length; i++) 
             {
               const id = result.liden_data_array[i].id;
