@@ -236,7 +236,6 @@ class Amedas_model extends CI_Model
                 }
                 // 県内で落雷のある日  
                 $date_array_with_thander_b_liden = array_unique($date_array_all);
-                $date_array_with_thander_b_liden = ['2019-11-12'];
 
                 // 落雷なしの場合
                 if($request['thander'] == 'なし')
