@@ -339,7 +339,7 @@ function getData() {
              
               tbody.appendChild(row_2);
 
-              if(result.amedas_data_array[i].date < "2020-10-03")
+              if(new Date(result.amedas_data_array[i].date) < new Date("2020-10-03"))
               {
                 thander_before_liden += 1;
               }
