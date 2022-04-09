@@ -337,7 +337,7 @@ function getData() {
                 thander_before_liden += 1;
               }
             }
-            document.getElementById("thander-before-liden-result-msg").textContent = "<br>落雷データ(2020年10月2日以前)："+thander_before_liden+"件"
+            document.getElementById("thander-before-liden-result-msg").textContent = "落雷データ(2020年10月2日以前)："+thander_before_liden+"件"
           }
           else{
             // 「落雷あり」検索でアメダスデータがヒットしない場合
