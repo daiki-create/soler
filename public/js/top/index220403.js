@@ -345,7 +345,7 @@ function getData() {
         else 
         {
           console.log("state 4 but error.")
-          document.getElementById("loading").textContent = "該当データはありません"
+          document.getElementById("loading").textContent = "サーバエラー"
         }
       } 
       else 
@@ -357,6 +357,7 @@ function getData() {
     catch (e) 
     {
       console.log("catch.")
+      document.getElementById("loading").textContent = "該当データはありません"
     }
   };
 }
