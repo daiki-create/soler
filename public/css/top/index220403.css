@@ -116,6 +116,7 @@ header h2{
     text-align: center;
 }
 #liden-result-msg,
+#thander-before-liden-result-msg,
 #amedas-result-msg{
     font-size: 1.3rem;
     display: inline-block;

@@ -174,9 +174,9 @@ function getData() {
               document.getElementById("liden-result-msg").textContent = "落雷データ(2020年10月3日以降)："+result.liden_data_array.length+"件"
               document.getElementById("map").style.width = "800px"
               document.getElementById("map").style.height = "800px"
-              if(data.start_date < "2020-10-03")
+              if(new Date(data.start_date) < new Date("2020-10-03"))
               {
-                liden_start_date = "<span style='color:red'>2020-10-03</span>"
+                liden_start_date = "2020-10-03"
               }
               else{
                 liden_start_date = data.start_date;
