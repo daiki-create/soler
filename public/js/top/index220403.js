@@ -171,6 +171,7 @@ function getData() {
             // 落雷マップ描画 & 件数メッセージ
             if(result.liden_data_array.length != 0)
             {
+              console.log("ライデンデータあり")
               document.getElementById("liden-result-msg").textContent = "落雷データ(2020年10月3日以降)："+result.liden_data_array.length+"件"
               document.getElementById("map").style.width = "800px"
               document.getElementById("map").style.height = "800px"
@@ -233,6 +234,7 @@ function getData() {
           var thander_before_liden = 0;
           if(result.amedas_data_array.length > 0)
           {
+            console.log("アメダスデータあり")
             document.getElementById("amedas-result-msg").textContent = "アメダスデータ："+result.amedas_data_array.length+"件"
             page = 0
             for (var i = 0; i < result.amedas_data_array.length; i++) 
