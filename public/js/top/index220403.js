@@ -160,7 +160,12 @@ function getData() {
         if (xhr.status == 200) 
         {
           console.log("200 ok.")
+
+          console.log(xhr.response);
           var result = JSON.parse(xhr.response);
+          console.log("result:")
+          console.log(result);
+
           document.getElementById("loading").textContent = ""
           document.getElementById("loading").style.margin = 0
           document.getElementById("btn-create-img").style.display = "block"
@@ -341,23 +346,27 @@ function getData() {
             }
             document.getElementById("thander-before-liden-result-msg").textContent = "落雷データ(2020年10月2日以前)："+thander_before_liden+"件"
           }
+          else{
+            document.getElementById("loading").textContent = "該当データはありません"
+          }
+          console.log("try success.");
         } 
         else 
         {
           console.log("state 4 but error.")
-          document.getElementById("loading").textContent = "サーバエラー"
+          document.getElementById("loading").textContent = "レスポンスエラー"
         }
       } 
       else 
       {
         console.log("failed.")
-        document.getElementById("loading").textContent = "該当データはありません"
+        document.getElementById("loading").textContent = "リクエストエラー"
       }
     } 
     catch (e) 
     {
       console.log("catch.")
-      document.getElementById("loading").textContent = "該当データはありません"
+      document.getElementById("loading").textContent = "サーバエラー"
     }
   };
 }
