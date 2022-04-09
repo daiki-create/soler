@@ -231,7 +231,7 @@ function getData() {
             
           // アメダスデータ表作成 & 件数メッセージ　& 2020/9/3以前の落雷件数表示
           var thander_before_liden = 0;
-          if(result.amedas_data_array.length != 0)
+          if(result.amedas_data_array.length > 0)
           {
             document.getElementById("amedas-result-msg").textContent = "アメダスデータ："+result.amedas_data_array.length+"件"
             page = 0
