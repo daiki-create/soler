@@ -341,22 +341,17 @@ function getData() {
             }
             document.getElementById("thander-before-liden-result-msg").textContent = "落雷データ(2020年10月2日以前)："+thander_before_liden+"件"
           }
-          else{
-            // 「落雷あり」検索でアメダスデータがヒットしない場合
-            document.getElementById("amedas-result-msg").textContent = "該当データはありません";
-          }
-          
         } 
         else 
         {
           console.log("state 4 but error.")
-          document.getElementById("loading").textContent = "該当する検索結果は見つかりませんでした。"
+          document.getElementById("loading").textContent = "該当データはありません"
         }
       } 
       else 
       {
         console.log("failed.")
-        document.getElementById("loading").textContent = "該当する検索結果は見つかりませんでした。"
+        document.getElementById("loading").textContent = "該当データはありません"
       }
     } 
     catch (e) 
