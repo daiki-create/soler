@@ -168,7 +168,7 @@ function getData() {
           if(result.liden_data_array != "no_thander")
           {
             // 「落雷あり」検索で落雷データがヒットしない場合
-            if(result.liden_data_array.length == 0)
+            if(result.liden_data_array.length == 0 && result.amedas_data_array.length == 0)
             {
               document.getElementById("liden-result-msg").textContent = "該当データはありません";
               return;
