@@ -259,7 +259,7 @@ class Amedas_model extends CI_Model
 
             if(!$date_array)
             {
-                return [];
+                return [[],null];
             }
         }
         else
