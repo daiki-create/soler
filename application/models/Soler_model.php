@@ -21,6 +21,14 @@ class Soler_model extends CI_Model
 {
     public function __construct()
     {
+        if($_SERVER['HTTP_HOST']=="soler.local.com")
+        {
+            $this->soler_dir = '/home/noland/src/soler';
+        }
+        if($_SERVER['HTTP_HOST']=="weather-info-ss.com")
+        {
+            $this->soler_dir = '/home/mutsuki2000/weather-info-ss.com/public_html/soler';
+        }
         $this->load->helper('phpquery');
         $this->load->model('tables/Soler_tbl');
     }
@@ -51,7 +59,7 @@ class Soler_model extends CI_Model
 
     public function xlsxToCsv()
     {
-        $xls_files = glob($soler_dir . "/public/xlsx/*.xlsx");
+        $xls_files = glob($this->soler_dir . "/public/xlsx/*.xlsx");
 
         foreach($xls_files as $xf)
         {
@@ -61,7 +69,8 @@ class Soler_model extends CI_Model
             foreach($loadedSheetNames as $sheetIndex => $loadedSheetName) {
                 $writer = new WriterCsv($spreadsheet);
                 $writer->setSheetIndex($sheetIndex);
-                $writer->save($soler_dir . '/public/csv/'.$loadedSheetName.'.csv');
+                $file_name = basename($xf, '.xlsx');
+                $writer->save($this->soler_dir . '/public/csv/'.$file_name.'.csv');
                 break;
             }    
         }
@@ -70,7 +79,7 @@ class Soler_model extends CI_Model
 
     public function saveCurrentSoler()
     {
-        $csv_files = glob($soler_dir . "/public/csv/*.csv");
+        $csv_files = glob($this->soler_dir . "/public/csv/*.csv");
         foreach($csv_files as $cf)
         {
             // 読み込むCSVファイルを指定
