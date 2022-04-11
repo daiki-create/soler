@@ -62,8 +62,6 @@
 	{
 		define('ENVIRONMENT', 'production');
 	}
-	echo("aa");
-
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -313,7 +311,7 @@ switch (ENVIRONMENT)
 	}
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
-echo("aa");
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
