@@ -1,5 +1,6 @@
 <?php
-require ('/home/noland/src/soler/vendor/autoload.php');
+// require ('/home/noland/src/soler/vendor/autoload.php');
+// require ('/home/noland/src/soler/vendor/autoload.php');
  
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
