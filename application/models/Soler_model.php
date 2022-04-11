@@ -59,7 +59,14 @@ class Soler_model extends CI_Model
 
     public function xlsxToCsv($n)
     {
-        $xls_files = glob($this->soler_dir . "/public/xlsx/*.xlsx");
+        if($n)
+        {
+            $xls_files = glob($this->soler_dir . "/public/xlsx/0".$n.".*.xlsx");
+        }
+        else
+        {
+            $xls_files = glob($this->soler_dir . "/public/xlsx/*.xlsx");
+        }
 
         foreach($xls_files as $xf)
         {
