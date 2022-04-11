@@ -18,6 +18,9 @@ button{
 .font-weight-bold{
     font-weight: 900;
 }
+.bgc-gray{
+    background-color: #eee;
+}
 
 /* ヘッダー */
 header{
@@ -32,19 +35,88 @@ header h2{
     font-size: 1.5rem;
 }
 
-#main{
+
+.w-960{
+    max-width: 1100px;
     margin: auto;
-    width: 920px;
-    max-width: 98%;
+}
+#main{
+    margin-top: 80px;
+}
+
+/* トグルボタン */
+#toggle-btn{
+    max-width: 1100px;
+    margin: auto;
+    width: 98%;
+}
+#toggle-btn button{
+    border: none;
+    padding: 5px 0;
+    font-size: 1.3rem;
+    border-radius: 15px 15px 0 0;
+    background: linear-gradient(#666, #888);    
+    color: #fff;
+    font-weight: 900;
+    width: 200px;
+    margin: 0;
+    transform: translateX(-3px);
+}
+#toggle-btn button:nth-child(2){
+    background: linear-gradient(#888, #aaa);
+    transform: translateX(-6px);
+}
+
+/* カード */
+#card{
+    max-width: 1100px;
+    width: 98%;
+    margin: auto;
+    border: #888 solid 3px;
+    border-radius: 0 10px 10px 10px;
+}
+
+/* 集計 */
+.aggregated_table{
+    width: 95%;
+    margin: auto;
+    margin-bottom: 2rem;
+}
+.aggregated_table p{
+    font-size: 1.3rem;
+    font-weight: 900;
+}
+.aggregated_table span{
+    font-size: 1rem;
+}
+.aggregated_table{
+    margin-top: 3rem;
+}
+.aggregated_table table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    margin: auto;
+}
+.aggregated_table th, 
+.aggregated_table td{
+    padding: 0.5rem 0;
+    border: 1px solid #000;
+    text-align: center;
+    font-size: 1.1rem;
 }
 
 /* 検索フォーム */
+#search{
+    display: none;
+}
 #main #form{
     background-color: lightgray;
-    padding: 2rem 2rem;
-    margin: 2rem 0 3rem 0;
+    margin: 2rem auto 3rem auto;
     border-radius: 0.5rem;
     font-size: 1.4rem;
+    width: 95%;
+    padding: 20px;
 }
 #main #form form{
     width: 95%;
@@ -79,12 +151,11 @@ header h2{
     padding-right: 0.5rem;
     padding-left: 0.5rem;
 }
-#main #form #thander,
-#main #form #precipitation,
-#main #form #wind_speed,
-#main #form #wind_direction{
+#main #form #unique,
+#main #form #output,
+#main #form #adress_blank{
     display: inline-block;
-    margin: 2rem 0 0 0;
+    margin: 2rem 1rem 0 0;
 }
 #main #form #thander select,
 #main #form #precipitation select,
@@ -113,118 +184,33 @@ header h2{
 
 /* メッセージ */
 #result-msg{
-    text-align: center;
-}
-#liden-result-msg,
-#thander-before-liden-result-msg,
-#amedas-result-msg{
     font-size: 1.3rem;
-    margin: 0 1rem;
-}
-#map-title{
-    font-size: 1.3rem;
+    margin: 1rem auto;
+    width: 95%;
     text-align: center;
-    margin: 2rem 0 0 0;
-}
-
-/* マップ */
-#map-parent{
-    background-color: white;
-}
-#map{
-    margin: 0.5rem auto 0 auto;
-    max-width: 100%;
 }
 
 /* テーブル */
-#climate-table{
+#soler-table{
     margin-top: 3rem;
-}
-table{
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 800px;
+    width: 98%;
     margin: auto;
 }
-th, td{
-    padding: 0.5rem 0;
+#soler-table table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 130%;
+    margin: auto;
+    transform: rotateX(180deg);
+    margin-top: 30px;
+}
+#soler-table div{
+    transform: rotateX(180deg);
+}
+#soler-table th, 
+#soler-table td{
+    /* padding: 0.5rem 0; */
     border: 1px solid #000;
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.0rem;
 }
-
-/* 画像出力ボタン */
-#btn-create-img{
-    display: none;
-    text-align: center;
-    margin: 5rem auto 10rem auto;
-}
-#btn-create-img button{
-    border: none;
-    border-radius: 0.2rem;
-    background-color: rgb(47, 10, 182);
-    color: white;
-    padding: 0.5rem;
-    font-weight: 900;
-    font-size: 1.6rem;
-    width: auto;
-}
-
-/* viewportを使わない場合 */
-/* 
-@media screen and (max-width:720px)
-{
-    #main #form form{
-        width: 100% !important;
-        margin: 0 !important;
-        font-size: 0.9rem;
-    }
-    #main #form input{
-        font-size: 0.8rem;
-    }
-    #main #form select{
-        font-size: 1.0rem;
-    }
-    #main #form #term{
-        white-space: nowrap;
-    }
-    #main #form #search_button button{
-        font-size: 1.0rem;
-    }
-}
-@media screen and (max-width:576px)
-{
-    #main #form{
-        padding: 1rem 1rem;
-        font-size: 0.8rem;
-    }
-    #main #form input{
-        font-size: 0.7rem;
-    }
-    #main #form select{
-        font-size: 0.9rem;
-    }
-    #main #form #term div{
-        padding-right: 0.3rem;
-        padding-left: 0.3rem;
-    }
-    #main #form #term input{
-        width: 7rem;
-    }
-}
-@media screen and (max-width:400px)
-{
-    #main #form{
-        padding: 1rem 0.9rem;
-        font-size: 0.7rem;
-    }
-    #main #form input{
-        font-size: 0.6rem;
-    }
-    #main #form select{
-        font-size: 0.8rem;
-    }
-    #main #form #term input{
-        width: 6rem;
-    }
-} */

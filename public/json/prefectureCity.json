@@ -1,4 +1,11 @@
 [
+{
+    "groupCode": "000000",
+    "prefectureName": "全国",
+    "cityName": null,
+    "prefectureKana": "ゼンコク",
+    "cityKana": null
+    },
  {
   "groupCode": "010006",
   "prefectureName": "北海道",

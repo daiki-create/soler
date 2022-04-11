@@ -54,7 +54,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  */
 
-	if($_SERVER['HTTP_HOST']=="climate.local.com")
+	if($_SERVER['HTTP_HOST']=="soler.local.com")
 	{
 		define('ENVIRONMENT', 'development');
 	}

@@ -40,71 +40,18 @@ new Vue({
 })
 
 
-var precipitation_list = []
-var n_precipitation_list = 6290
-var precipitation_interval = 10
-for(var i=0;i<=n_precipitation_list/precipitation_interval;i++){
-  precipitation_list.push(i * precipitation_interval)
-}
-new Vue({
-  el: '#precipitation',
-  data: {
-      options: precipitation_list
-  }
-});
-
-var wind_speed_list = []
-var n_wind_speed_list = 80
-var wind_speed_interval = 10
-for(var i=0;i<=n_wind_speed_list/wind_speed_interval;i++){
-  wind_speed_list.push(i * wind_speed_interval)
-}
-new Vue({
-  el: '#wind_speed',
-  data: {
-      options: wind_speed_list
-  }
-});
-
-var wind_direction_list = ["指定なし","北","北北東","北東", "東北東", "東", "東南東", "南東", "南南東", "南", "南南西", "南西", "西南西", "西", "西北西", "北西", "北北西"];
-new Vue({
-  el: '#wind_direction',
-  data: {
-      options: wind_direction_list
-  }
-});
-
-// google maps api
-
-let map;
-let mainMarker;
-let marker =[];
-let infoWindow = [];
-
 // 検索（非同期通信）
 function getData() {
 
   // メッセージ初期化
   document.getElementById("loading").textContent = "検索中です..."
   document.getElementById("loading").style.margin = "1rem 0 0 0"
-  document.getElementById("liden-result-msg").textContent = ""
-  document.getElementById("thander-before-liden-result-msg").textContent = ""
-  document.getElementById("amedas-result-msg").textContent = ""
-  document.getElementById("map-title").textContent = ""
-  document.getElementById("btn-create-img").style.display = "none"
-
-  // マップ初期化
-  document.getElementById("map").style.width = "0"
-  document.getElementById("map").style.height = "0"
-  if(document.getElementById("map").childElementCount > 0)
-  {
-    document.getElementById("map").innerHTML = ""
-  }
+  document.getElementById("result-msg-1").textContent = ""
 
   // テーブル初期化
-  if(document.getElementById("climate-table").childElementCount > 0)
+  if(document.getElementById("soler-table").childElementCount > 0)
   {
-    document.getElementById("climate-table").innerHTML = ""
+    document.getElementById("soler-table").innerHTML = ""
   }
   
   if(document.getElementById("area_select_prefecture"))
@@ -115,32 +62,20 @@ function getData() {
   {
     var area = document.getElementById("area_manual").value
   }
-  console.log(area)
+  var unique = document.getElementById("unique_select").value
+  var output = document.getElementById("output_select").value
+  var adress_blank = document.getElementById("adress_blank_select").value
   var data = {
     "area": area,
-    "start_date": document.getElementById("start_date").value,
-    "end_date": document.getElementById("end_date").value,
-    "thander": document.getElementById("thander_select").value,
-    "precipitation": document.getElementById("precipitation_select").value,
-    "wind_speed": document.getElementById("wind_speed_select").value,
-    "wind_direction": document.getElementById("wind_direction_select").value
+    "unique": unique,
+    "output": output,
+    "adress_blank": adress_blank,
   }
+  console.log(data)
   
   if(data.area == "")
   {
     document.getElementById("loading").textContent = "地点を入力してください"
-    console.log(false_data)
-  }
-
-  if(data.start_date == "")
-  {
-    document.getElementById("loading").textContent = "期間を入力してください"
-    console.log(false_data)
-  }
-
-  if(data.end_date == "")
-  {
-    document.getElementById("loading").textContent = "期間を入力してください"
     console.log(false_data)
   }
 
@@ -168,81 +103,13 @@ function getData() {
 
           document.getElementById("loading").textContent = ""
           document.getElementById("loading").style.margin = 0
-          document.getElementById("btn-create-img").style.display = "block"
-
-          // 地図出力
-          if(result.liden_data_array != "no_thander")
+            
+          // 太陽光パネルデータ表作成
+          if(result.soler_data_array.length > 0)
           {
-            // 落雷マップ描画 & 件数メッセージ
-            if(result.liden_data_array.length != 0)
-            {
-              console.log("ライデンデータあり")
-              document.getElementById("liden-result-msg").textContent = "落雷データ(2020年10月3日以降)："+result.liden_data_array.length+"件"
-              document.getElementById("map").style.width = "800px"
-              document.getElementById("map").style.height = "800px"
-              if(new Date(data.start_date) < new Date("2020-10-03"))
-              {
-                liden_start_date = "2020-10-03"
-              }
-              else{
-                liden_start_date = data.start_date;
-              }
-              document.getElementById("map-title").textContent = data.area+"の"+liden_start_date+"～"+data.end_date+"の落雷地点"
-              var latlng = new google.maps.LatLng(result.center_lat, result.center_lon);
-              var opts = {
-                zoom: 13,
-                center: latlng,
-                zoomControl: false,
-                mapTypeControl: false,
-                fullscreenControl: false,
-              };
-              var map = new google.maps.Map(document.getElementById("map"), opts);
-  
-              /*========= monochrome =========*/
-              var mapStyle = [ {
-                "stylers": [ {
-                "saturation": -100
-                  } ]
-              } ];
-              var mapType = new google.maps.StyledMapType(mapStyle);
-              map.mapTypes.set( 'GrayScaleMap', mapType);
-              map.setMapTypeId( 'GrayScaleMap' );
-              /*========= monochrome =========*/
-  
-              for (var i = 0; i < result.liden_data_array.length; i++) 
-              {
-                const id = result.liden_data_array[i].id;
-                // 緯度経度のデータを作成
-                let markerLatLng = new google.maps.LatLng({lat: parseFloat(result.liden_data_array[i].lat), lng: parseFloat(result.liden_data_array[i].lon) });
-                // マーカーの追加
-                marker[i] = new google.maps.Marker({
-                  position: markerLatLng,
-                  map: map,
-                });
-            
-                // 吹き出しの追加
-                infoWindow[i] = new google.maps.InfoWindow({
-                  content: "<div>観測日:"+result.liden_data_array[i].date+"</div><div>北緯:"+result.liden_data_array[i].lat+"</div><div>東経:"+result.liden_data_array[i].lon+"</div>"
-                });
-            
-                markerEvent(i);
-                function markerEvent(i) {
-                  marker[i].addListener('click', function() {
-                    infoWindow[i].open(map, marker[i]);
-                  });
-                }
-              }
-            }
-          }
-            
-          // アメダスデータ表作成 & 件数メッセージ　& 2020/9/3以前の落雷件数表示
-          var thander_before_liden = 0;
-          if(result.amedas_data_array.length > 0)
-          {
-            console.log("アメダスデータあり")
-            document.getElementById("amedas-result-msg").textContent = "アメダスデータ："+result.amedas_data_array.length+"件"
+            document.getElementById("result-msg-1").textContent = "検索結果："+result.soler_data_array.length+"件"
             page = 0
-            for (var i = 0; i < result.amedas_data_array.length; i++) 
+            for (var i = 0; i < result.soler_data_array.length; i++) 
             {
               // 20の倍数で改ページ
               if(i % 20 == 0)
@@ -251,100 +118,92 @@ function getData() {
                 var tableParent = document.createElement('div');
                 tableParent.style.backgroundColor = "white";
                 tableParent.id = "table-parent"+String(page)
-                document.getElementById("climate-table").appendChild(tableParent)
-  
-                var climateTableTitle = document.createElement("div")
-                climateTableTitle.id = "climate-table-title"+String(page)
-                climateTableTitle.textContent = data.area+"の"+data.start_date+"～"+data.end_date+"の天気情報(観測所："+result.st_name+")"
-                climateTableTitle.style.fontSize = "1rem"
-                climateTableTitle.style.textAlign = "center"
-                climateTableTitle.style.fontWeight = "900"
-                tableParent.appendChild(climateTableTitle)
+                document.getElementById("soler-table").appendChild(tableParent)
   
                 var table = document.createElement('table');
+                var table_inner = document.createElement('div');
                 var thead = document.createElement('thead');
                 var tbody = document.createElement('tbody');
+                table_inner.appendChild(table);
                 table.appendChild(thead);
                 table.appendChild(tbody);
                 
                 tableParent.appendChild(table);
+                tableParent.style.overflowX = 'scroll';
                 var row_1 = document.createElement('tr');
+                row_1.classList = ["bgc-gray"];
+
                 var heading_1 = document.createElement('th');
-                heading_1.innerHTML = "日付";
+                heading_1.innerHTML = "設備ID";
                 var heading_2 = document.createElement('th');
-                heading_2.innerHTML = "降水量(mm)";
+                heading_2.innerHTML = "発電所事業者名";
                 var heading_3 = document.createElement('th');
-                heading_3.innerHTML = "最大瞬間風速(m/s)";
+                heading_3.innerHTML = "代表者名";
                 var heading_4 = document.createElement('th');
-                heading_4.innerHTML = "最大瞬間風速風向";
-                if(data.thander != "指定なし")
-                {
-                  var heading_5 = document.createElement('th');
-                  heading_5.innerHTML = "落雷";
-                }
+                heading_4.innerHTML = "事業者の住所";
+                var heading_5 = document.createElement('th');
+                heading_5.innerHTML = "事業者の電話番号";
+                // var heading_6 = document.createElement('th');
+                // heading_6.innerHTML = "発電設備区分";
+                var heading_7 = document.createElement('th');
+                heading_7.innerHTML = "発電出力(kW)";
+                var heading_8 = document.createElement('th');
+                heading_8.innerHTML = "発電所の所在地";
+                var heading_9 = document.createElement('th');
+                heading_9.innerHTML = "太陽光電池の合計出力(kW)";
+             
                 row_1.appendChild(heading_1);
                 row_1.appendChild(heading_2);
                 row_1.appendChild(heading_3);
                 row_1.appendChild(heading_4);
-                if(data.thander != "指定なし")
-                {
-                  row_1.appendChild(heading_5);
-                }
+                row_1.appendChild(heading_5);
+                // row_1.appendChild(heading_6);
+                row_1.appendChild(heading_7);
+                row_1.appendChild(heading_8);
+                row_1.appendChild(heading_9);
+             
                 thead.appendChild(row_1);
               }
               var row_2 = document.createElement('tr');
+
               var row_2_data_1 = document.createElement('td');
               row_2.appendChild(row_2_data_1);
-  
-              row_2_data_1.innerHTML = result.amedas_data_array[i].date;
+              row_2_data_1.innerHTML = result.soler_data_array[i].facility_id;
+
               var row_2_data_2 = document.createElement('td');
               row_2.appendChild(row_2_data_2);
-  
-              row_2_data_2.innerHTML = result.amedas_data_array[i].pricipitation;
+              row_2_data_2.innerHTML = result.soler_data_array[i].name;
+
               var row_2_data_3 = document.createElement('td');
               row_2.appendChild(row_2_data_3);
-  
-              row_2_data_3.innerHTML = result.amedas_data_array[i].wind_speed;
+              row_2_data_3.innerHTML = result.soler_data_array[i].representative_name;
+
               var row_2_data_4 = document.createElement('td');
               row_2.appendChild(row_2_data_4);
-  
-              row_2_data_4.innerHTML = result.amedas_data_array[i].wind_direction;
-              if(data.thander != "指定なし")
-              {
-                var row_2_data_5 = document.createElement('td');
-                if(data.thander == "あり")
-                {
-                  if(result.amedas_data_array[i].date <="2020-10-02")
-                  {
-                    result_thander = "県内であり"
-                  }
-                  else{
-                    result_thander = "あり"
-                  }
-                }
-                if(data.thander == "なし")
-                {
-                  if(result.amedas_data_array[i].date <="2020-10-02")
-                  {
-                    result_thander = "県内で無し"
-                  }
-                  else{
-                    result_thander = "無し"
-                  }
-                }
-                
-                row_2_data_5.innerHTML = result_thander;
-                row_2.appendChild(row_2_data_5);
-              }
+              row_2_data_4.innerHTML = result.soler_data_array[i].adress;
+
+              var row_2_data_5 = document.createElement('td');
+              row_2.appendChild(row_2_data_5);
+              row_2_data_5.innerHTML = result.soler_data_array[i].tel;
+
+              // var row_2_data_6 = document.createElement('td');
+              // row_2.appendChild(row_2_data_6);
+              // row_2_data_6.innerHTML = result.soler_data_array[i].type;
+
+              var row_2_data_7 = document.createElement('td');
+              row_2.appendChild(row_2_data_7);
+              row_2_data_7.innerHTML = result.soler_data_array[i].output;
+
+              var row_2_data_8 = document.createElement('td');
+              row_2.appendChild(row_2_data_8);
+              row_2_data_8.innerHTML = result.soler_data_array[i].facility_adress;
+
+              var row_2_data_9 = document.createElement('td');
+              row_2.appendChild(row_2_data_9);
+              row_2_data_9.innerHTML = result.soler_data_array[i].total_output;
              
               tbody.appendChild(row_2);
-
-              if(new Date(result.amedas_data_array[i].date) < new Date("2020-10-03"))
-              {
-                thander_before_liden += 1;
-              }
             }
-            document.getElementById("thander-before-liden-result-msg").textContent = "落雷データ(2020年10月2日以前)："+thander_before_liden+"件"
           }
           else{
             document.getElementById("loading").textContent = "該当データはありません"
@@ -360,56 +219,28 @@ function getData() {
       else 
       {
         console.log("failed.")
-        document.getElementById("loading").textContent = "リクエストエラー"
       }
     } 
     catch (e) 
     {
       console.log("catch.")
-      document.getElementById("loading").textContent = "サーバエラー"
+      document.getElementById("loading").textContent = "エラー"
     }
   };
 }
 
-var btn = document.getElementById("btn")
-btn.addEventListener("click",() => {
-
-  // マップ画像化
-  if(document.getElementById('map').textContent != "")
-  {
-    html2canvas(document.querySelector("#map-parent"), { 
-      Proxy: true,
-      useCORS: true,
-      onrendered: function(canvas)
-      {
-        var downloadEle = document.createElement("a")
-        downloadEle.href = canvas.toDataURL("image/jpg")
-        downloadEle.download = "map.jpg"
-        downloadEle.click()
-      }
-    });
-  }
-  
-  
-  // テーブル画像化
-  for(p=0; p<page; p++)
-  {
-    downloadEle = []
-    html2canvas(document.querySelector("#table-parent"+String(p+1)), {
-      onrendered: function(canvas) {
-        downloadEle[p] = document.createElement("a")
-        downloadEle[p].href = canvas.toDataURL("image/jpg")
-        downloadEle[p].download = "table.jpg"
-        downloadEle[p].click()
-      }
-    })
-  }
-})
-
-function sleep(waitMsec) {
-  var startMsec = new Date();
- 
-  // 指定ミリ秒間だけループさせる（CPUは常にビジー状態）
-  while (new Date() - startMsec < waitMsec);
+function visibleAggregated()
+{
+  document.getElementById("aggregated_table").style.display = "block";
+  document.getElementById("search").style.display = "none";
+  document.getElementById("btn2").style.background = "linear-gradient(#888, #aaa)";
+  document.getElementById("btn1").style.background = "linear-gradient(#666, #888)";
 }
- 
+
+function visibleSearch()
+{
+  document.getElementById("aggregated_table").style.display = "none";
+  document.getElementById("search").style.display = "block";
+  document.getElementById("btn2").style.background = "linear-gradient(#666, #888)";
+  document.getElementById("btn1").style.background = "linear-gradient(#888, #aaa)";
+}
