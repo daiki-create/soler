@@ -61,7 +61,7 @@ class Soler_model extends CI_Model
     {
         if($n)
         {
-            $xls_files = glob($this->soler_dir . "/public/xlsx/".$n."\?.*.xlsx");
+            $xls_files = glob($this->soler_dir . "/public/xlsx/".$n."[0-9].*.xlsx");
         }
         else
         {
