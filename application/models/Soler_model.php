@@ -86,13 +86,14 @@ class Soler_model extends CI_Model
             // 読み込むCSVファイルを指定
             $reader = Reader::createFromPath($cf, 'r');
             $i = 0;
+            $soler_data = [];
             foreach($records as $row) {
                 $i++;
                 if($i < 5)
                 {
                     continue;
                 }
-                $soler_data = [
+                $soler_data_row = [
                     'facility_id' => $row[1],
                     'name' => $row[2],
                     'representative_name' => $row[3],
@@ -103,8 +104,9 @@ class Soler_model extends CI_Model
                     'facility_adress' => $row[8],
                     'total_output' => $row[10]
                 ];
-                array_push($soler_data_array, $soler_data);
+                array_push($soler_data, $soler_data_row);
             }
+            array_push($soler_data_array, $soler_data);
         }
         return $this->Soler_tbl->saveCurrentSoler($soler_data_array);
     }
