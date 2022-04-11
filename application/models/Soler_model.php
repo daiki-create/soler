@@ -80,22 +80,11 @@ class Soler_model extends CI_Model
     public function saveCurrentSoler($n)
     {
         $csv_files = glob($this->soler_dir . "/public/csv/*.csv");
+        $soler_data_array = [];
         foreach($csv_files as $cf)
         {
             // 読み込むCSVファイルを指定
             $reader = Reader::createFromPath($cf, 'r');
-            
-            // 文字エンコードを指定(SJIS-win -> UTF-8)
-            // CharsetConverter::addTo($reader, 'SJIS', 'UTF-8');
-            
-            // レコード件数を取得
-            // echo $reader->count();
-            // exit;
-            
-            // データ読み込み
-            $records = $reader->getRecords();
-
-            $soler_data_array = [];
             $i = 0;
             foreach($records as $row) {
                 $i++;
