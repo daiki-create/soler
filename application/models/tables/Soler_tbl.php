@@ -9,6 +9,7 @@ class Soler_tbl extends CI_Model
 
     public function saveCurrentSoler($soler_data_array)
     {
+        $this->db->truncate('soler');
         if(
             $this
             ->db
