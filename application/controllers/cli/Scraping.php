@@ -69,4 +69,23 @@ class Scraping extends CI_Controller {
 		}
 		log_message('debug', 'failed');
 	}
+
+	public function xlsxToCsv($n)
+	{
+        // xlsxファイルの取得
+		// if($this->Soler_model->getXlsx())
+		{
+        	// csvに変換
+			if($this->Soler_model->xlsxToCsv($n))
+			{
+				// データベースに保存
+				// if($this->Soler_model->saveCurrentSoler($n))
+				{
+					log_message('debug', 'success');
+					exit;
+				}
+			}
+		}
+		log_message('debug', 'failed');
+	}
 }
