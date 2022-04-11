@@ -79,7 +79,7 @@ class Soler_model extends CI_Model
 
     public function saveCurrentSoler($n)
     {
-        $csv_files = glob($this->soler_dir . "/public/csv/0".$n."*.csv");
+        $csv_files = glob($this->soler_dir . "/public/csv/*.csv");
         foreach($csv_files as $cf)
         {
             // 読み込むCSVファイルを指定
