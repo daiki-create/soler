@@ -522,4 +522,5 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-$config [ 'composer_autoload' ] = 'vendor/autoload.php' ;
+$config['composer_autoload'] = TRUE;
+$config['soler_dir'] = '/home/noland/src/soler';

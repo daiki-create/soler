@@ -1,6 +1,13 @@
 <?php
-// require ('/home/noland/src/soler/vendor/autoload.php');
-// require ('/home/noland/src/soler/vendor/autoload.php');
+if($_SERVER['HTTP_HOST']=="soler.local.com")
+{
+    $soler_dir = '/home/noland/src/soler';
+}
+if($_SERVER['HTTP_HOST']=="weather-info-ss.com")
+{
+    $soler_dir = '/home/mutsuki2000/weather-info-ss.com/public_html/soler';
+}
+require ($soler_dir . '/vendor/autoload.php');
  
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
@@ -44,7 +51,7 @@ class Soler_model extends CI_Model
 
     public function xlsxToCsv()
     {
-        $xls_files = glob("/home/noland/src/soler/public/xlsx/*.xlsx");
+        $xls_files = glob($soler_dir . "/public/xlsx/*.xlsx");
 
         foreach($xls_files as $xf)
         {
@@ -54,7 +61,7 @@ class Soler_model extends CI_Model
             foreach($loadedSheetNames as $sheetIndex => $loadedSheetName) {
                 $writer = new WriterCsv($spreadsheet);
                 $writer->setSheetIndex($sheetIndex);
-                $writer->save('/home/noland/src/soler/public/csv/'.$loadedSheetName.'.csv');
+                $writer->save($soler_dir . '/public/csv/'.$loadedSheetName.'.csv');
                 break;
             }    
         }
@@ -63,7 +70,7 @@ class Soler_model extends CI_Model
 
     public function saveCurrentSoler()
     {
-        $csv_files = glob("/home/noland/src/soler/public/csv/*.csv");
+        $csv_files = glob($soler_dir . "/public/csv/*.csv");
         foreach($csv_files as $cf)
         {
             // 読み込むCSVファイルを指定
