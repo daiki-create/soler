@@ -22,7 +22,7 @@ class Scraping extends CI_Controller {
 			if($this->Soler_model->xlsxToCsv($n))
 			{
 				// データベースに保存
-				if($this->Soler_model->saveCurrentSoler($n))
+				// if($this->Soler_model->saveCurrentSoler($n))
 				{
 					log_message('debug', 'success');
 					exit;
