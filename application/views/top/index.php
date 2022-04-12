@@ -124,8 +124,11 @@
                                 <option value=0>
                                     指定なし
                                 </option>
-                                <option value=1>
+                                <option value="no_blank">
                                     あり
+                                </option>
+                                <option value=1>
+                                    未記入
                                 </option>
                             </select>
                         </div>
