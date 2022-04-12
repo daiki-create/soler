@@ -174,7 +174,7 @@ class Soler_tbl extends CI_Model
             $sql = $sql->where('output <=', 50);
          }
          
-         if($adress_blank)
+         if($adress_blank == "blank")
          {
             $sql = $sql->where('adress =', '');
          }

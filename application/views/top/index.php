@@ -127,7 +127,7 @@
                                 <option value="no_blank">
                                     あり
                                 </option>
-                                <option value=1>
+                                <option value="blank">
                                     未記入
                                 </option>
                             </select>
