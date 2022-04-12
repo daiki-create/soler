@@ -107,9 +107,9 @@ header h2{
 }
 
 /* 検索フォーム */
-#search{
+/* #search{
     display: none;
-}
+} */
 #main #form{
     background-color: lightgray;
     margin: 2rem auto 3rem auto;
