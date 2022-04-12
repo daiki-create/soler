@@ -9,7 +9,7 @@
 
     <link rel="icon" href="<?php echo $this->config->item('base_url') ?>/img/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="<?php echo $this->config->item('base_url') ?>/img/favicon.ico" type="img/x-icon" />
-    <link href="<?php echo $this->config->item('base_url') ?>/css/top/index220403.css" rel="stylesheet">
+    <link href="<?php echo $this->config->item('base_url') ?>/css/top/index220413.css" rel="stylesheet">
 
     <!-- Vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
@@ -119,7 +119,7 @@
 
                         <!-- 住所記載有無 -->
                         <div id="adress_blank">
-                            <label class="font-weight-bold" for="">住所記載</label>
+                            <label class="font-weight-bold" for="">事業者の住所記載</label>
                             <select id="adress_blank_select" name="">
                                 <option value=0>
                                     指定なし
@@ -172,6 +172,6 @@
            
         </div>
     <!-- </div> -->
-    <script src="<?php echo $this->config->item('base_url') ?>/js/top/index220403.js"></script>
+    <script src="<?php echo $this->config->item('base_url') ?>/js/top/index220413.js"></script>
 </body>
 </html>
