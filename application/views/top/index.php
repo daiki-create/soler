@@ -30,12 +30,12 @@
     </header>
 
     <div id="main">
-        <div id="toggle-btn">
+        <!-- <div id="toggle-btn">
             <button id="btn1" onclick="visibleAggregated()">太陽光パネルの数</button>
             <button id="btn2" onclick="visibleSearch()">検索</button>
         </div>
-        <div id="card">
-            <div id="aggregated_table" class="aggregated_table">
+        <div id="card"> -->
+            <!-- <div id="aggregated_table" class="aggregated_table">
                 <p>
                     <span>※同一住所の表記による差異は「重複でない」とみなします。</span>
                 </p>
@@ -50,20 +50,20 @@
                             <th><span style="color:red">発電出力50kW以下</span><br><span style="color:blue">所有者住所の重複無し</span><br><span style="color:green">住所記載あり</span></th>
                         </tr>
                         <?php 
-                        foreach($soler_aggregated_array as $row){
-                            echo("<tr></tr>");
-                            echo("<td>".$row['prefecture']."</td>");
-                            echo("<td>".$row['n_soler']."</td>");
-                            echo("<td>".$row['n_soler_unique_address']."</td>");
-                            echo("<td>".$row['n_soler_under_50']."</td>");
-                            echo("<td>".$row['n_soler_under_50_unique_address']."</td>");
-                            echo("<td>".$row['n_soler_under_50_unique_address_not_blank']."</td>");
-                            echo("<tr></tr>");
-                        }
+                        // foreach($soler_aggregated_array as $row){
+                        //     echo("<tr></tr>");
+                        //     echo("<td>".$row['prefecture']."</td>");
+                        //     echo("<td>".$row['n_soler']."</td>");
+                        //     echo("<td>".$row['n_soler_unique_address']."</td>");
+                        //     echo("<td>".$row['n_soler_under_50']."</td>");
+                        //     echo("<td>".$row['n_soler_under_50_unique_address']."</td>");
+                        //     echo("<td>".$row['n_soler_under_50_unique_address_not_blank']."</td>");
+                        //     echo("<tr></tr>");
+                        // }
                         ?>
                     </tbody>
                 </table>
-            </div>
+            </div> -->
 
             <div id="search">
             <div id="form">
@@ -168,7 +168,7 @@
             </div>
            
         </div>
-    </div>
+    <!-- </div> -->
     <script src="<?php echo $this->config->item('base_url') ?>/js/top/index220403.js"></script>
 </body>
 </html>
