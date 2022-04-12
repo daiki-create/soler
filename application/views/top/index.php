@@ -112,7 +112,7 @@
                                     制限なし
                                 </option>
                                 <option value=1>
-                                    500kW以下
+                                    50kW以下
                                 </option>
                             </select>
                         </div>
