@@ -12,9 +12,9 @@ class Top extends CI_Controller {
 
 	public function index()
 	{
-		$soler_aggregated_array = $this->Soler_model->getAggregatedSoler();
-		$data['soler_aggregated_array'] = $soler_aggregated_array;
-		$this->load->view('top/index.php', $data);
+		// $soler_aggregated_array = $this->Soler_model->getAggregatedSoler();
+		// $data['soler_aggregated_array'] = $soler_aggregated_array;
+		$this->load->view('top/index.php');
 	}
 	
 	public function api()
