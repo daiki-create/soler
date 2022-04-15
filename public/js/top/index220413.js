@@ -109,11 +109,11 @@ function getData() {
           {
             document.getElementById("result-msg-1").textContent = "検索結果："+result.soler_data_array.length+"件"
             page = 0;
-            lastPage = Math.floor(result.soler_data_array.length / 100 + 1);
+            lastPage = Math.floor(result.soler_data_array.length / 50 + 1);
             for (var i = 0; i < result.soler_data_array.length; i++) 
             {
               // 100の倍数で改ページ
-              if(i % 100 == 0)
+              if(i % 50 == 0)
               {
                 page++;
                 var tableParent = document.createElement('div');
