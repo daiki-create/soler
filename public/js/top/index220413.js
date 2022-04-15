@@ -109,7 +109,8 @@ function getData() {
           {
             document.getElementById("result-msg-1").textContent = "検索結果："+result.soler_data_array.length+"件"
             page = 0
-            for (var i = 0; i < result.soler_data_array.length; i++) 
+            // for (var i = 0; i < result.soler_data_array.length; i++) 
+            for (var i = 0; i < 1000; i++) 
             {
               // 20の倍数で改ページ
               if(i % 20 == 0)
