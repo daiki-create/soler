@@ -133,8 +133,8 @@ function getData() {
                 var row_1 = document.createElement('tr');
                 row_1.classList = ["bgc-gray"];
 
-                // var heading_1 = document.createElement('th');
-                // heading_1.innerHTML = "設備ID";
+                var heading_1 = document.createElement('th');
+                heading_1.innerHTML = "設備ID";
                 var heading_2 = document.createElement('th');
                 heading_2.innerHTML = "発電所事業者名";
                 var heading_3 = document.createElement('th');
@@ -149,10 +149,10 @@ function getData() {
                 heading_7.innerHTML = "発電出力(kW)";
                 var heading_8 = document.createElement('th');
                 heading_8.innerHTML = "発電所の所在地";
-                // var heading_9 = document.createElement('th');
-                // heading_9.innerHTML = "太陽光電池の合計出力(kW)";
+                var heading_9 = document.createElement('th');
+                heading_9.innerHTML = "太陽光電池の合計出力(kW)";
              
-                // row_1.appendChild(heading_1);
+                row_1.appendChild(heading_1);
                 row_1.appendChild(heading_2);
                 row_1.appendChild(heading_3);
                 row_1.appendChild(heading_4);
@@ -160,15 +160,15 @@ function getData() {
                 // row_1.appendChild(heading_6);
                 row_1.appendChild(heading_7);
                 row_1.appendChild(heading_8);
-                // row_1.appendChild(heading_9);
+                row_1.appendChild(heading_9);
              
                 thead.appendChild(row_1);
               }
               var row_2 = document.createElement('tr');
 
-              // var row_2_data_1 = document.createElement('td');
-              // row_2.appendChild(row_2_data_1);
-              // row_2_data_1.innerHTML = result.soler_data_array[i].facility_id;
+              var row_2_data_1 = document.createElement('td');
+              row_2.appendChild(row_2_data_1);
+              row_2_data_1.innerHTML = result.soler_data_array[i].facility_id;
 
               var row_2_data_2 = document.createElement('td');
               row_2.appendChild(row_2_data_2);
@@ -198,9 +198,9 @@ function getData() {
               row_2.appendChild(row_2_data_8);
               row_2_data_8.innerHTML = result.soler_data_array[i].facility_adress;
 
-              // var row_2_data_9 = document.createElement('td');
-              // row_2.appendChild(row_2_data_9);
-              // row_2_data_9.innerHTML = result.soler_data_array[i].total_output;
+              var row_2_data_9 = document.createElement('td');
+              row_2.appendChild(row_2_data_9);
+              row_2_data_9.innerHTML = result.soler_data_array[i].total_output;
              
               tbody.appendChild(row_2);
             }
@@ -229,18 +229,18 @@ function getData() {
   };
 }
 
-function visibleAggregated()
-{
-  document.getElementById("aggregated_table").style.display = "block";
-  document.getElementById("search").style.display = "none";
-  document.getElementById("btn2").style.background = "linear-gradient(#888, #aaa)";
-  document.getElementById("btn1").style.background = "linear-gradient(#666, #888)";
-}
+// function visibleAggregated()
+// {
+//   document.getElementById("aggregated_table").style.display = "block";
+//   document.getElementById("search").style.display = "none";
+//   document.getElementById("btn2").style.background = "linear-gradient(#888, #aaa)";
+//   document.getElementById("btn1").style.background = "linear-gradient(#666, #888)";
+// }
 
-function visibleSearch()
-{
-  document.getElementById("aggregated_table").style.display = "none";
-  document.getElementById("search").style.display = "block";
-  document.getElementById("btn2").style.background = "linear-gradient(#666, #888)";
-  document.getElementById("btn1").style.background = "linear-gradient(#888, #aaa)";
-}
+// function visibleSearch()
+// {
+//   document.getElementById("aggregated_table").style.display = "none";
+//   document.getElementById("search").style.display = "block";
+//   document.getElementById("btn2").style.background = "linear-gradient(#666, #888)";
+//   document.getElementById("btn1").style.background = "linear-gradient(#888, #aaa)";
+// }
