@@ -118,7 +118,10 @@ function getData() {
                 var tableParent = document.createElement('div');
                 tableParent.style.backgroundColor = "white";
                 tableParent.id = "table-parent"+String(page)
-                tableParent.style.display = 'none';
+                if(page != 1)
+                {
+                  tableParent.style.display = 'none';
+                }
                 document.getElementById("soler-table").appendChild(tableParent)
   
                 var table = document.createElement('table');
@@ -205,7 +208,6 @@ function getData() {
              
               tbody.appendChild(row_2);
             }
-            document.getElementById('"table-parent1').style.display = "block";
           }
           else{
             document.getElementById("loading").textContent = "該当データはありません"
