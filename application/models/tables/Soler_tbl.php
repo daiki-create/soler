@@ -162,7 +162,9 @@ class Soler_tbl extends CI_Model
          $adress_blank = $request['adress_blank'];
          $unique = $request['unique'];
  
-         $sql = $this->db->where('type', '太陽光');
+         $sql = $this->db
+         ->select('facility_id', 'name', 'representative_name', 'adress', 'tel', 'output', 'facility_adress', 'total_output')
+         ->where('type', '太陽光');
 
          if($area != '全国')
          {
