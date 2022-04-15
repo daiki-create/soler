@@ -163,7 +163,7 @@ class Soler_tbl extends CI_Model
          $unique = $request['unique'];
  
          $sql = $this->db
-         ->select('facility_id, name, representative_name, adress, tel, output, facility_adress, total_output')
+         ->select('name, representative_name, adress, tel, output, facility_adress')
          ->where('type', '太陽光');
 
          if($area != '全国')
