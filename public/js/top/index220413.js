@@ -108,21 +108,41 @@ function getData() {
           if(result.soler_data_array.length > 0)
           {
             document.getElementById("result-msg-1").textContent = "検索結果："+result.soler_data_array.length+"件"
-            page = 0
+            page = 0;
+            lastPage = Math.floor(result.soler_data_array.length / 100 + 1);
             for (var i = 0; i < result.soler_data_array.length; i++) 
             {
-              // 20の倍数で改ページ
-              if(i % 20 == 0)
+              // 100の倍数で改ページ
+              if(i % 100 == 0)
               {
                 page++;
                 var tableParent = document.createElement('div');
                 tableParent.style.backgroundColor = "white";
                 tableParent.id = "table-parent"+String(page)
+
+                // ページネーション
+                var pageNation = document.createElement('div');
+                pageNation.classList = "pagenation";
+                var pageNext = document.createElement('button');
+                var pageBack = document.createElement('button');
+                pageNext.textContent = "次へ";
+                pageBack.textContent = "前へ";
+                pageNext.setAttribute('onclick', 'pageNext('+String(page)+')');
+                pageBack.setAttribute('onclick', 'pageBack('+String(page)+')');
+                if(page != 1){
+                  pageNation.appendChild(pageBack);
+                }
+                if(page != lastPage){
+                  pageNation.appendChild(pageNext);
+                }
+                tableParent.appendChild(pageNation);
+
+                // 2ページ目以降非表示
                 if(page != 1)
                 {
                   tableParent.style.display = 'none';
                 }
-                document.getElementById("soler-table").appendChild(tableParent)
+                document.getElementById("soler-table").appendChild(tableParent);
   
                 var table = document.createElement('table');
                 var table_inner = document.createElement('div');
@@ -231,6 +251,20 @@ function getData() {
       document.getElementById("loading").textContent = "エラー"
     }
   };
+}
+
+function pageNext(page)
+{
+  nextPage = page+1;
+  document.getElementById("table-parent"+page).style.display = "none";
+  document.getElementById("table-parent"+nextPage).style.display = "block";
+}
+
+function pageBack(page)
+{
+  backPage = page-1;
+  document.getElementById("table-parent"+page).style.display = "none";
+  document.getElementById("table-parent"+backPage).style.display = "block";
 }
 
 // function visibleAggregated()
