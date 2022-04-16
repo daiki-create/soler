@@ -179,7 +179,7 @@ class Soler_tbl extends CI_Model
             if($adress_blank == 0)
             {
                 // adress空白 and nameユニーク または　adressTRUE and adressユニーク
-                $sql = $sql->group_by('adress');
+                // $sql = $sql->group_by('adress');
                 $sql = $sql->group_by('name');
             }
             // 住所記載　あり
