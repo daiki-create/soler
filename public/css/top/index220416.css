@@ -195,6 +195,7 @@ header h2{
     margin-top: 3rem;
     width: 98%;
     margin: auto;
+    white-space: nowrap;
 }
 #soler-table table{
     border-collapse: collapse;
@@ -202,7 +203,7 @@ header h2{
     width: 130%;
     margin: auto;
     transform: rotateX(180deg);
-    margin-top: 30px;
+    margin-top: 30px; 
 }
 #soler-table div{
     transform: rotateX(180deg);

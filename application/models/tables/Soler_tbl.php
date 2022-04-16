@@ -157,7 +157,7 @@ class Soler_tbl extends CI_Model
      // 検索
      public function getSoler($request)
      {
-         $area =$request['area'];
+         $area = $request['area'];
          $output = $request['output'];
          $adress_blank = $request['adress_blank'];
          $unique = $request['unique'];
@@ -172,6 +172,14 @@ class Soler_tbl extends CI_Model
            $sql = $sql->like('facility_adress', $area);
          }
 
+         if($unique)
+         {
+            if(!($adress_blank == "blank"))
+            {
+                $sql = $sql->group_by('adress');
+            }
+         }
+
          if($output)
          {
             $sql = $sql->where('output <=', 50);
@@ -180,15 +188,11 @@ class Soler_tbl extends CI_Model
          if($adress_blank == "blank")
          {
             $sql = $sql->where('adress =', '');
+            $sql = $sql->group_by('name');
          }
          elseif($adress_blank == "no_blank")
          {
             $sql = $sql->where('adress !=', '');
-         }
-
-         if($unique)
-         {
-            $sql = $sql->group_by('adress');
          }
 
          $sql = $sql
