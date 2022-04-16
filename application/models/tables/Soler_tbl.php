@@ -191,6 +191,7 @@ class Soler_tbl extends CI_Model
             // 住所記載　未記入
             if($adress_blank == "blank")
             {
+                $sql = $sql->where('adress =', '');
                 $sql = $sql->group_by('name');
             }
          }
@@ -213,16 +214,6 @@ class Soler_tbl extends CI_Model
                 $sql = $sql->where('adress =', '');
             }
         }
-         
-        //  if($adress_blank == "blank")
-        //  {
-        //     $sql = $sql->where('adress =', '');
-        //     $sql = $sql->group_by('name');
-        //  }
-        //  elseif($adress_blank == "no_blank")
-        //  {
-        //     $sql = $sql->where('adress !=', '');
-        //  }
 
          if($output)
          {
