@@ -153,7 +153,7 @@ function getData() {
                 table.appendChild(tbody);
                 
                 tableParent.appendChild(table);
-                tableParent.style.overflowX = 'scroll';
+                // tableParent.style.overflowX = 'scroll';
                 var row_1 = document.createElement('tr');
                 row_1.classList = ["bgc-gray"];
 

@@ -9,7 +9,7 @@
 
     <link rel="icon" href="<?php echo $this->config->item('base_url') ?>/img/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="<?php echo $this->config->item('base_url') ?>/img/favicon.ico" type="img/x-icon" />
-    <link href="<?php echo $this->config->item('base_url') ?>/css/top/index220416.css" rel="stylesheet">
+    <link href="<?php echo $this->config->item('base_url') ?>/css/top/index220417.css" rel="stylesheet">
 
     <!-- Vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
@@ -172,6 +172,6 @@
            
         </div>
     <!-- </div> -->
-    <script src="<?php echo $this->config->item('base_url') ?>/js/top/index220416.js"></script>
+    <script src="<?php echo $this->config->item('base_url') ?>/js/top/index220417.js"></script>
 </body>
 </html>
