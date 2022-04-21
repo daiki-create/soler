@@ -275,6 +275,10 @@ class Soler_model extends CI_Model
                         {
                             $city = "稲城市";
                         }
+                        if(preg_match('/相模原中央/', $adress))
+                        {
+                            $city = "相模原市";
+                        }
 
                         $city = mb_substr($city, 0, -1);
                         // 都道府県・市区町村リストの中から一致する市区町村を見つけ、都道府県を取得
