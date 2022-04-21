@@ -402,8 +402,10 @@ class Soler_model extends CI_Model
 
                             // 逆geocoodingで住所を求める
                             $latlng = $lat . ',' . $lon;
-                            $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $latlng . "+CA&key=" . $myKey ;
-                            $contents= file_get_contents($url);
+                            $url2 = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $latlng . "+CA&key=" . $myKey ;
+                            $contents2 = file_get_contents($url);
+                            $jsonData2 = json_decode($contents,true);
+
                             var_dump($contents);exit;
 
                             return FALSE;
