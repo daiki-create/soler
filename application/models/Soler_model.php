@@ -305,6 +305,8 @@ class Soler_model extends CI_Model
                             echo($city."<br>");
                             echo('jsonから市区町村が見つかりませんでした。');
 
+                            $adress="東京";
+
                             // geocoodingで緯度経度を求める
                             $myKey = "AIzaSyD9JxYPovcgDD23Cr4H7iDJvAeZQB9j66w";
                             $url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($adress) . "+CA&key=" . $myKey ;
@@ -316,8 +318,10 @@ class Soler_model extends CI_Model
 
                             // 逆geocoodingで住所を求める
                             $latlng = $lat . ',' . $lon;
-                            $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . urlencode($latlng) . "+CA&key=" . $myKey ;
-                            $contents= file_get_contents($url);
+                            $url2 = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $latlng . "+CA&key=" . $myKey ;
+                            $contents2 = file_get_contents($url);
+                            $jsonData2 = json_decode($contents,true);
+                            
                             var_dump($contents);exit;
 
                             return FALSE;
@@ -326,65 +330,65 @@ class Soler_model extends CI_Model
                     // 例外
                     else
                     {
-                        if(preg_match('/流通センター/', $adress))
-                        {
-                            $prec = "山形県";
-                            $city = "山形市";
-                            $adress = $prec . $city . $adress;
-                        }
-                        elseif(preg_match('/杵築/', $adress))
-                        {
-                            $prec = "大分県";
-                            $city = "杵築市";
-                            $adress = $prec . $city . str_replace('杵築', '', $adress);
-                        }
-                        elseif(preg_match('/高萩/', $adress))
-                        {
-                            $prec = "茨城県";
-                            $city = "高萩市";
-                            $adress = $prec . $city . str_replace('高萩', '', $adress);
-                        }
-                        elseif(preg_match('/平荒田目/', $adress))
-                        {
-                            $prec = "福島県";
-                            $city = "いわき市";
-                            $adress = $prec . $city . $adress;
-                        }
-                        elseif(preg_match('/境下渕名/', $adress))
-                        {
-                            $prec = "群馬県";
-                            $city = "伊勢崎市";
-                            $adress = $prec . $city . $adress;
-                        }
-                        elseif(preg_match('/芦生田/', $adress))
-                        {
-                            $prec = "群馬県";
-                            $city = "嬬恋村";
-                            $adress = $prec . $city . $adress;
-                        }
+                        // if(preg_match('/流通センター/', $adress))
+                        // {
+                        //     $prec = "山形県";
+                        //     $city = "山形市";
+                        //     $adress = $prec . $city . $adress;
+                        // }
+                        // elseif(preg_match('/杵築/', $adress))
+                        // {
+                        //     $prec = "大分県";
+                        //     $city = "杵築市";
+                        //     $adress = $prec . $city . str_replace('杵築', '', $adress);
+                        // }
+                        // elseif(preg_match('/高萩/', $adress))
+                        // {
+                        //     $prec = "茨城県";
+                        //     $city = "高萩市";
+                        //     $adress = $prec . $city . str_replace('高萩', '', $adress);
+                        // }
+                        // elseif(preg_match('/平荒田目/', $adress))
+                        // {
+                        //     $prec = "福島県";
+                        //     $city = "いわき市";
+                        //     $adress = $prec . $city . $adress;
+                        // }
+                        // elseif(preg_match('/境下渕名/', $adress))
+                        // {
+                        //     $prec = "群馬県";
+                        //     $city = "伊勢崎市";
+                        //     $adress = $prec . $city . $adress;
+                        // }
+                        // elseif(preg_match('/芦生田/', $adress))
+                        // {
+                        //     $prec = "群馬県";
+                        //     $city = "嬬恋村";
+                        //     $adress = $prec . $city . $adress;
+                        // }
                         
-                        elseif(preg_match('/(北海道|青森|岩手|宮城|秋田|山形|福島|茨城|栃木|群馬|埼玉|千葉|東京|神奈川|新潟|富山|石川|福井|山梨|長野|岐阜|静岡|愛知|三重|滋賀|[^東]京都|大阪|兵庫|奈良|和歌山|鳥取|島根|岡山|広島|山口|徳島|香川|愛媛|高知|福岡|佐賀|長崎|熊本|大分|宮崎|鹿児島|沖縄)/', $adress, $matches5))
-                        {
-                            $prec = $matches5[0];
-                            if($prec == "大阪" or $prec == "京都")
-                            {
-                                $prec = $prec . "府";
-                            }
-                            elseif($prec == "東京")
-                            {
-                                $prec = $prec . "都";
-                            }
-                            elseif($prec == "北海道")
-                            {
-                                $prec = $prec;
-                            }
-                            else
-                            {
-                                $prec = $prec . "県";
-                            }
-                            $adress = $prec . $adress;
-                        }
-                        else
+                        // elseif(preg_match('/(北海道|青森|岩手|宮城|秋田|山形|福島|茨城|栃木|群馬|埼玉|千葉|東京|神奈川|新潟|富山|石川|福井|山梨|長野|岐阜|静岡|愛知|三重|滋賀|[^東]京都|大阪|兵庫|奈良|和歌山|鳥取|島根|岡山|広島|山口|徳島|香川|愛媛|高知|福岡|佐賀|長崎|熊本|大分|宮崎|鹿児島|沖縄)/', $adress, $matches5))
+                        // {
+                        //     $prec = $matches5[0];
+                        //     if($prec == "大阪" or $prec == "京都")
+                        //     {
+                        //         $prec = $prec . "府";
+                        //     }
+                        //     elseif($prec == "東京")
+                        //     {
+                        //         $prec = $prec . "都";
+                        //     }
+                        //     elseif($prec == "北海道")
+                        //     {
+                        //         $prec = $prec;
+                        //     }
+                        //     else
+                        //     {
+                        //         $prec = $prec . "県";
+                        //     }
+                        //     $adress = $prec . $adress;
+                        // }
+                        // else
                         {
                             echo($adress."<br>");
                             echo('市区町村が見つかりませんでした。');
