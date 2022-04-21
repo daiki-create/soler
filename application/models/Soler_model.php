@@ -135,9 +135,9 @@ class Soler_model extends CI_Model
                     $city_add_flag = 0;
 
                     // 都道府県を取得できない場合、正規表現で市区町村を取得
-                    if(preg_match('/(郡|島).*?(市|区|町|村)/', $adress))
+                    if(preg_match('/郡.*?(市|区|町|村)/', $adress))
                     {
-                        preg_match('/(郡|島).*?(市|区|町|村)/', $adress, $matches4);
+                        preg_match('/郡.*?(市|区|町|村)/', $adress, $matches4);
                     }
                     else
                     {
@@ -152,7 +152,7 @@ class Soler_model extends CI_Model
                         }
                         else
                         {
-                            $city = str_replace('郡島', '', $matches4[0]);
+                            $city = str_replace('郡', '', $matches4[0]);
                         }
 
                         // 「市」の入った市
@@ -266,6 +266,10 @@ class Soler_model extends CI_Model
                         if(preg_match('/東証町/', $adress))
                         {
                             $city = "東庄町";
+                        }
+                        if(preg_match('/八丈町/', $adress))
+                        {
+                            $city = "八丈町";
                         }
 
                         $city = mb_substr($city, 0, -1);
