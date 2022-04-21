@@ -221,6 +221,7 @@ class Soler_tbl extends CI_Model
          }
 
          $sql = $sql
+            ->order_by('prec_no', 'asc')
             ->get('soler')
             ->result();
       

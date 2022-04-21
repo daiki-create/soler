@@ -13,79 +13,75 @@ class Scraping extends CI_Controller {
 		$this->load->model('Soler_model');
 	}
 
-	public function scrapingCurrentSoler($n)
-	{
-        // xlsxファイルの取得
-		if($this->Soler_model->getXlsx())
-		{
-        	// csvに変換
-			if($this->Soler_model->xlsxToCsv($n))
-			{
-				// データベースに保存
-				if($this->Soler_model->saveCurrentSoler($n))
-				{
-					log_message('debug', 'success');
-					exit;
-				}
-			}
-		}
-		log_message('debug', 'failed');
-	}
+	// public function scrapingCurrentSoler($n)
+	// {
+    //     // xlsxファイルの取得
+	// 	if($this->Soler_model->getXlsx())
+	// 	{
+    //     	// csvに変換
+	// 		if($this->Soler_model->xlsxToCsv($n))
+	// 		{
+	// 			// データベースに保存
+	// 			if($this->Soler_model->saveCurrentSoler($n))
+	// 			{
+	// 				log_message('debug', 'success');
+	// 				exit;
+	// 			}
+	// 		}
+	// 	}
+	// 	log_message('debug', 'failed');
+	// }
 
-	public function xlsxToCsvSaveCurrentSoler($n)
-	{
-        // xlsxファイルの取得
-		// if($this->Soler_model->getXlsx())
-		{
-        	// csvに変換
-			if($this->Soler_model->xlsxToCsv($n))
-			{
-				// データベースに保存
-				if($this->Soler_model->saveCurrentSoler($n))
-				{
-					log_message('debug', 'success');
-					exit;
-				}
-			}
-		}
-		log_message('debug', 'failed');
-	}
+	// public function xlsxToCsvSaveCurrentSoler($n)
+	// {
+    //     // xlsxファイルの取得
+	// 	// if($this->Soler_model->getXlsx())
+	// 	{
+    //     	// csvに変換
+	// 		if($this->Soler_model->xlsxToCsv($n))
+	// 		{
+	// 			// データベースに保存
+	// 			if($this->Soler_model->saveCurrentSoler($n))
+	// 			{
+	// 				log_message('debug', 'success');
+	// 				exit;
+	// 			}
+	// 		}
+	// 	}
+	// 	log_message('debug', 'failed');
+	// }
 
-	public function saveCurrentSoler($n)
+	public function saveCurrentSoler()
 	{
-        // xlsxファイルの取得
-		// if($this->Soler_model->getXlsx())
+		// データベースに保存
+		if($this->Soler_model->saveCurrentSoler())
 		{
-        	// csvに変換
-			// if($this->Soler_model->xlsxToCsv($n))
-			{
-				// データベースに保存
-				if($this->Soler_model->saveCurrentSoler($n))
-				{
-					log_message('debug', 'success');
-					exit;
-				}
-			}
+			log_message('debug', 'success');
+			exit;
 		}
+		echo('failed');
 		log_message('debug', 'failed');
 	}
 
 	public function xlsxToCsv($n)
 	{
-        // xlsxファイルの取得
-		// if($this->Soler_model->getXlsx())
+		// csvに変換
+		if($this->Soler_model->xlsxToCsv($n))
 		{
-        	// csvに変換
-			if($this->Soler_model->xlsxToCsv($n))
-			{
-				// データベースに保存
-				// if($this->Soler_model->saveCurrentSoler($n))
-				{
-					log_message('debug', 'success');
-					exit;
-				}
-			}
+			log_message('debug', 'success');
+			exit;
 		}
+		echo('failed');
 		log_message('debug', 'failed');
+	}
+
+	public function addPrecToAdress()
+	{
+		if($this->Soler_model->addPrecToAdress())
+		{
+			log_message('debug', 'success');
+			exit;
+		}
+		echo('failed');
 	}
 }
