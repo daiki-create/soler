@@ -389,6 +389,8 @@ class Soler_model extends CI_Model
                             echo($adress."<br>");
                             echo('市区町村が見つかりませんでした。');
 
+                            $adress="東京";
+
                             // geocoodingで緯度経度を求める
                             $myKey = "AIzaSyD9JxYPovcgDD23Cr4H7iDJvAeZQB9j66w";
                             $url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($adress) . "+CA&key=" . $myKey ;
@@ -400,10 +402,10 @@ class Soler_model extends CI_Model
 
                             // 逆geocoodingで住所を求める
                             $latlng = $lat . ',' . $lon;
-                            $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . urlencode($latlng) . "+CA&key=" . $myKey ;
+                            $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $latlng . "+CA&key=" . $myKey ;
                             $contents= file_get_contents($url);
                             var_dump($contents);exit;
-                            
+
                             return FALSE;
                         }
                     }
