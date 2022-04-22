@@ -123,11 +123,11 @@ class Soler_model extends CI_Model
                 // 空白の場合はパス
                 if(!$adress)
                 {
-                    die("null");
                     // 新しいCSVに追加するレコードを定義
                     $prec_no = 48;
                     $new_row = '"'. $row[1] .'","'. $row[2] .'","'. $row[3] .'","'. $prec_no .'","'. $adress .'","'. $row[5] .'","'. $row[6] .'","'. $row[7] .'","'. $row[8] .'","'. $row[9] .'","'. $row[10] .'"'. "\n";
                     $csv_content = $csv_content . $new_row;
+                    var_dump($csv_content);exit;
                     continue;
                 }
                 // 正規表現で都道府県を取得
