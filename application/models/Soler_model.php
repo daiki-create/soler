@@ -88,9 +88,21 @@ class Soler_model extends CI_Model
         return TRUE;
     }
 
-    public function addPrecToAdress()
+    public function addPrecToAdress($n)
     {
-        $csv_files = glob($this->soler_dir . "/public/csv/*.csv");
+        if(strlen($n) == 2)
+        {
+            $xls_files = glob($this->soler_dir . "/public/csv/".$n.".*.csv");
+        }
+        elseif($n)
+        {
+            $xls_files = glob($this->soler_dir . "/public/csv/".$n."[0-9].*.csv");
+        }
+        else
+        {
+            $xls_files = glob($this->soler_dir . "/public/csv/*.csv");
+        }
+
 
         // 都道府県・市区町村リスト（json）
         $prefecture_city_list_json = file_get_contents($this->soler_dir . "/public/json/prefectureCity.json");
