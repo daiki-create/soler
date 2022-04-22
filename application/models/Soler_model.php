@@ -25,7 +25,7 @@ class Soler_model extends CI_Model
         {
             $this->soler_dir = '/home/noland/src/soler';
         }
-        if($_SERVER['HTTP_HOST']=="weather-info-ss.com")
+        else
         {
             $this->soler_dir = '/home/mutsuki2000/weather-info-ss.com/public_html/soler';
         }
