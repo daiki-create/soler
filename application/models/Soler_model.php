@@ -99,6 +99,7 @@ class Soler_model extends CI_Model
         {
             // ファイル名取得
             $cf = str_replace("mutsuki2000", "", $cf);
+            die($cf);
             preg_match('/[0-9].*\.csv/i' , $cf, $matches);
             $file_name = $matches[0];
 
