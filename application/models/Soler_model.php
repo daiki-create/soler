@@ -584,7 +584,6 @@ class Soler_model extends CI_Model
                 echo "<br>ファイル書き込み失敗";
                 return FALSE;
             }
-            exit;
         }
         return TRUE;
     }
