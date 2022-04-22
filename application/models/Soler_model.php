@@ -123,6 +123,9 @@ class Soler_model extends CI_Model
                 // 空白の場合はパス
                 if(!$adress)
                 {
+                    // 新しいCSVに追加するレコードを定義
+                    $new_row = '"'. $row[1] .'","'. $row[2] .'","'. $row[3] .'","'. "9999" .'","'. "" .'","'. $row[5] .'","'. $row[6] .'","'. $row[7] .'","'. $row[8] .'","'. $row[9] .'","'. $row[10] .'"'. "\n";
+                    $csv_content = $csv_content . $new_row;
                     continue;
                 }
                 // 正規表現で都道府県を取得
@@ -254,40 +257,13 @@ class Soler_model extends CI_Model
                             $city = $city . "町";
                         }
 
-                        // その他
-                        // if(preg_match('/塩釜市/', $adress))
-                        // {
-                        //     $city = '塩竈市';
-                        // }
-                        // if(preg_match('/岩舟町/', $adress))
-                        // {
-                        //     $city = "栃木市";
-                        //     $city_add_flag = 1;
-                        // }
-                        // if(preg_match('/東証町/', $adress))
-                        // {
-                        //     $city = "東庄町";
-                        // }
-                        // if(preg_match('/八丈町/', $adress))
-                        // {
-                        //     $city = "八丈町";
-                        // }
-                        // if(preg_match('/稲代市/', $adress))
-                        // {
-                        //     $city = "稲城市";
-                        // }
-                        // if(preg_match('/相模原中央/', $adress))
-                        // {
-                        //     $city = "相模原市";
-                        // }
-
                         $city = mb_substr($city, 0, -1);
                         // 都道府県・市区町村リストの中から一致する市区町村を見つけ、都道府県を取得
                         $city_in_json_flag = 0;
                         foreach($prefecture_city_list_array as $pcla)
                         {
-                            if(preg_match('/'. $city .'/', $pcla['cityName']))
-                            // if($pcla['cityName'] == $city)
+                            // if(preg_match('/'. $city .'/', $pcla['cityName']))
+                            if($pcla['cityName'] == $city)
                             {
                                 $prec = $pcla['prefectureName'];
                                 // 都道府県を$adressの先頭に追加
