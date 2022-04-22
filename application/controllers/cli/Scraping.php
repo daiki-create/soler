@@ -75,9 +75,9 @@ class Scraping extends CI_Controller {
 		log_message('debug', 'failed');
 	}
 
-	public function addPrecToAdress($n)
+	public function addPrecToAdress()
 	{
-		if($this->Soler_model->addPrecToAdress($n))
+		if($this->Soler_model->addPrecToAdress())
 		{
 			log_message('debug', 'success');
 			exit;
