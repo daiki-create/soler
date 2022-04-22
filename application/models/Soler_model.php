@@ -578,7 +578,8 @@ class Soler_model extends CI_Model
                 $csv_content = $csv_content . $new_row;
             }
             // csvに書き込み保存
-            file_put_contents($this->soler_dir . "/public/csv_add_prec_to_adress/" . $file_name, $csv_content);
+            // file_put_contents($this->soler_dir . "/public/csv_add_prec_to_adress/" . $file_name, $csv_content);
+            file_put_contents($this->soler_dir . "/public/csv_add_prec_to_adress/test.csv");
             exit;
         }
         return TRUE;
