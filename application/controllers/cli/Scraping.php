@@ -63,6 +63,18 @@ class Scraping extends CI_Controller {
 		log_message('debug', 'failed');
 	}
 
+	public function saveCurrentBlankSoler()
+	{
+		// データベースに保存
+		if($this->Soler_model->saveCurrentBlankSoler())
+		{
+			log_message('debug', 'success');
+			exit;
+		}
+		echo('failed');
+		log_message('debug', 'failed');
+	}
+
 	public function xlsxToCsv($n)
 	{
 		// csvに変換
