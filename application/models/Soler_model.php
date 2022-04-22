@@ -121,7 +121,7 @@ class Soler_model extends CI_Model
                 $adress = $row[4];
 
                 // 空白の場合はパス
-                if(!$adress)
+                if($adress == "")
                 {
                     // 新しいCSVに追加するレコードを定義
                     $prec_no = 48;
