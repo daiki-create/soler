@@ -98,8 +98,8 @@ class Soler_model extends CI_Model
         foreach($csv_files as $cf)
         {
             // ファイル名取得
-            $cf = str_replace("mutsuki2000", "", $cf);
-            preg_match('/[0-9].*\.csv/i' , $cf, $matches);
+            $cf_rep = str_replace("mutsuki2000", "", $cf);
+            preg_match('/[0-9].*\.csv/i' , $cf_rep, $matches);
             $file_name = $matches[0];
 
             // 読み込むCSVファイルを指定
@@ -304,7 +304,7 @@ class Soler_model extends CI_Model
                         {
                             echo('jsonから市区町村が見つかりませんでした。<br>');
                             echo($adress."<br>");
-                            echo($city."<br>");exit;
+                            echo($city."<br>");
 
                             if(preg_match('/番地の/', $adress, $matches4))
                             {
@@ -465,7 +465,7 @@ class Soler_model extends CI_Model
                         else
                         {
                             echo('市区町村が見つかりませんでした。'."<br>");
-                            echo($adress."<br>");exit;
+                            echo($adress."<br>");
 
                             if(preg_match('/番地の/', $adress, $matches4))
                             {
