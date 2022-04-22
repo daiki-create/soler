@@ -136,7 +136,7 @@ class Soler_model extends CI_Model
                 if(!$adress)
                 {
                     // 新しいCSVに追加するレコードを定義
-                    $new_row = '"'. $row[1] .'","'. $row[2] .'","'. $row[3] .'","'. "9999" .'","'. $adress .'","'. $row[5] .'","'. $row[6] .'","'. $row[7] .'","'. $row[8] .'","'. $row[9] .'","'. $row[10] .'"'. "\n";
+                    $new_row = '"'. $row[1] .'","'. $row[2] .'","'. $row[3] .'","'. "99" .'","'. $adress .'","'. $row[5] .'","'. $row[6] .'","'. $row[7] .'","'. $row[8] .'","'. $row[9] .'","'. $row[10] .'"'. "\n";
                     $csv_content = $csv_content . $new_row;
                     continue;
                 }
