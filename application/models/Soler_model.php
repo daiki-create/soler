@@ -5,7 +5,7 @@ if($_SERVER['HTTP_HOST']=="soler.local.com")
 }
 if($_SERVER['HTTP_HOST']=="weather-info-ss.com")
 {
-    $soler_dir = '/home/mutsuki2000/weather-info-ss.com/public_html/solerr';
+    $soler_dir = '/home/mutsuki2000/weather-info-ss.com/public_html/soler';
 }
 require ($soler_dir . '/vendor/autoload.php');
  
