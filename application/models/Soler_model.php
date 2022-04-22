@@ -254,31 +254,31 @@ class Soler_model extends CI_Model
                         }
 
                         // その他
-                        if(preg_match('/塩釜市/', $adress))
-                        {
-                            $city = '塩竈市';
-                        }
-                        if(preg_match('/岩舟町/', $adress))
-                        {
-                            $city = "栃木市";
-                            $city_add_flag = 1;
-                        }
-                        if(preg_match('/東証町/', $adress))
-                        {
-                            $city = "東庄町";
-                        }
-                        if(preg_match('/八丈町/', $adress))
-                        {
-                            $city = "八丈町";
-                        }
-                        if(preg_match('/稲代市/', $adress))
-                        {
-                            $city = "稲城市";
-                        }
-                        if(preg_match('/相模原中央/', $adress))
-                        {
-                            $city = "相模原市";
-                        }
+                        // if(preg_match('/塩釜市/', $adress))
+                        // {
+                        //     $city = '塩竈市';
+                        // }
+                        // if(preg_match('/岩舟町/', $adress))
+                        // {
+                        //     $city = "栃木市";
+                        //     $city_add_flag = 1;
+                        // }
+                        // if(preg_match('/東証町/', $adress))
+                        // {
+                        //     $city = "東庄町";
+                        // }
+                        // if(preg_match('/八丈町/', $adress))
+                        // {
+                        //     $city = "八丈町";
+                        // }
+                        // if(preg_match('/稲代市/', $adress))
+                        // {
+                        //     $city = "稲城市";
+                        // }
+                        // if(preg_match('/相模原中央/', $adress))
+                        // {
+                        //     $city = "相模原市";
+                        // }
 
                         $city = mb_substr($city, 0, -1);
                         // 都道府県・市区町村リストの中から一致する市区町村を見つけ、都道府県を取得
@@ -301,13 +301,83 @@ class Soler_model extends CI_Model
                         }
                         if(!$city_in_json_flag)
                         {
+                            echo('jsonから市区町村が見つかりませんでした。<br>');
                             echo($adress."<br>");
                             echo($city."<br>");
-                            echo('jsonから市区町村が見つかりませんでした。');
+
+                            if(preg_match('/番地の/', $adress, $matches4))
+                            {
+                                $banchino = $matches4[0];
+                                $adress = str_replace($banchino, "ー", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/一丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "1丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/二丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "2丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/三丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "3丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/四丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "4丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/五丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "5丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/六丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "6丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/七丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "7丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/八丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "8丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/九丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "9丁目", $adress);
+                                echo($adress."<br>");
+                            }
 
                             // geocoodingで緯度経度を求める
+                            $context = stream_context_create(
+                                [
+                                    "http"=>
+                                    [
+                                        "ignore_errors"=>true
+                                    ]
+                                ]
+                            );
                             $myKey = "AIzaSyD9JxYPovcgDD23Cr4H7iDJvAeZQB9j66w";
-                            $url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($adress) . "+CA&key=" . $myKey ;
+                            $url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($adress) . "+CA&key=" . $myKey . "&sensor=false";
+
                             $contents= file_get_contents($url);
                             $jsonData = json_decode($contents,true);
                             
@@ -316,24 +386,29 @@ class Soler_model extends CI_Model
 
                             // 逆geocoodingで住所を求める
                             $latlng = $lat . ',' . $lon;
-                            $url2 = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $latlng . "+CA&key=" . $myKey ;
-                            $contents2 = file_get_contents($url);
-                            $jsonData2 = json_decode($contents,true);
+                            $url2 = "https://maps.google.com/maps/api/geocode/json?latlng=" . $latlng . "&CA&key=" . $myKey . "&sensor=false&language=ja";
+                            $contents2 = file_get_contents($url2, false, $context);
+                            $jsonData2 = json_decode($contents2,true);
+                            $full_adress = $jsonData2['results'][0]["formatted_address"];
+                            $prec = $jsonData2['results'][0]['address_components'][5]['long_name'];
 
-                            var_dump($contents);exit;
-
-                            return FALSE;
+                            if(preg_match('/^日本、〒[0-9]{3}-[0-9]{4}/', $full_adress, $matches5))
+                            {
+                                $trim_string = $matches5[0];
+                                $adress = str_replace($trim_string, "", $full_adress);
+                                $adress = trim($adress);
+                            }
                         }
                     }
                     // 例外
                     else
                     {
-                        // if(preg_match('/流通センター/', $adress))
-                        // {
-                        //     $prec = "山形県";
-                        //     $city = "山形市";
-                        //     $adress = $prec . $city . $adress;
-                        // }
+                        if(preg_match('/流通センター/', $adress))
+                        {
+                            $prec = "山形県";
+                            $city = "山形市";
+                            $adress = $prec . $city . $adress;
+                        }
                         // elseif(preg_match('/杵築/', $adress))
                         // {
                         //     $prec = "大分県";
@@ -386,14 +461,84 @@ class Soler_model extends CI_Model
                         //     }
                         //     $adress = $prec . $adress;
                         // }
-                        // else
+                        else
                         {
+                            echo('市区町村が見つかりませんでした。'."<br>");
                             echo($adress."<br>");
-                            echo('市区町村が見つかりませんでした。');
+
+                            if(preg_match('/番地の/', $adress, $matches4))
+                            {
+                                $banchino = $matches4[0];
+                                $adress = str_replace($banchino, "ー", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/一丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "1丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/二丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "2丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/三丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "3丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/四丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "4丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/五丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "5丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/六丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "6丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/七丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "7丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/八丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "8丁目", $adress);
+                                echo($adress."<br>");
+                            }
+                            if(preg_match('/九丁目/', $adress, $matches4))
+                            {
+                                $kanji = $matches4[0];
+                                $adress = str_replace($kanji, "9丁目", $adress);
+                                echo($adress."<br>");
+                            }
 
                             // geocoodingで緯度経度を求める
+                            $context = stream_context_create(
+                                [
+                                    "http"=>
+                                    [
+                                        "ignore_errors"=>true
+                                    ]
+                                ]
+                            );
                             $myKey = "AIzaSyD9JxYPovcgDD23Cr4H7iDJvAeZQB9j66w";
-                            $url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($adress) . "+CA&key=" . $myKey ;
+                            $url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($adress) . "+CA&key=" . $myKey . "&sensor=false";
+
                             $contents= file_get_contents($url);
                             $jsonData = json_decode($contents,true);
                             
@@ -402,13 +547,18 @@ class Soler_model extends CI_Model
 
                             // 逆geocoodingで住所を求める
                             $latlng = $lat . ',' . $lon;
-                            $url2 = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $latlng . "+CA&key=" . $myKey ;
-                            $contents2 = file_get_contents($url);
-                            $jsonData2 = json_decode($contents,true);
+                            $url2 = "https://maps.google.com/maps/api/geocode/json?latlng=" . $latlng . "&CA&key=" . $myKey . "&sensor=false&language=ja";
+                            $contents2 = file_get_contents($url2, false, $context);
+                            $jsonData2 = json_decode($contents2,true);
+                            $full_adress = $jsonData2['results'][0]["formatted_address"];
+                            $prec = $jsonData2['results'][0]['address_components'][5]['long_name'];
 
-                            var_dump($contents);exit;
-
-                            return FALSE;
+                            if(preg_match('/^日本、〒[0-9]{3}-[0-9]{4}/', $full_adress, $matches5))
+                            {
+                                $trim_string = $matches5[0];
+                                $adress = str_replace($trim_string, "", $full_adress);
+                                $adress = trim($adress);
+                            }
                         }
                     }
                 }
