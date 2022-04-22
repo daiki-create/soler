@@ -548,6 +548,44 @@ class Soler_model extends CI_Model
         return $this->Soler_tbl->saveCurrentSoler($soler_data_array);
     }
 
+    public function saveCurrentBlankSoler()
+    {
+        $csv_files = glob($this->soler_dir . "/public/csv_add_prec_to_adress/*.csv");
+        $soler_data_array = [];
+        foreach($csv_files as $cf)
+        {
+            // 読み込むCSVファイルを指定
+            $reader = Reader::createFromPath($cf, 'r');
+             // データ読み込み
+            $records = $reader->getRecords();
+            $i = 0;
+            foreach($records as $row) {
+                $i++;
+                if($i < 5)
+                {
+                    continue;
+                }
+                if($row[4] == "")
+                {
+                    $soler_data = [
+                        'facility_id' => $row[0],
+                        'name' => $row[1],
+                        'representative_name' => $row[2],
+                        'prec_no' => $row[3],
+                        'adress' => $row[4],
+                        'tel' => $row[5],
+                        'type' => $row[6],
+                        'output' => $row[7],
+                        'facility_adress' => $row[8],
+                        'total_output' => $row[10]
+                    ];
+                    array_push($soler_data_array, $soler_data);
+                }
+            }
+        }
+        return $this->Soler_tbl->saveCurrentSoler($soler_data_array);
+    }
+
     public function getAggregatedSoler()
     {
         $soler_aggregated_array = [];
