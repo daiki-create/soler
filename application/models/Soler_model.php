@@ -281,7 +281,7 @@ class Soler_model extends CI_Model
                         {
                             echo('jsonから市区町村が見つかりませんでした。<br>');
                             echo($adress."<br>");
-                            echo($city."<br>");
+                            echo($city."<br>");exit;
 
                             if(preg_match('/番地の/', $adress, $matches4))
                             {
@@ -390,7 +390,7 @@ class Soler_model extends CI_Model
                         else
                         {
                             echo('市区町村が見つかりませんでした。'."<br>");
-                            echo($adress."<br>");
+                            echo($adress."<br>");exit;
 
                             if(preg_match('/番地の/', $adress, $matches4))
                             {
