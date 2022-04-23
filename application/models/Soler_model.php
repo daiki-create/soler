@@ -603,11 +603,6 @@ class Soler_model extends CI_Model
             $records = $reader->getRecords();
             $i = 0;
             foreach($records as $row) {
-                $i++;
-                if($i < 5)
-                {
-                    continue;
-                }
                 $soler_data = [
                     'facility_id' => $row[0],
                     'name' => $row[1],
