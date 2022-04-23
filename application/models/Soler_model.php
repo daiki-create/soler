@@ -616,9 +616,9 @@ class Soler_model extends CI_Model
                     'adress' => $row[4],
                     'tel' => $row[5],
                     'type' => $row[6],
-                    'output' => $row[7],
+                    'output' => str_replace(',', '', $row[7]),
                     'facility_adress' => $row[8],
-                    'total_output' => $row[10]
+                    'total_output' => str_replace(',', '', $row[10])
                 ];
                 array_push($soler_data_array, $soler_data);
             }
