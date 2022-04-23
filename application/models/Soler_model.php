@@ -618,7 +618,7 @@ class Soler_model extends CI_Model
                 array_push($soler_data_array, $soler_data);
             }
         }
-        var_dunp(count($soler_data_array));
+        var_dump(count($soler_data_array));
         exit;
         return $this->Soler_tbl->saveCurrentSoler($soler_data_array);
     }
