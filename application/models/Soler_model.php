@@ -603,17 +603,29 @@ class Soler_model extends CI_Model
             $records = $reader->getRecords();
             $i = 0;
             foreach($records as $row) {
+                // $soler_data = [
+                //     'facility_id' => $row[0],
+                //     'name' => $row[1],
+                //     'representative_name' => $row[2],
+                //     'prec_no' => $row[3],
+                //     'adress' => $row[4],
+                //     'tel' => $row[5],
+                //     'type' => $row[6],
+                //     'output' => str_replace(',', '', $row[7]),
+                //     'facility_adress' => $row[8],
+                //     'total_output' => str_replace(',', '', $row[10])
+                // ];
                 $soler_data = [
-                    'facility_id' => $row[0],
-                    'name' => $row[1],
-                    'representative_name' => $row[2],
-                    'prec_no' => $row[3],
-                    'adress' => $row[4],
-                    'tel' => $row[5],
-                    'type' => $row[6],
-                    'output' => str_replace(',', '', $row[7]),
-                    'facility_adress' => $row[8],
-                    'total_output' => str_replace(',', '', $row[10])
+                    'facility_id' => 'testtest',
+                    'name' => 'testtest',
+                    'representative_name' => 'testtest',
+                    'prec_no' => 'testtest',
+                    'adress' => 'testtest',
+                    'tel' => 'testtest',
+                    'type' => 'testtest',
+                    'output' => 'testtest',
+                    'facility_adress' => 'testtest',
+                    'total_output' => 'testtest'
                 ];
                 array_push($soler_data_array, $soler_data);
             }
